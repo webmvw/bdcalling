@@ -33,7 +33,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">KAM Profile - {{Auth::user()->name}}</h3>
+                <h3 class="card-title">Employee Profile - {{Auth::user()->name}}</h3>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -41,7 +41,7 @@
                     @if(Auth::user()->image == null)
                     <img src="{{ asset('img/user.png') }}" class="img-circle elevation-2" alt="User Image" style="width:150px;height: 150px;">
                     @else
-                    <img src="{{ asset('img/kam/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image" style="width:150px;height: 150px;">
+                    <img src="{{ asset('img/employee/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image" style="width:150px;height: 150px;">
                     @endif
                   </div>
                   <div class="col-md-9">

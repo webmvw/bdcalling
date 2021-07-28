@@ -48,5 +48,12 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
+    public function designation(){
+        return $this->belongsTo(Designation::class, 'designation_id', 'id');
+    }
+
+    public function department(){
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
 
 }

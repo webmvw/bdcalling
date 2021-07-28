@@ -21,7 +21,7 @@
           @if(Auth::user()->image == null)
           <img src="{{ asset('img/user.png') }}" class="img-circle elevation-2" alt="User Image">
           @else
-          <img src="{{ asset('img/kam/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('img/employee/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image">
           @endif
         </div>
         <div class="info">

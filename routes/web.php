@@ -29,47 +29,47 @@ Auth::routes();
 | this routes access for only admin
 |
 */
-Route::group(['middleware' => ['admin', 'auth']], function(){
-	Route::get('admin/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
+Route::group(['middleware' => ['superadmin', 'auth']], function(){
+	Route::get('superadmin/dashboard', [App\Http\Controllers\SuperAdmin\AdminController::class, 'index'])->name('superadmin.dashboard');
 
 	// setups management
 	Route::group(['prefix' => 'setups'], function(){
 		// department
-		Route::get('/department/view', [App\Http\Controllers\Admin\DepartmentController::class, 'view'])->name('department.view');
-		Route::get('/department/add', [App\Http\Controllers\Admin\DepartmentController::class, 'add'])->name('department.add');
-		Route::post('/department/store', [App\Http\Controllers\Admin\DepartmentController::class, 'store'])->name('department.store');
-		Route::get('/department/edit/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'edit'])->name('department.edit');
-		Route::post('/department/update/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'update'])->name('department.update');
-		Route::get('/department/delete/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'delete'])->name('department.delete');
+		Route::get('/department/view', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'view'])->name('department.view');
+		Route::get('/department/add', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'add'])->name('department.add');
+		Route::post('/department/store', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'store'])->name('department.store');
+		Route::get('/department/edit/{id}', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'edit'])->name('department.edit');
+		Route::post('/department/update/{id}', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'update'])->name('department.update');
+		Route::get('/department/delete/{id}', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'delete'])->name('department.delete');
 
 
 		// for designation
-		Route::get('/designation/view', [App\Http\Controllers\Admin\DesignationController::class, 'view'])->name('designation.view');
-		Route::get('/designation/add', [App\Http\Controllers\Admin\DesignationController::class, 'add'])->name('designation.add');
-		Route::post('/designation/store', [App\Http\Controllers\Admin\DesignationController::class, 'store'])->name('designation.store');
-		Route::get('/designation/edit/{id}', [App\Http\Controllers\Admin\DesignationController::class, 'edit'])->name('designation.edit');
-		Route::post('/designation/update/{id}', [App\Http\Controllers\Admin\DesignationController::class, 'update'])->name('designation.update');
-		Route::get('/designation/delete/{id}', [App\Http\Controllers\Admin\DesignationController::class, 'delete'])->name('designation.delete');
+		Route::get('/designation/view', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'view'])->name('designation.view');
+		Route::get('/designation/add', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'add'])->name('designation.add');
+		Route::post('/designation/store', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'store'])->name('designation.store');
+		Route::get('/designation/edit/{id}', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'edit'])->name('designation.edit');
+		Route::post('/designation/update/{id}', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'update'])->name('designation.update');
+		Route::get('/designation/delete/{id}', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'delete'])->name('designation.delete');
 
 		// for account
-		Route::get('/account/view', [App\Http\Controllers\Admin\AccountController::class, 'view'])->name('account.view');
-		Route::get('/account/add', [App\Http\Controllers\Admin\AccountController::class, 'add'])->name('account.add');
-		Route::post('/account/store', [App\Http\Controllers\Admin\AccountController::class, 'store'])->name('account.store');
-		Route::get('/account/edit/{id}', [App\Http\Controllers\Admin\AccountController::class, 'edit'])->name('account.edit');
-		Route::post('/account/update/{id}', [App\Http\Controllers\Admin\AccountController::class, 'update'])->name('account.update');
-		Route::get('/account/delete/{id}', [App\Http\Controllers\Admin\AccountController::class, 'delete'])->name('account.delete');
+		Route::get('/account/view', [App\Http\Controllers\SuperAdmin\AccountController::class, 'view'])->name('account.view');
+		Route::get('/account/add', [App\Http\Controllers\SuperAdmin\AccountController::class, 'add'])->name('account.add');
+		Route::post('/account/store', [App\Http\Controllers\SuperAdmin\AccountController::class, 'store'])->name('account.store');
+		Route::get('/account/edit/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'edit'])->name('account.edit');
+		Route::post('/account/update/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'update'])->name('account.update');
+		Route::get('/account/delete/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'delete'])->name('account.delete');
 
 	});	
 
-	// kam management
-	Route::group(['prefix' => 'kam_manage'], function(){
-		// for student
-		Route::get('/kam/view', [App\Http\Controllers\Admin\KamController::class, 'view'])->name('kam.view');
-		Route::get('/kam/add', [App\Http\Controllers\Admin\KamController::class, 'add'])->name('kam.add');
-		Route::post('/kam/store', [App\Http\Controllers\Admin\KamController::class, 'store'])->name('kam.store');
-		Route::get('/kam/edit/{id}', [App\Http\Controllers\Admin\KamController::class, 'edit'])->name('kam.edit');
-		Route::post('/kam/update/{id}', [App\Http\Controllers\Admin\KamController::class, 'update'])->name('kam.update');
-		Route::get('/kam/delete/{id}', [App\Http\Controllers\Admin\KamController::class, 'delete'])->name('kam.delete');
+	// employee management
+	Route::group(['prefix' => 'employee_manage'], function(){
+		// for employee
+		Route::get('/employee/view', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'view'])->name('employee.view');
+		Route::get('/employee/add', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'add'])->name('employee.add');
+		Route::post('/employee/store', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'store'])->name('employee.store');
+		Route::get('/employee/edit/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'edit'])->name('employee.edit');
+		Route::post('/employee/update/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'update'])->name('employee.update');
+		Route::get('/employee/delete/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'delete'])->name('employee.delete');
 	});
 
 });
