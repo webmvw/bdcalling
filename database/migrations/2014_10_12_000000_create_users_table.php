@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->date('join_date')->nullable();
             $table->integer("department_id")->unsigned()->nullable();
             $table->integer("designation_id")->unsigned()->nullable();
+            $table->integer("grade_id")->unsigned()->nullable();
             $table->double('salary')->nullable();
             $table->integer('role_id')->default('3')->comment('1:Super Admin|2:Admin|3:User');
             $table->integer('status')->default('1')->comment('1:active|0:inactive');

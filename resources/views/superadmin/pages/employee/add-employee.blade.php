@@ -127,6 +127,17 @@
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
+                            <label for="grade">Grade <span style="color:red">*</span></label>
+                            <select class="form-control select2" name="grade" id="grade">
+                              <option value="">Select Grade</option>
+                              @foreach($grades as $key=>$value)
+                                <option value="{{$value->id}}">{{$value->grade_name}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
                             <label for="salary">Salary <span style="color:red">*</span></label>
                             <input type="number" name="salary" class="form-control" id="salary" placeholder="Enter Salary">
                           </div>
@@ -196,6 +207,9 @@ $(function () {
       join_date: {
         required: true,
       },
+      grade: {
+        required: true,
+      },
       salary: {
         required: true,
         number: true,
@@ -234,6 +248,9 @@ $(function () {
       },
       join_date: {
         required: "PLease select Date",
+      },
+      grade: {
+        required: "Please select grade",
       },
       salary: {
         required: "Please enter salary",

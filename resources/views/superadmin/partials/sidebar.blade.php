@@ -58,6 +58,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{ route('grade.view') }}" class="nav-link {{ ($route == 'grade.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Grade</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('account.view') }}" class="nav-link {{ ($route == 'account.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Account</p>

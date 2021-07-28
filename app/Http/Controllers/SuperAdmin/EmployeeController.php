@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Designation;
+use App\Models\Grade;
 use File;
 
 class EmployeeController extends Controller
@@ -30,6 +31,7 @@ class EmployeeController extends Controller
     public function add(){
         $data['department'] = Department::all();
         $data['designation'] = Designation::all();
+        $data['grades'] = Grade::all(); 
     	return view('superadmin.pages.employee.add-employee', $data);
     }
 
@@ -86,6 +88,7 @@ class EmployeeController extends Controller
         $user->join_date = date('Y-m-d', strtotime($request->join_date));
         $user->department_id = $request->department;
         $user->designation_id = $request->designation;
+        $user->grade_id = $request->grade;
         $user->salary = $request->salary;
         $user->role_id = '3';
         $user->status = '1';
