@@ -194,5 +194,36 @@ class EmployeeController extends Controller
     }
 
 
+    public function show($id){
+        $data['getEmployee'] = User::find($id);
+        $data['incrementHistory'] = EmployeeSalaryLog::where('employee_id', $id)->get();
+        return view('superadmin.pages.employee.details-employee', $data);
+    }
+
+    public function employeSalaryIncrement(Request $request){
+        DB::transaction(function() use($request){
+
+            $employee_id = $request->employee_id;
+            $increment_amount = $request->increment_amount;
+            $effective_date = $request->effective_date;
+
+            $employee = User::find($employee_id);
+            $previous_salary = $employee->salary;
+            $present_salary = $previous_salary+$increment_amount;
+
+            $employee->salary = $present_salary;
+            $employee->save();
+
+            $employeeSelaryLog = new EmployeeSalaryLog;
+            $employeeSelaryLog->employee_id = $employee_id;
+            $employeeSelaryLog->previous_salary = $previous_salary;
+            $employeeSelaryLog->present_salary = $present_salary;
+            $employeeSelaryLog->increment_salary = $increment_amount;
+            $employeeSelaryLog->effected_date = date('Y-m-d', strtotime($effective_date));
+            $employeeSelaryLog->save();
+        });
+        return redirect()->back()->with('success', 'Encrement Salary Added Success');
+    }
+
 
 }

@@ -56,4 +56,8 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
 
+    public function grade(){
+        return $this->belongsTo(Grade::class, 'grade_id', 'id'); 
+    }
+
 }

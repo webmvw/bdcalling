@@ -79,8 +79,14 @@
                           <td>{{ $value->code }}</td>
                           @endif
                           <td>
-                            <a href="#" title="View" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                            <a href="{{ route('employee.show', $value->id) }}" title="View" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                            @php
+                            $checkincrement = App\Models\EmployeeSalaryLog::where('employee_id', $value->id)->OrderBy('id', 'desc')->first();
+                            $incrementValue = $checkincrement->increment_salary;
+                            @endphp
+                            @if($incrementValue == 0)
                             <a href="{{ route('employee.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            @endif
                           </td>
                         </tr>
                     @endforeach
