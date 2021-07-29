@@ -4,11 +4,14 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Grade;
+use App\Models\EmployeeSalaryLog;
 use File;
+use DB;
 
 class EmployeeController extends Controller
 {
@@ -43,64 +46,81 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        // start generate employee id number
-        $employee = User::where('role_id', '3')->orderBy('id','desc')->get()->count();
-        if($employee == 0){
-            $firstReg = 0;
-            $employeeId = $firstReg+1;
-            if($employeeId<10){
-                $id_no = '000'.$employeeId;
-            }elseif($employeeId<100){
-                $id_no = '00'.$kamId;
-            }elseif ($employeeId<1000) {
-                $id_no = '0'.$employeeId;
-            }
-        }else{
-            $employee = User::where('role_id', '3')->orderBy('id','desc')->first()->id;
-            $employeeId = $employee+1;
-            if($employeeId<10){
-                $id_no = '000'.$employeeId;
-            }elseif($employeeId<100){
-                $id_no = '00'.$employeeId;
-            }elseif ($employeeId<1000) {
-                $id_no = '0'.$employeeId;
-            }
-        }
-        $id_code = rand(0000, 9999);
-        $getdepartment = Department::find($request->department);
-        $department_code = $getdepartment->department_code;
-        $final_id_no = $department_code.$id_code.$id_no;
-        // end generate employee id number
 
-        // start insert Employee data in user model
-        $user = new User;
-        $code = rand(0000, 9999);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($code);
-        $user->mobile = $request->phone;
-        $user->address = $request->address;
-        $user->gender = $request->gender;
-        $user->religion = $request->religion;
-        $user->id_no = $final_id_no;
-        $user->dob = date('Y-m-d', strtotime($request->dob));
-        $user->code = $code;
-        $user->join_date = date('Y-m-d', strtotime($request->join_date));
-        $user->department_id = $request->department;
-        $user->designation_id = $request->designation;
-        $user->grade_id = $request->grade;
-        $user->salary = $request->salary;
-        $user->role_id = '3';
-        $user->status = '1';
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = time().$file->getClientOriginalName();
-            $file->move('img/employee/',$filename);
-            $user->image = $filename;
-        }
-        $user->save();
-        // end insert Employee data in user model
+        $request->validate([
+            'email' => 'required|unique:users',
+        ]);
 
+        DB::transaction(function() use($request){
+            // start generate employee id number
+            $employee = User::where('role_id', '3')->orderBy('id','desc')->get()->count();
+            if($employee == 0){
+                $firstReg = 0;
+                $employeeId = $firstReg+1;
+                if($employeeId<10){
+                    $id_no = '000'.$employeeId;
+                }elseif($employeeId<100){
+                    $id_no = '00'.$kamId;
+                }elseif ($employeeId<1000) {
+                    $id_no = '0'.$employeeId;
+                }
+            }else{
+                $employee = User::where('role_id', '3')->orderBy('id','desc')->first()->id;
+                $employeeId = $employee+1;
+                if($employeeId<10){
+                    $id_no = '000'.$employeeId;
+                }elseif($employeeId<100){
+                    $id_no = '00'.$employeeId;
+                }elseif ($employeeId<1000) {
+                    $id_no = '0'.$employeeId;
+                }
+            }
+            $id_code = rand(0000, 9999);
+            $getdepartment = Department::find($request->department);
+            $department_code = $getdepartment->department_code;
+            $final_id_no = $department_code.$id_code.$id_no;
+            // end generate employee id number
+
+            // start insert Employee data in user model
+            $user = new User;
+            $code = rand(0000, 9999);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($code);
+            $user->mobile = $request->phone;
+            $user->address = $request->address;
+            $user->gender = $request->gender;
+            $user->religion = $request->religion;
+            $user->id_no = $final_id_no;
+            $user->dob = date('Y-m-d', strtotime($request->dob));
+            $user->code = $code;
+            $user->join_date = date('Y-m-d', strtotime($request->join_date));
+            $user->department_id = $request->department;
+            $user->designation_id = $request->designation;
+            $user->grade_id = $request->grade;
+            $user->salary = $request->salary;
+            $user->role_id = '3';
+            $user->status = '1';
+            if($request->hasfile('image')){
+                $file = $request->file('image');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('img/employee/',$filename);
+                $user->image = $filename;
+            }
+            $user->save();
+            // end insert Employee data in user model
+
+
+            // start insert employee data in EmployeeSalaryLog model
+            $employeeSalaryLog = new EmployeeSalaryLog;
+            $employeeSalaryLog->employee_id = $user->id;
+            $employeeSalaryLog->previous_salary = $request->salary;
+            $employeeSalaryLog->present_salary = $request->salary;
+            $employeeSalaryLog->increment_salary = '0';
+            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime($request->join_date));
+            $employeeSalaryLog->save();
+            // end insert employee data in EmployeeSalaryLog model
+        });
         return redirect()->route('employee.view')->with('success', 'Employee Registration Successfully!!');
     }
 
@@ -115,6 +135,7 @@ class EmployeeController extends Controller
     	$data['getEmployee'] = User::find($id);
         $data['department'] = Department::all();
         $data['designation'] = Designation::all();
+        $data['grades'] = Grade::all(); 
         return view('superadmin.pages.employee.edit-employee', $data);
     }
 
@@ -127,41 +148,49 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-    	$user = User::find($id);
-    	$user->name = $request->name;
-        $user->email = $request->email;
-        $user->mobile = $request->phone;
-        $user->department_id = $request->department;
-        $user->designation_id = $request->designation;
-        $user->gender = $request->gender;
-        $user->religion = $request->religion;
-        if($request->hasfile('image')){
-        	if(File::exists('img/employee/'.$user->image)){
-                File::delete('img/employee/'.$user->image);
+    	 $request->validate([
+            'email' => [
+                'required',
+                 Rule::unique('users')->ignore($id),
+            ],
+        ]);
+        DB::transaction(function() use($request, $id){
+            // start insert Employee data in user model
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->mobile = $request->phone;
+            $user->address = $request->address;
+            $user->gender = $request->gender;
+            $user->religion = $request->religion;
+            $user->dob = date('Y-m-d', strtotime($request->dob));
+            $user->join_date = date('Y-m-d', strtotime($request->join_date));
+            $user->department_id = $request->department;
+            $user->designation_id = $request->designation;
+            $user->grade_id = $request->grade;
+            $user->salary = $request->salary;
+            if($request->hasfile('image')){
+                if(File::exists('img/employee/'.$user->image)){
+                    File::delete('img/employee/'.$user->image);
+                }
+                $file = $request->file('image');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('img/employee/',$filename);
+                $user->image = $filename;
             }
-            $file = $request->file('image');
-            $filename = time().$file->getClientOriginalName();
-            $file->move('img/employee/',$filename);
-            $user->image = $filename;
-        }
-        $user->save();
-    	return redirect()->route('employee.view')->with('success', 'Employee Updated Success');
-    }
+            $user->save();
+            // end insert Employee data in user model
 
 
-     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($id){
-    	$user = User::find($id);
-    	if(File::exists('img/employee/'.$user->image)){
-            File::delete('img/employee/'.$user->image);
-        }
-    	$user->delete();
-    	return redirect()->route('employee.view')->with('success', 'Employee Deleted Success');
+           // start update employee data in EmployeeSalaryLog model
+            $employeeSalaryLog = EmployeeSalaryLog::where('employee_id', $id)->first();
+            $employeeSalaryLog->previous_salary = $request->salary;
+            $employeeSalaryLog->present_salary = $request->salary;
+            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime($request->join_date));
+            $employeeSalaryLog->save();
+            // end update employee data in EmployeeSalaryLog model
+        });
+        return redirect()->route('employee.view')->with('success', 'Employee Update Successfully!!');
     }
 
 

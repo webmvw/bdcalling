@@ -66,6 +66,12 @@
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
+                            <label for="address">Address <span style="color:red">*</span></label>
+                            <input type="text" name="address" value="{{ $getEmployee->address }}" class="form-control" id="address" placeholder="Enter Address">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
                             <label for="address">Department <span style="color:red">*</span></label>
                             <select class="form-control select2" name="department" id="department">
                               <option value="">Select Department</option>
@@ -109,12 +115,41 @@
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
+                            <label for="dob">Date Of Birth <span style="color:red">*</span></label>
+                            <input type="date" name="dob" value="{{ $getEmployee->dob }}" class="form-control" id="dob" placeholder="Date Of Birth">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="join_date">Joining Date <span style="color:red">*</span></label>
+                            <input type="date" name="join_date" value="{{ $getEmployee->join_date }}" class="form-control" id="join_date" placeholder="Joining Date">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="grade">Grade <span style="color:red">*</span></label>
+                            <select class="form-control select2" name="grade" id="grade">
+                              <option value="">Select Grade</option>
+                              @foreach($grades as $key=>$value)
+                                <option value="{{$value->id}}" {{ ($getEmployee->grade_id == $value->id)? 'selected': '' }}>{{$value->grade_name}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label for="salary">Salary <span style="color:red">*</span></label>
+                            <input type="number" name="salary" value="{{ $getEmployee->salary }}" class="form-control" id="salary" placeholder="Enter Salary">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
                             <label for="image">Image</label>
                             <input type="file" name="image" id="image" class="form-control">
                           </div>
                         </div>
                         <div class="col-md-4">
-                          @if($getKem->image != null)
+                          @if($getEmployee->image != null)
                           <img id="showImage" src="{{ asset('img/employee/'.$getEmployee->image) }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
                           @else
                           <img id="showImage" src="{{ asset('img/user.png') }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
@@ -139,7 +174,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <script>
+<script>
 $(function () {
   $('#quickForm').validate({
     rules: {
@@ -155,6 +190,9 @@ $(function () {
         required: true,
         number:true,
       },
+      address: {
+        required: true,
+      },
       department: {
         required: true,
       },
@@ -166,6 +204,19 @@ $(function () {
       },
       religion: {
         required: true,
+      },
+      dob: {
+        required: true,
+      },
+      join_date: {
+        required: true,
+      },
+      grade: {
+        required: true,
+      },
+      salary: {
+        required: true,
+        number: true,
       },
     },
     messages: {
@@ -181,6 +232,9 @@ $(function () {
         required: "Please enter phone number",
         number: "Invalid Phone number",
       },
+      address: {
+        required: "Please enter address",
+      },
       department: {
         required: "Please select department",
       },
@@ -192,6 +246,19 @@ $(function () {
       },
       religion: {
         required: "Please select religion",
+      },
+      dob: {
+        required: "Please select date",
+      },
+      join_date: {
+        required: "PLease select Date",
+      },
+      grade: {
+        required: "Please select grade",
+      },
+      salary: {
+        required: "Please enter salary",
+        number: "Invalid data. only number Please",
       },
     },
     errorElement: 'span',

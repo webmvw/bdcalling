@@ -79,8 +79,8 @@
                           <td>{{ $value->code }}</td>
                           @endif
                           <td>
+                            <a href="#" title="View" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                             <a href="{{ route('employee.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                            <a href="{{ route('employee.delete', $value->id) }}" title="Delete" onclick="return confirm('Are you sure to delete it!!?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                           </td>
                         </tr>
                     @endforeach
@@ -119,3 +119,4 @@
 
 @endsection
 
+            

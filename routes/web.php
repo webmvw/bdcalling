@@ -79,7 +79,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::post('/employee/store', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'store'])->name('employee.store');
 		Route::get('/employee/edit/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'edit'])->name('employee.edit');
 		Route::post('/employee/update/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'update'])->name('employee.update');
-		Route::get('/employee/delete/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'delete'])->name('employee.delete');
+		Route::get('/employee/details/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'show'])->name('employee.show');
 	});
 
 });
