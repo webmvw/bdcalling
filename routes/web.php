@@ -132,13 +132,20 @@ Route::group(['middleware' => ['kamsales', 'auth']], function(){
         Route::get('/order/view', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'view'])->name('order.view');
         Route::get('/order/add', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'add'])->name('order.add');
         Route::post('/order/store', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'store'])->name('order.store');
-        Route::get('/order/edit/{id}', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'edit'])->name('order.edit');
-        Route::post('/order/update/{id}', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'update'])->name('order.update');
-        Route::get('/order/delete/{id}', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'delete'])->name('order.delete');
 
 
 
     });
+    // order list
+//    Route::group(['prefix' => 'order_list'], function(){
+//        // order List
+//        Route::get('/list/view', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'allOrder'])->name('list.view');
+////        Route::get('/list/add', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'add'])->name('list.add');
+////        Route::post('/list/store', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'store'])->name('list.store');
+//
+//
+//
+//    });
 
 
 });

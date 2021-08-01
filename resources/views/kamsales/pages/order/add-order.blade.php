@@ -2,7 +2,7 @@
 @extends('kamsales.partials.master')
 
 @section('title')
-    <title>Add Account | bdCalling IT Ltd</title>
+    <title>Add Order | bdCalling IT Ltd</title>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('kamsales.dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('order.view') }}">Order</a></li>
+                            <li class="breadcrumb-item"><a href="">Order</a></li>
                             <li class="breadcrumb-item active">Add Order</li>
                         </ol>
                     </div><!-- /.col -->
@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h3 class="card-title">Add Order</h3>
-                                <a href="{{ route('order.view') }}" class="btn btn-success btn-sm"><i class="fa fa-list"></i> Kam List</a>
+                                <a href="{{route('order.view')}}" class="btn btn-success btn-sm"><i class="fa fa-list"></i> Order List</a>
                             </div>
 
                             <!-- /.card-header -->
@@ -54,6 +54,7 @@
                                             <div class="form-group">
                                                 <label for="account_name">Responsible</label>
                                                 <input type="text" name="responsible" class="form-control form-control-sm" readonly value="{{ Auth::user()->name }}" id="responsible" placeholder="Enter Account Name">
+                                                <input type="hidden" name="kam_id" value="{{ Auth::user()->id }}" id="kam_id" >
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -72,7 +73,7 @@
                                                     <option value="{{$value->id}}"> {{$value->account_name}}</option>
                                                     @endforeach
                                                 </select>
-{{--                                                <input type="text" name="account" class="form-control" id="account" placeholder="Enter Account ">--}}
+
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -84,16 +85,12 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="percentage">Percentage </label>
-                                                <input type="number" name="percentage" class="form-control form-control-sm" id="percentage" placeholder="Enter Percentage ">
+                                                <label for="percentage">Percentage (Default 20%)</label>
+                                                <input type="number" name="percentage" class="form-control form-control-sm" value="20%" id="percentage" placeholder="Enter Percentage 20% ">
+
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="charges_platform">Charges Platform </label>
-                                                <input type="number" name="charges_platform" class="form-control form-control-sm" id="charges_platform" placeholder="Enter Charges Platform ">
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="client_user_id">Client User Id </label>
@@ -136,12 +133,7 @@
                                                 <input type="text" name="remarks" class="form-control form-control-sm" id="remarks" placeholder="Enter Remarks ">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="deli_amount">Delivery Amount </label>
-                                                <input type="number" name="deli_amount" class="form-control form-control-sm" id="deli_amount" placeholder="Enter Remarks ">
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="deli_deedline">Delivery DeedLine </label>
@@ -181,37 +173,15 @@
                     amount: {
                         required: true,
                     },
-                    percentage: {
-                        required: true,
-                    },
-                    charges_platform: {
-                        required: true,
-                    },
-                    client_user_id: {
-                        required: true,
-                    },
-                    spreadsheet_link: {
-                        required: true,
-                    },
-                    remarks: {
-                        required: true,
-                    },
-                    order_page_url: {
-                        required: true,
-                    },
-                    deli_amount: {
-                        required: true,
-                    },
+
+
+
                     deli_deedline: {
                         required: true,
                     },
                     client_name:{
                         required:true
                     },
-                    email_address:{
-                        required:true
-                    }
-
                 },
                 messages: {
                     account: {
@@ -220,37 +190,13 @@
                     amount: {
                         required: "Please enter Amount"
                     },
-                    percentage: {
-                        required: "Please enter Percentage"
-                    },
-                    charges_platform: {
-                        required: "Please enter Charges Platform"
-                    },
-                    client_user_id: {
-                        required: "Please enter Client User Id"
-                    },
-                    spreadsheet_link: {
-                        required: "Please enter spreadsheetLink"
-                    },
-                    remarks: {
-                        required: "Please enter Remarks"
-                    },
-                    order_page_url: {
-                        required: "Please enter Order Page Url"
-                    },
-                    deli_amount: {
-                        required: "Please enter Delivery Amount"
-                    },
+
                     deli_deedline: {
                         required: "Please enter Delivery DeedLine"
                     },
                     client_name: {
                         required: "Please enter Client Name"
                     },
-                    email_address: {
-                        required: "Please enter Email Address"
-                    },
-
                 },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {

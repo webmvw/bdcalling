@@ -10,7 +10,7 @@
 
   <!-- page title -->
   @yield('title')
-  
+
 
   @include('user.partials.style')
 
@@ -165,7 +165,7 @@
 
 
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020-2021 <a href="http://adminlte.io">Online Quiz System</a>.</strong>
+    <strong>Copyright &copy; 2020-2021 <a href="#">bdCalling IT Ltd</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0
@@ -238,7 +238,7 @@
       "hideMethod": "fadeOut"
     }
   </script>
-@endif 
+@endif
 
 @if(Session::has('error'))
   <script type="text/javascript">
@@ -258,7 +258,7 @@
       "hideMethod": "fadeOut"
     }
   </script>
-@endif 
+@endif
 
 @if(Session::has('warning'))
   <script type="text/javascript">

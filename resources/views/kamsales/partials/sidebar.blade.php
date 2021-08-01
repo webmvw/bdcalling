@@ -51,15 +51,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('order.view')}}" class="nav-link">
+                <a href="{{route('order.add')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Order</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('order.view')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Develary</p>
+                  <p>Order List</p>
                 </a>
               </li>
             </ul>
