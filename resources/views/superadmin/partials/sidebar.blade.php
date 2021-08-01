@@ -10,7 +10,7 @@
     <a href="{{ route('superadmin.dashboard') }}" class="brand-link">
       <img src="{{ asset('admin/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image"
            style="opacity: .8;margin-bottom:15px !important;">
-      <span class="brand-text font-weight-light">BDCalling It Ltd</span>
+      <span class="brand-text font-weight-light">bdCalling IT Ltd</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -55,6 +55,12 @@
                 <a href="{{ route('designation.view') }}" class="nav-link {{ ($route == 'designation.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('team.view') }}" class="nav-link {{ ($route == 'team.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Team</p>
                 </a>
               </li>
               <li class="nav-item">

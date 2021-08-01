@@ -43,6 +43,15 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::get('/department/delete/{id}', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'delete'])->name('department.delete');
 
 
+		// department
+		Route::get('/team/view', [App\Http\Controllers\SuperAdmin\TeamController::class, 'view'])->name('team.view');
+		Route::get('/team/add', [App\Http\Controllers\SuperAdmin\TeamController::class, 'add'])->name('team.add');
+		Route::post('/team/store', [App\Http\Controllers\SuperAdmin\TeamController::class, 'store'])->name('team.store');
+		Route::get('/team/edit/{id}', [App\Http\Controllers\SuperAdmin\TeamController::class, 'edit'])->name('team.edit');
+		Route::post('/team/update/{id}', [App\Http\Controllers\SuperAdmin\TeamController::class, 'update'])->name('team.update');
+		Route::get('/team/delete/{id}', [App\Http\Controllers\SuperAdmin\TeamController::class, 'delete'])->name('team.delete');
+
+
 		// for designation
 		Route::get('/designation/view', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'view'])->name('designation.view');
 		Route::get('/designation/add', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'add'])->name('designation.add');
@@ -82,6 +91,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::get('/employee/details/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'show'])->name('employee.show');
 		Route::post('/salaryincrement/store', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'employeSalaryIncrement'])->name('employee.salaryIncrement');
 	});
+	
 
 });
 

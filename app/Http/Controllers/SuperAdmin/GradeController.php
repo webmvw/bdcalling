@@ -10,7 +10,7 @@ use App\Models\Grade;
 class GradeController extends Controller
 {
     public function view(){
-    	$allGrades = Grade::latest()->get();
+    	$allGrades = Grade::get();
     	return view('superadmin.pages.grade.view-grade', compact('allGrades'));
     }
 

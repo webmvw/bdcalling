@@ -1,7 +1,7 @@
 @extends('superadmin.partials.master')
 
 @section('title')
-  <title>Manage Employee | BdCalling it ltd</title>
+  <title>Manage Employee | bdCalling IT Ltd</title>
 @endsection
 
 @section('content')

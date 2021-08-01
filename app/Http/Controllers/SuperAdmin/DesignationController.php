@@ -10,7 +10,7 @@ use App\Models\Designation;
 class DesignationController extends Controller
 {
      public function view(){
-    	$allDesignation = Designation::latest()->get();
+    	$allDesignation = Designation::get();
     	return view('superadmin.pages.designation.view-designation', compact('allDesignation'));
     }
 
