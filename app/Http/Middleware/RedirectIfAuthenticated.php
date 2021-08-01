@@ -26,6 +26,8 @@ class RedirectIfAuthenticated
                 return redirect()->route('superadmin.dashboard');
             }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 3){
                 return redirect()->route('user.dashboard');
+            }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 4){
+                return redirect()->route('kamsales.dashboard');
             }
         }
 

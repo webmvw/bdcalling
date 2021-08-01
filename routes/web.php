@@ -109,3 +109,20 @@ Route::group(['middleware' => ['user', 'auth']], function(){
 	Route::get('user/dashboard', [App\Http\Controllers\User\UserController::class, 'index'])->name('user.dashboard');
 		
 });
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  Routes for KAM Sales
+|--------------------------------------------------------------------------
+|
+| this routes access for only user
+|
+*/
+Route::group(['middleware' => ['kamsales', 'auth']], function(){
+	Route::get('kamsales/dashboard', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'index'])->name('kamsales.dashboard');
+		
+});

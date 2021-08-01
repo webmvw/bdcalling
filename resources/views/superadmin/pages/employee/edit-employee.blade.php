@@ -144,6 +144,17 @@
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
+                            <label for="role">Role <span style="color:red">*</span></label>
+                            <select class="form-control select2" name="role" id="role">
+                              <option value="">Select Role</option>
+                              @foreach($roles as $key=>$value)
+                                <option value="{{$value->id}}" {{ ($getEmployee->role_id == $value->id)? 'selected': '' }}>{{$value->name}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
                             <label for="image">Image</label>
                             <input type="file" name="image" id="image" class="form-control">
                           </div>
@@ -218,6 +229,9 @@ $(function () {
         required: true,
         number: true,
       },
+      role: {
+        required: true,
+      },
     },
     messages: {
       name: {
@@ -259,6 +273,9 @@ $(function () {
       salary: {
         required: "Please enter salary",
         number: "Invalid data. only number Please",
+      },
+      role: {
+        required: "Please select role",
       },
     },
     errorElement: 'span',
