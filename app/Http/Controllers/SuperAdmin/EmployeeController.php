@@ -21,8 +21,9 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function view(){
-    	$allData = User::where('role_id', '3')->orderBy('id', 'desc')->get();
+    	$allData = User::orderBy('id', 'desc')->get();
     	return view('superadmin.pages.employee.view-employee', compact('allData'));
     }
 
@@ -35,7 +36,7 @@ class EmployeeController extends Controller
     public function add(){
         $data['department'] = Department::all();
         $data['designation'] = Designation::all();
-        $data['grades'] = Grade::all(); 
+        $data['grades'] = Grade::all();
         $data['roles'] = Role::all();
     	return view('superadmin.pages.employee.add-employee', $data);
     }
@@ -137,7 +138,7 @@ class EmployeeController extends Controller
     	$data['getEmployee'] = User::find($id);
         $data['department'] = Department::all();
         $data['designation'] = Designation::all();
-        $data['grades'] = Grade::all(); 
+        $data['grades'] = Grade::all();
         $data['roles'] = Role::all();
         return view('superadmin.pages.employee.edit-employee', $data);
     }

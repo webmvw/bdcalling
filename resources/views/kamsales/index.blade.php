@@ -33,7 +33,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Employee Profile - {{Auth::user()->name}}</h3>
+                <h3 class="card-title">Kam Profile - {{Auth::user()->name}}</h3>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -75,8 +75,8 @@
                 </div>
               </div>
               <div class="card-footer"></div>
-            </div>  
-          </div> 
+            </div>
+          </div>
         </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->

@@ -1,4 +1,4 @@
-  
+
   @php
     $prefix = Request::route()->getPrefix();
     $route = Route::current()->getName();
@@ -51,9 +51,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('order.view')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Order</p>
+                  <p>Add Order</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -64,7 +64,7 @@
               </li>
             </ul>
           </li>
- 
+
 
         </ul>
       </nav>

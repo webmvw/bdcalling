@@ -78,7 +78,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::post('/account/update/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'update'])->name('account.update');
 		Route::get('/account/delete/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'delete'])->name('account.delete');
 
-	});	
+	});
 
 	// employee management
 	Route::group(['prefix' => 'employee_manage'], function(){
@@ -91,7 +91,9 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::get('/employee/details/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'show'])->name('employee.show');
 		Route::post('/salaryincrement/store', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'employeSalaryIncrement'])->name('employee.salaryIncrement');
 	});
-	
+
+
+
 
 });
 
@@ -107,7 +109,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 */
 Route::group(['middleware' => ['user', 'auth']], function(){
 	Route::get('user/dashboard', [App\Http\Controllers\User\UserController::class, 'index'])->name('user.dashboard');
-		
+
 });
 
 
@@ -124,5 +126,19 @@ Route::group(['middleware' => ['user', 'auth']], function(){
 */
 Route::group(['middleware' => ['kamsales', 'auth']], function(){
 	Route::get('kamsales/dashboard', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'index'])->name('kamsales.dashboard');
-		
+    // order management
+    Route::group(['prefix' => 'order_manage'], function(){
+        // department
+        Route::get('/order/view', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'view'])->name('order.view');
+        Route::get('/order/add', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'add'])->name('order.add');
+        Route::post('/order/store', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'store'])->name('order.store');
+        Route::get('/order/edit/{id}', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'edit'])->name('order.edit');
+        Route::post('/order/update/{id}', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'update'])->name('order.update');
+        Route::get('/order/delete/{id}', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'delete'])->name('order.delete');
+
+
+
+    });
+
+
 });
