@@ -92,7 +92,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::post('/salaryincrement/store', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'employeSalaryIncrement'])->name('employee.salaryIncrement');
 	});
 
-
+	Route::get('/orderList', [App\Http\Controllers\SuperAdmin\OrderController::class, 'index'])->name('order_list');
 
 
 });

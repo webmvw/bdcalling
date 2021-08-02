@@ -106,7 +106,7 @@ class EmployeeController extends Controller
             if($request->hasfile('image')){
                 $file = $request->file('image');
                 $filename = time().$file->getClientOriginalName();
-                $file->move('img/employee/',$filename);
+                $file->move('public/img/employee/',$filename);
                 $user->image = $filename;
             }
             $user->save();
@@ -173,12 +173,12 @@ class EmployeeController extends Controller
             $user->grade_id = $request->grade;
             $user->salary = $request->salary;
             if($request->hasfile('image')){
-                if(File::exists('img/employee/'.$user->image)){
-                    File::delete('img/employee/'.$user->image);
+                if(File::exists('public/img/employee/'.$user->image)){
+                    File::delete('public/img/employee/'.$user->image);
                 }
                 $file = $request->file('image');
                 $filename = time().$file->getClientOriginalName();
-                $file->move('img/employee/',$filename);
+                $file->move('public/img/employee/',$filename);
                 $user->image = $filename;
             }
             $user->save();

@@ -42,9 +42,9 @@
                   <div class="row">
                     <div class="col-md-3 text-center">
                       @if($getEmployee->image == null)
-                      <img src="{{ asset('img/user.png') }}" style="width: 200px;height: 200px;" alt="user image">
+                      <img src="{{ asset('public/img/user.png') }}" style="width: 200px;height: 200px;" alt="user image">
                       @else
-                      <img src="{{ asset('img/employee/'.$getEmployee->image) }}" style="width: 200px;height: 200px;" alt="user image">
+                      <img src="{{ asset('public/img/employee/'.$getEmployee->image) }}" style="width: 200px;height: 200px;" alt="user image">
                       @endif
                     </div>
                     <div class="col-md-9">

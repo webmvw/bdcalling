@@ -39,7 +39,7 @@
               
               <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example2" class="table table-sm table-bordered table-hover">
+                  <table id="myTable" class="table table-sm table-bordered table-hover table-responsive">
                     <thead>
                     <tr>
                       <th>SL</th>
@@ -54,7 +54,7 @@
                       @if(Auth::user()->role_id == 1)
                       <th>code</th>
                       @endif
-                      <th width="10%">Action</th>
+                      <th style="width:12% !important">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,9 +63,9 @@
                           <td>{{ $key+1 }}</td>
                           <td>
                             @if($value->image == null)
-                            <img src="{{ asset('img/user.png') }}" style="width: 50px;height: 50px;" alt="user image">
+                            <img src="{{ asset('public/img/user.png') }}" style="width: 50px;height: 50px;" alt="user image">
                             @else
-                            <img src="{{ asset('img/employee/'.$value->image) }}" style="width: 60px;height: 60px;" alt="user image">
+                            <img src="{{ asset('public/img/employee/'.$value->image) }}" style="width: 60px;height: 60px;" alt="user image">
                             @endif
                           </td>
                           <td>{{ $value->name }}</td>

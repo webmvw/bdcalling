@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table class="table table-bordered table-hover table-responsive">
+                                <table id="myTable" class="table table-bordered table-hover table-responsive">
                                     <thead>
                                     <tr>
                                         <th>SL</th>
@@ -47,7 +47,7 @@
                                         <th>Account</th>
                                         <th>Amount</th>
                                         <th>Percentage</th>
-                                        <th> Platform Charges </th>
+                                        <th>Platform Charges </th>
                                         <th>client User Id</th>
                                         <th>Client Name</th>
                                         <th>Email Address</th>
@@ -68,7 +68,7 @@
                                             <td>{{ $value->inc_data }}</td>
                                             <td>{{ $value->account_table->account_name }}</td>
                                             <td>{{ $value->amount }}</td>
-                                            <td>{{ $value->percentage }}</td>
+                                            <td>{{ $value->percentage }}%</td>
                                             <td>{{ $value->charges_platform }}</td>
                                             <td>{{ $value->client_user_id }}</td>
                                             <td>{{ $value->client_name }}</td>

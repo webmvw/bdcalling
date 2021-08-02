@@ -8,7 +8,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('user.dashboard') }}" class="brand-link">
-      <img src="{{ asset('admin/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image"
+      <img src="{{ asset('public/admin/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image"
            style="opacity: .8;margin-bottom:15px !important;">
       <span class="brand-text font-weight-light">BDCalling It Ltd</span>
     </a>
@@ -19,9 +19,9 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           @if(Auth::user()->image == null)
-          <img src="{{ asset('img/user.png') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('public/img/user.png') }}" class="img-circle elevation-2" alt="User Image">
           @else
-          <img src="{{ asset('img/employee/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('public/img/employee/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image">
           @endif
         </div>
         <div class="info">

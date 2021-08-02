@@ -8,7 +8,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('superadmin.dashboard') }}" class="brand-link">
-      <img src="{{ asset('admin/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image"
+      <img src="{{ asset('public/admin/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image"
            style="opacity: .8;margin-bottom:15px !important;">
       <span class="brand-text font-weight-light">bdCalling IT Ltd</span>
     </a>
@@ -17,7 +17,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('admin/dist/img/avatar5.png') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('public/admin/dist/img/avatar5.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -101,7 +101,14 @@
               </li>
             </ul>
           </li>
-
+          <li class="nav-item">
+            <a href="{{ route('order_list') }}" class="nav-link {{ ($route == 'order_list') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                All Order List
+              </p>
+            </a>
+          </li>  
 
         </ul>
       </nav>

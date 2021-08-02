@@ -160,7 +160,7 @@
                           </div>
                         </div>
                         <div class="col-md-4">
-                          <img id="showImage" src="{{ asset('img/user.png') }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
+                          <img id="showImage" src="{{ asset('public/img/user.png') }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
                         </div>
                       </div>
                     </div>

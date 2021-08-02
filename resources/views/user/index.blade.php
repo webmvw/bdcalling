@@ -39,9 +39,9 @@
                 <div class="row">
                   <div class="col-md-3" style="display: flex;justify-content: center;">
                     @if(Auth::user()->image == null)
-                    <img src="{{ asset('img/user.png') }}" class="img-circle elevation-2" alt="User Image" style="width:150px;height: 150px;">
+                    <img src="{{ asset('public/img/user.png') }}" class="img-circle elevation-2" alt="User Image" style="width:150px;height: 150px;">
                     @else
-                    <img src="{{ asset('img/employee/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image" style="width:150px;height: 150px;">
+                    <img src="{{ asset('public/img/employee/'.Auth::user()->image) }}" class="img-circle elevation-2" alt="User Image" style="width:150px;height: 150px;">
                     @endif
                   </div>
                   <div class="col-md-9">
