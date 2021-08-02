@@ -23,12 +23,12 @@ class TeamController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'name' => 'required|unique:teams',
+            'team_name' => 'required|unique:teams',
             
         ]);
 
     	$team = new Team;
-    	$team->team_name = $request->name;
+    	$team->team_name = $request->team_name;
         $team->department_id = $request->department_id;
     	$team->save();
     	return redirect()->route('team.view')->with("success", "Team Added Successfully!!");

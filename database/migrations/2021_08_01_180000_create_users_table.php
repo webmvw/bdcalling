@@ -28,16 +28,22 @@ class CreateUsersTable extends Migration
             $table->date('dob')->nullable();
             $table->integer('code')->nullable();
             $table->date('join_date')->nullable();
-            $table->integer("department_id")->unsigned()->nullable();
-            $table->integer("designation_id")->unsigned()->nullable();
-            $table->integer("grade_id")->unsigned()->nullable();
+            $table->unsignedBigInteger("department_id")->unsigned()->nullable();
+            $table->unsignedBigInteger("designation_id")->unsigned()->nullable();
+            $table->unsignedBigInteger("grade_id")->unsigned()->nullable();
             $table->double('salary')->nullable();
-            $table->integer('role_id')->default('3')->comment('1:Super Admin|2:Admin|3:User');
+            $table->unsignedBigInteger('role_id')->comment('1:Super Admin|2:Admin|3:User|4:KAM Sales|5:KAM Operation');
             $table->integer('status')->default('1')->comment('1:active|0:inactive');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');
+            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
+
+
 
     /**
      * Reverse the migrations.

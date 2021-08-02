@@ -9,7 +9,14 @@ class Order extends Model
 {
     use HasFactory;
 
-    public function account(){
+    protected $table = "orders";
+
+    public function account_table(){
         return $this->belongsTo(Account::class, 'account', 'id');
     }
+
+    public function responsible(){
+        return $this->belongsTo(User::class, 'kam_id', 'id');
+    }
+
 }

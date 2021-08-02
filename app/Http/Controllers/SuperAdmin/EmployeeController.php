@@ -23,10 +23,9 @@ class EmployeeController extends Controller
      */
 
     public function view(){
-    	$allData = User::orderBy('id', 'desc')->get();
+        $allData = User::whereIn('role_id', [2,3,4])->orderBy('id', 'desc')->get();
     	return view('superadmin.pages.employee.view-employee', compact('allData'));
     }
-
 
 	 /**
 	 * Show the form for creating a new resource.

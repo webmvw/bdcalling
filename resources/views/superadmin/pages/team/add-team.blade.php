@@ -48,8 +48,8 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="name">Team Name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name">
+                            <label for="team_name">Team Name</label>
+                            <input type="text" name="team_name" class="form-control" id="team_name" placeholder="Enter Name">
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -95,7 +95,7 @@ $(function () {
       },
     },
     messages: {
-      name: {
+      team_name: {
         required: "Please enter name",
         maxlength: "Your name must be at least 60 characters long"
       },

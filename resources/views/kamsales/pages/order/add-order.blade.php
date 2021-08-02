@@ -65,10 +65,10 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="account_link">Account </label>
+                                                <label for="account">Account </label>
 
-                                                <select name="account" id="" class="form-control form-control-sm">
-                                                    <option> Select Account</option>
+                                                <select name="account" id="account" class="form-control form-control-sm">
+                                                    <option value=""> Select Account</option>
                                                     @foreach($account as $value)
                                                     <option value="{{$value->id}}"> {{$value->account_name}}</option>
                                                     @endforeach
@@ -140,11 +140,8 @@
                                                 <input type="datetime-local" name="deli_deedline" class="form-control form-control-sm" id="deli_deedline" placeholder="Enter Delivery DeedLine ">
                                             </div>
                                         </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                                 </div>
@@ -163,9 +160,6 @@
     <script>
         $(function () {
             $('#quickForm').validate({
-
-
-
                 rules: {
                     account: {
                         required: true,
@@ -173,9 +167,12 @@
                     amount: {
                         required: true,
                     },
-
-
-
+                    client_user_id: {
+                        required:true,
+                    },
+                    order_page_url:{
+                        required: true,
+                    },
                     deli_deedline: {
                         required: true,
                     },
@@ -185,12 +182,17 @@
                 },
                 messages: {
                     account: {
-                        required: "Please enter account name"
+                        required: "Please enter account name",
                     },
                     amount: {
-                        required: "Please enter Amount"
+                        required: "Please enter Amount",
                     },
-
+                    client_user_id: {
+                        required:"Please enter client user id",
+                    },
+                    order_page_url:{
+                        required: "Please enter order page url",
+                    },
                     deli_deedline: {
                         required: "Please enter Delivery DeedLine"
                     },

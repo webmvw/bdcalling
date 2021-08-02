@@ -1,7 +1,7 @@
 @extends('kamsales.partials.master')
 
 @section('title')
-    <title>Order | bdCalling it ltd</title>
+    <title>Order List | bdCalling it ltd</title>
 @endsection
 
 @section('content')
@@ -42,6 +42,7 @@
                                     <thead>
                                     <tr>
                                         <th>SL</th>
+                                        <th>Responsible</th>
                                         <th>inc_data</th>
                                         <th>Account</th>
                                         <th>Amount</th>
@@ -63,15 +64,16 @@
                                     @foreach($kam_data as $key=>$value)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
+                                            <td>{{ $value->responsible->name }}({{ $value->responsible->id_no }})</td>
                                             <td>{{ $value->inc_data }}</td>
-                                            <td>{{ $value->account }}</td>
+                                            <td>{{ $value->account_table->account_name }}</td>
                                             <td>{{ $value->amount }}</td>
                                             <td>{{ $value->percentage }}</td>
                                             <td>{{ $value->charges_platform }}</td>
                                             <td>{{ $value->client_user_id }}</td>
                                             <td>{{ $value->client_name }}</td>
                                             <td>{{ $value->email_address }}</td>
-                                            <td>{{ $value->	client_linkedIn }}</td>
+                                            <td>{{ $value->client_linkedIn }}</td>
                                             <td>{{ $value->order_page_url }}</td>
                                             <td>{{ $value->spreadsheet_link }}</td>
                                             <td>{{ $value->remarks }}</td>
@@ -84,23 +86,24 @@
 
                                     </tbody>
                                     <tfoot>
-                                    <tr>
-                                        <th>SL</th>
-                                        <th>inc_data</th>
-                                        <th>Account</th>
-                                        <th>Amount</th>
-                                        <th>Percentage</th>
-                                        <th> Platform Charges </th>
-                                        <th>client User Id</th>
-                                        <th>Client Name</th>
-                                        <th>Email Address</th>
-                                        <th>Client LinkedIn</th>
-                                        <th>Order Page Url</th>
-                                        <th>Spreadsheet Link</th>
-                                        <th>Remarks</th>
-                                        <th>Delivery Amount</th>
-                                        <th>Delivery DeedLine</th>
-                                    </tr>
+                                        <tr>
+                                            <th>SL</th>
+                                            <th>Responsible</th>
+                                            <th>inc_data</th>
+                                            <th>Account</th>
+                                            <th>Amount</th>
+                                            <th>Percentage</th>
+                                            <th> Platform Charges </th>
+                                            <th>client User Id</th>
+                                            <th>Client Name</th>
+                                            <th>Email Address</th>
+                                            <th>Client LinkedIn</th>
+                                            <th>Order Page Url</th>
+                                            <th>Spreadsheet Link</th>
+                                            <th>Remarks</th>
+                                            <th>Delivery Amount</th>
+                                            <th>Delivery DeedLine</th>
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
