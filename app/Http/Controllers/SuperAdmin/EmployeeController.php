@@ -23,7 +23,7 @@ class EmployeeController extends Controller
      */
 
     public function view(){
-        $allData = User::whereIn('role_id', [2,3,4])->orderBy('id', 'desc')->get();
+        $allData = User::whereIn('role_id', [2,3,4,5])->orderBy('id', 'desc')->get();
     	return view('superadmin.pages.employee.view-employee', compact('allData'));
     }
 

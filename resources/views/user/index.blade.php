@@ -64,7 +64,7 @@
                       </tr>
                       <tr>
                         <td>Phone</td>
-                        <td>{{Auth::user()->mobile}}</td>
+                        <td>0{{Auth::user()->mobile}}</td>
                       </tr>
                       <tr>
                         <td>Email</td>

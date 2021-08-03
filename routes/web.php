@@ -23,10 +23,10 @@ Auth::routes();
 
 /*
 |--------------------------------------------------------------------------
-|  Routes for admin
+|  Routes for Super Admin
 |--------------------------------------------------------------------------
 |
-| this routes access for only admin
+| this routes access for only superadmin
 |
 */
 Route::group(['middleware' => ['superadmin', 'auth']], function(){
@@ -99,6 +99,68 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  Routes for admin
+|--------------------------------------------------------------------------
+|
+| this routes access for only admin
+|
+*/
+Route::group(['middleware' => ['admin', 'auth']], function(){
+	Route::get('admin/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 |  Routes for user
@@ -111,6 +173,26 @@ Route::group(['middleware' => ['user', 'auth']], function(){
 	Route::get('user/dashboard', [App\Http\Controllers\User\UserController::class, 'index'])->name('user.dashboard');
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -134,5 +216,43 @@ Route::group(['middleware' => ['kamsales', 'auth']], function(){
         Route::get('/order/add', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'add'])->name('order.add');
         Route::post('/order/store', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'store'])->name('order.store');
     });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  Routes for kam operation
+|--------------------------------------------------------------------------
+|
+| this routes access for only kam operation
+|
+*/
+Route::group(['middleware' => ['kamoperation', 'auth']], function(){
+	Route::get('kamoperation/dashboard', [App\Http\Controllers\KAMOperation\KAMOperationController::class, 'index'])->name('kamoperation.dashboard');
 
 });

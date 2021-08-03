@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'user' => \App\Http\Middleware\UserMiddleware::class,
         'kamsales' => \App\Http\Middleware\KAMSalesMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class, 
+        'kamoperation' => \App\Http\Middleware\KAMOperationMiddleware::class, 
     ];
 }

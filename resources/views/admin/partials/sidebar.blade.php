@@ -7,7 +7,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('user.dashboard') }}" class="brand-link">
+    <a href="{{ route('admin.dashboard') }}" class="brand-link">
       <img src="{{ asset('public/admin/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image"
            style="opacity: .8;margin-bottom:15px !important;">
       <span class="brand-text font-weight-light">BDCalling It Ltd</span>
@@ -35,7 +35,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ route('user.dashboard') }}" class="nav-link {{ ($route == 'user.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ ($route == 'admin.dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Profile</p>
             </a>

@@ -72,7 +72,7 @@
                           <td>{{ $value->id_no }}</td>
                           <td>{{ $value->designation->name }}</td>
                           <td>{{ $value->department->name }}</td>
-                          <td>{{ $value->mobile }}</td>
+                          <td>0{{ $value->mobile }}</td>
                           <td>{{ $value->email }}</td>
                           <td>{{ $value->address }}</td>
                           @if(Auth::user()->role_id == 1)

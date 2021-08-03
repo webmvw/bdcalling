@@ -57,7 +57,7 @@
                         </tr>
                         <tr>
                           <td><b>Phone</b></td>
-                          <td>{{ $getEmployee->mobile }}</td>
+                          <td>0{{ $getEmployee->mobile }}</td>
                           <td><b>Address</b></td>
                           <td>{{ $getEmployee->address }}</td>
                         </tr>
