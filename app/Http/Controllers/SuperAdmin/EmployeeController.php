@@ -21,11 +21,13 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function view(){
         $allData = User::whereIn('role_id', [2,3,4,5])->orderBy('id', 'desc')->get();
     	return view('superadmin.pages.employee.view-employee', compact('allData'));
     }
+
+
+
 
 	 /**
 	 * Show the form for creating a new resource.
@@ -39,6 +41,8 @@ class EmployeeController extends Controller
         $data['roles'] = Role::all();
     	return view('superadmin.pages.employee.add-employee', $data);
     }
+
+
 
 
     /**
@@ -85,7 +89,7 @@ class EmployeeController extends Controller
 
             // start insert Employee data in user model
             $user = new User;
-            $code = rand(0000, 9999);
+            $code = rand(000000, 999999);
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($code);
@@ -127,6 +131,10 @@ class EmployeeController extends Controller
     }
 
 
+
+
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -141,6 +149,8 @@ class EmployeeController extends Controller
         $data['roles'] = Role::all();
         return view('superadmin.pages.employee.edit-employee', $data);
     }
+
+
 
 
     /**
@@ -197,11 +207,19 @@ class EmployeeController extends Controller
     }
 
 
+
+
+
+
     public function show($id){
         $data['getEmployee'] = User::find($id);
         $data['incrementHistory'] = EmployeeSalaryLog::where('employee_id', $id)->get();
         return view('superadmin.pages.employee.details-employee', $data);
     }
+
+
+
+
 
     public function employeSalaryIncrement(Request $request){
         DB::transaction(function() use($request){
@@ -226,6 +244,45 @@ class EmployeeController extends Controller
             $employeeSelaryLog->save();
         });
         return redirect()->back()->with('success', 'Encrement Salary Added Success');
+    }
+
+
+
+
+
+    /**
+     * Display all admin listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function adminview(){
+        $allData = User::where('role_id', 2)->orderBy('id', 'desc')->get();
+        return view('superadmin.pages.employee.view-adminEmployee', compact('allData'));
+    }
+
+
+
+
+    /**
+     * Display kamsales listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kamsalesview(){
+        $allData = User::where('role_id', 4)->orderBy('id', 'desc')->get();
+        return view('superadmin.pages.employee.view-kamsalesEmployee', compact('allData'));
+    }
+
+
+
+    /**
+     * Display kamoperation listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kamoperationview(){
+        $allData = User::where('role_id', 5)->orderBy('id', 'desc')->get();
+        return view('superadmin.pages.employee.view-kamsalesEmployee', compact('allData'));
     }
 
 

@@ -90,7 +90,17 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::post('/employee/update/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'update'])->name('employee.update');
 		Route::get('/employee/details/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'show'])->name('employee.show');
 		Route::post('/salaryincrement/store', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'employeSalaryIncrement'])->name('employee.salaryIncrement');
+
+		// view admin list
+		Route::get('/adminList/view', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'adminview'])->name('adminList.view');
+
+		// view kamsales list
+		Route::get('/kamsalesList/view', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'kamsalesview'])->name('kamsalesList.view');
+
+		// view kamoperation list
+		Route::get('/kamoperationList/view', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'kamoperationview'])->name('kamoperationList.view');
 	});
+
 
 	Route::get('/orderList', [App\Http\Controllers\SuperAdmin\OrderController::class, 'index'])->name('order_list');
 

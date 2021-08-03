@@ -31,8 +31,14 @@ class LoginController extends Controller
     protected function redirectTo(){
         if(Auth()->user()->role_id == 1){
             return route('superadmin.dashboard');
+        }elseif(Auth()->user()->role_id == 2){
+            return route('admin.dashboard');
         }elseif(Auth()->user()->role_id == 3){
             return route('user.dashboard');
+        }elseif(Auth()->user()->role_id == 4){
+            return route('kamsales.dashboard');
+        }elseif(Auth()->user()->role_id == 5){
+            return route('kamoperation.dashboard');
         }
     }
 

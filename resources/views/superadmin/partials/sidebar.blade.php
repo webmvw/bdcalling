@@ -88,15 +88,33 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('employee.view') }}" class="nav-link {{ ($route == 'employee.view') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Employee</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{ route('employee.add') }}" class="nav-link {{ ($route == 'employee.add') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Employee</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('employee.view') }}" class="nav-link {{ ($route == 'employee.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Employee</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('adminList.view') }}" class="nav-link {{ ($route == 'adminList.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamsalesList.view') }}" class="nav-link {{ ($route == 'kamsalesList.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>KAM Sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamoperationList.view') }}" class="nav-link {{ ($route == 'kamoperationList.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>KAM Operation</p>
                 </a>
               </li>
             </ul>

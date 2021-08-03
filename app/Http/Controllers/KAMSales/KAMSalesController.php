@@ -16,7 +16,7 @@ class KAMSalesController extends Controller
     }
     public function view(){
         $kam_id=Auth::user()->id;
-         $kam_data=Order::where('kam_id','=',$kam_id)->with('account_table')->get();
+         $kam_data=Order::where('kam_id','=',$kam_id)->with('account_table')->orderBy('id', 'desc')->get();
         return view('kamsales.pages.order.order-list',compact('kam_data'));
     }
 

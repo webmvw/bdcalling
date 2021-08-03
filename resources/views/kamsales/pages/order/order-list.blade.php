@@ -43,6 +43,7 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Responsible</th>
+                                        <th>ID No</th>
                                         <th>inc_data</th>
                                         <th>Account</th>
                                         <th>Amount</th>
@@ -64,7 +65,8 @@
                                     @foreach($kam_data as $key=>$value)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
-                                            <td>{{ $value->responsible->name }}({{ $value->responsible->id_no }})</td>
+                                            <td>{{ $value->responsible->name }}</td>
+                                            <td>{{ $value->responsible->id_no }}</td>
                                             <td>{{ $value->inc_data }}</td>
                                             <td>{{ $value->account_table->account_name }}</td>
                                             <td>{{ $value->amount }}</td>
@@ -89,6 +91,7 @@
                                         <tr>
                                             <th>SL</th>
                                             <th>Responsible</th>
+                                            <th>ID No</th>
                                             <th>inc_data</th>
                                             <th>Account</th>
                                             <th>Amount</th>
