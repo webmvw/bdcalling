@@ -102,9 +102,6 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 	});
 
 
-	Route::get('/orderList', [App\Http\Controllers\SuperAdmin\OrderController::class, 'index'])->name('order_list');
-
-
 });
 
 
@@ -220,12 +217,6 @@ Route::group(['middleware' => ['kamsales', 'auth']], function(){
 
 	Route::get('kamsales/dashboard', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'index'])->name('kamsales.dashboard');
     
-	// order management
-    Route::group(['prefix' => 'order_manage'], function(){
-        Route::get('/order/view', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'view'])->name('order.view');
-        Route::get('/order/add', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'add'])->name('order.add');
-        Route::post('/order/store', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'store'])->name('order.store');
-    });
 
 });
 

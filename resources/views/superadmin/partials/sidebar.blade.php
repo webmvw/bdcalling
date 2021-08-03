@@ -118,14 +118,6 @@
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('order_list') }}" class="nav-link {{ ($route == 'order_list') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                All Order List
-              </p>
-            </a>
           </li>  
 
         </ul>

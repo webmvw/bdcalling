@@ -157,7 +157,7 @@
   </nav>
   <!-- /.navbar -->
 
-  @include('user.partials.sidebar')
+  @include('kamoperation.partials.sidebar')
 
 
   @yield('content')
