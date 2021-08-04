@@ -75,6 +75,12 @@
                   <p>Account</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('franchise.view') }}" class="nav-link {{ ($route == 'franchise.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Franchise</p>
+                </a>
+              </li>
             </ul>
           </li>
           
