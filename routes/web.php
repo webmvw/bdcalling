@@ -216,7 +216,14 @@ Route::group(['middleware' => ['user', 'auth']], function(){
 Route::group(['middleware' => ['kamsales', 'auth']], function(){
 
 	Route::get('kamsales/dashboard', [App\Http\Controllers\KAMSales\KAMSalesController::class, 'index'])->name('kamsales.dashboard');
-    
+
+	// order manage
+	Route::group(['prefix' => 'order_manage'], function(){
+		// for order
+		Route::get('/order/view', [App\Http\Controllers\KAMSales\OrderController::class, 'view'])->name('order.view');
+		Route::get('/order/add', [App\Http\Controllers\KAMSales\OrderController::class, 'add'])->name('order.add');
+		Route::post('/order/store', [App\Http\Controllers\KAMSales\OrderController::class, 'store'])->name('order.store');
+	});	
 
 });
 
@@ -255,5 +262,11 @@ Route::group(['middleware' => ['kamsales', 'auth']], function(){
 */
 Route::group(['middleware' => ['kamoperation', 'auth']], function(){
 	Route::get('kamoperation/dashboard', [App\Http\Controllers\KAMOperation\KAMOperationController::class, 'index'])->name('kamoperation.dashboard');
+
+	// order manage
+	Route::group(['prefix' => 'kamoperation.order_manage'], function(){
+		// for order
+		Route::get('/order/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'view'])->name('kamoperation.order.view');
+	});	
 
 });

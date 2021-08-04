@@ -41,8 +41,8 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item {{ ($prefix == '/order_manage') ? 'menu-is-opening menu-open': '' }}">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Order Management
@@ -51,13 +51,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('order.add') }}" class="nav-link {{ ($route == 'order.add') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Order</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('order.view') }}" class="nav-link {{ ($route == 'order.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Order List</p>
                 </a>

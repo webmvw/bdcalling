@@ -41,7 +41,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item {{ ($prefix == '/kamoperation.order_manage') ? 'menu-is-opening menu-open': '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -51,9 +51,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('kamoperation.order.view') }}" class="nav-link {{ ($route == 'kamoperation.order.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Order</p>
+                  <p>Order List</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -63,7 +63,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> 
  
 
         </ul>
