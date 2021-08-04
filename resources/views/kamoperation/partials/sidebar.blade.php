@@ -57,9 +57,45 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('kamoperation.order.wipview') }}" class="nav-link {{ ($route == 'kamoperation.order.wipview') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Develary</p>
+                  <p>WIP Order List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamoperation.order.completeview') }}" class="nav-link {{ ($route == 'kamoperation.order.completeview') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Complete Order List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamoperation.order.cancelledview') }}" class="nav-link {{ ($route == 'kamoperation.order.cancelledview') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cancelled Order List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamoperation.order.issuesview') }}" class="nav-link {{ ($route == 'kamoperation.order.issuesview') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Issues Order List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamoperation.order.revisionview') }}" class="nav-link {{ ($route == 'kamoperation.order.revisionview') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Rivision Order List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamoperation.order.neview') }}" class="nav-link {{ ($route == 'kamoperation.order.neview') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>NE Order List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kamoperation.delivery.view') }}" class="nav-link {{ ($route == 'kamoperation.delivery.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Delivery Order List</p>
                 </a>
               </li>
             </ul>

@@ -17,7 +17,9 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('kamsales.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">Order</li>
+              <li class="breadcrumb-item"><a href="{{ route('kamoperation.order.view') }}">Order</a></li>
+              <li class="breadcrumb-item active">Revision Order List</li>
+
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -33,7 +35,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Order List</h3>
+                <h3 class="card-title">Revision Order List</h3>
               </div>
               
               <!-- /.card-header -->
@@ -57,6 +59,7 @@
                       <th>Spreadsheed Link</th>
                       <th>Order Status</th>
                       <th>Delivery Date</th>
+                      <th>Team</th>
                       <th>Remarks</th>
                       <th>Action</th>
                     </tr>
@@ -80,6 +83,7 @@
                           <td>{{ $value->spreadsheet_link }}</td>
                           <td>{{ $value->order_status }}</td>
                           <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
+                          <td>{{ $value->team->team_name }}</td>
                           <td>{{ $value->remarks }}</td>
                           <td>
                             <a href="{{ route('kamoperation.order.delivery', $value->id) }}" class="btn btn-sm btn-success">Delivery</a>
@@ -106,6 +110,7 @@
                         <th>Spreadsheed Link</th>
                         <th>Order Status</th>
                         <th>Delivery Date</th>
+                        <th>Team</th>
                         <th>Remarks</th>
                         <th>Action</th>
                       </tr>
