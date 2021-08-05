@@ -6,6 +6,7 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
+
 <!-- Bootstrap 4 -->
 <script src="{{ asset('public/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- ChartJS -->
@@ -47,6 +48,9 @@
   <!-- sweetalert js -->
   <script type="text/javascript" src="{{ asset('public/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
+ <!-- jquery datatable -->
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
   <!-- DataTables  & Plugins -->
   <script src="{{ asset('public/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('public/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -64,6 +68,5 @@
   <!-- handlebars js -->
   <script type="text/javascript" src="{{ asset('public/admin/plugins/handlebars/handlebar.js') }}"></script>
 
-  <!-- jquery datatable -->
-  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+ 
   

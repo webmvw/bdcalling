@@ -17,7 +17,7 @@ class OrderController extends Controller
     }
 
      public function view(){
-        $allData = OrderDeliver::whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Revision', 'Issues'])->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
+        $allData = OrderDeliver::whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Delivered', 'Revision', 'Issues', 'Cancalled'])->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
         return view('kamoperation.pages.order.view-order', compact('allData'));
     }
 
