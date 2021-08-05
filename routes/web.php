@@ -278,12 +278,6 @@ Route::group(['middleware' => ['kamoperation', 'auth']], function(){
 	Route::group(['prefix' => 'kamoperation.order_manage'], function(){
 		// for order
 		Route::get('/order/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'view'])->name('kamoperation.order.view');
-		Route::get('/order/wip/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'wipview'])->name('kamoperation.order.wipview');
-		Route::get('/order/complete/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'completeview'])->name('kamoperation.order.completeview');
-		Route::get('/order/cancelled/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'cancelledview'])->name('kamoperation.order.cancelledview');
-		Route::get('/order/issues/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'issuesview'])->name('kamoperation.order.issuesview');
-		Route::get('/order/revision/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'revisionview'])->name('kamoperation.order.revisionview');
-		Route::get('/order/ne/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'neview'])->name('kamoperation.order.neview');
 
 
 		Route::get('/order/status/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'status'])->name('kamoperation.order.status');

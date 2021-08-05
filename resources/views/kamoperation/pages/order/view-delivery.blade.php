@@ -63,6 +63,7 @@
                       <th>Team</th>
                       <th>Delivered By</th>
                       <th>Remarks</th>
+                      <th>Coundown Timer</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,6 +92,24 @@
                           <td>{{ $value->team->team_name }}</td>
                           <td>{{ $value->delivered_by_info->name }}</td>
                           <td>{{ $value->remarks }}</td>
+                          <td>
+                            <?php
+                            $deli_dateline = new DateTime($value->deli_last_time);
+                            $today = new DateTime(date('Y-m-d'));
+
+                            $interval = $today->diff($deli_dateline);
+                            if($value->order_status == "Delivered"){
+                              echo "done project";
+                            }else{
+                              $day = $interval->format("%R%a");
+                              if($day <= 0){
+                                echo "<span style='color:red'>Late Order</span>";
+                              }else{
+                                echo $day = $interval->format("%a days");
+                              }
+                            }
+                            ?>
+                          </td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -116,6 +135,7 @@
                         <th>Team</th>
                         <th>Delivered By</th>
                         <th>Remarks</th>
+                        <th>Coundown Timer</th>
                       </tr>
                     </tfoot>
                   </table>

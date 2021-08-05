@@ -17,41 +17,8 @@ class OrderController extends Controller
     }
 
      public function view(){
-        $allData = OrderDeliver::where('order_status', 'NRA')->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
+        $allData = OrderDeliver::whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Revision', 'Issues'])->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
         return view('kamoperation.pages.order.view-order', compact('allData'));
-    }
-
-
-    public function wipview(){
-      $allData = OrderDeliver::where('order_status', 'WIP')->orderBy('id', 'desc')->with('responsible_info', 'account', 'team')->get();
-      return view('kamoperation.pages.order.view-orderwip', compact('allData'));
-    }
-
-
-    public function completeview(){
-      $allData = OrderDeliver::where('order_status', 'Complete')->orderBy('id', 'desc')->with('responsible_info', 'account', 'team')->get();
-      return view('kamoperation.pages.order.view-ordercomplete', compact('allData'));
-    }
-
-
-    public function cancelledview(){
-      $allData = OrderDeliver::where('order_status', 'Cancalled')->orderBy('id', 'desc')->with('responsible_info', 'account', 'team')->get();
-      return view('kamoperation.pages.order.view-ordercancelled', compact('allData'));
-    }
-
-    public function issuesview(){
-      $allData = OrderDeliver::where('order_status', 'Issues')->orderBy('id', 'desc')->with('responsible_info', 'account', 'team')->get();
-      return view('kamoperation.pages.order.view-orderissues', compact('allData'));
-    }
-
-    public function revisionview(){
-      $allData = OrderDeliver::where('order_status', 'Revision')->orderBy('id', 'desc')->with('responsible_info', 'account', 'team')->get();
-      return view('kamoperation.pages.order.view-orderrevision', compact('allData'));
-    }
-
-    public function neview(){
-      $allData = OrderDeliver::where('order_status', 'NE')->orderBy('id', 'desc')->with('responsible_info', 'account', 'team')->get();
-      return view('kamoperation.pages.order.view-orderne', compact('allData'));
     }
 
 

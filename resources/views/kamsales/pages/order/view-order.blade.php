@@ -59,6 +59,7 @@
                       <th>Order Status</th>
                       <th>Delivery Date</th>
                       <th>Remarks</th>
+                      <th>Coundown Timer</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -81,6 +82,24 @@
                           <td>{{ $value->order_status }}</td>
                           <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
                           <td>{{ $value->remarks }}</td>
+                          <td>
+                            <?php
+                            $deli_dateline = new DateTime($value->deli_last_time);
+                            $today = new DateTime(date('Y-m-d'));
+
+                            $interval = $today->diff($deli_dateline);
+                            if($value->order_status == "Delivered"){
+                              echo "done project";
+                            }else{
+                              $day = $interval->format("%R%a");
+                              if($day <= 0){
+                                echo "<span style='color:red'>Late Order</span>";
+                              }else{
+                                echo $day = $interval->format("%a days");
+                              }
+                            }
+                            ?>
+                          </td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -103,7 +122,7 @@
                         <th>Order Status</th>
                         <th>Delivery Date</th>
                         <th>Remarks</th>
-                      </tr>
+                        <th>Coundown Timer</th>
                       </tr>
                     </tfoot>
                   </table>
