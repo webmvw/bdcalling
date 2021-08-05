@@ -63,3 +63,6 @@
 
   <!-- handlebars js -->
   <script type="text/javascript" src="{{ asset('public/admin/plugins/handlebars/handlebar.js') }}"></script>
+
+  <!-- jquery datatable -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>

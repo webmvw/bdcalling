@@ -17,7 +17,9 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('kamsales.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">Order</li>
+              <li class="breadcrumb-item"><a href="{{ route('kamoperation.order.view') }}">Order</a></li>
+              <li class="breadcrumb-item active">Complete Order List</li>
+
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -33,9 +35,9 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Order List</h3>
+                <h3 class="card-title">Complete Order List</h3>
               </div>
-
+              
               <!-- /.card-header -->
                 <div class="card-body">
                   <table id="myTable" class="table table-sm table-bordered table-hover table-responsive">
@@ -48,6 +50,7 @@
                       <th>Amount</th>
                       <th>Percentage</th>
                       <th>Platform charge</th>
+                      <th>Tips</th>
                       <th>Delivery Amount</th>
                       <th>Client User Id</th>
                       <th>Client Name</th>
@@ -57,9 +60,10 @@
                       <th>Spreadsheed Link</th>
                       <th>Order Status</th>
                       <th>Delivery Date</th>
+                      <th>Team</th>
+                      <th>Delivered By</th>
                       <th>Remarks</th>
                       <th>Coundown Timer</th>
-                      <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,7 +76,11 @@
                           <td>${{ $value->amount }}</td>
                           <td>{{ $value->percentage }}%</td>
                           <td>${{ $value->platform_charges }}</td>
-                          <td>${{ $value->deli_amount }}</td>
+                          @if($value->tips == null)
+                          <td>{{ $value->tips }}</td>
+                          @else
+                          <td>${{ $value->tips }}</td>
+                          @endif                          <td>${{ $value->deli_amount }}</td>
                           <td>{{ $value->client_user_id }}</td>
                           <td>{{ $value->client_name }}</td>
                           <td>{{ $value->client_email }}</td>
@@ -81,6 +89,8 @@
                           <td>{{ $value->spreadsheet_link }}</td>
                           <td>{{ $value->order_status }}</td>
                           <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
+                          <td>{{ $value->team->team_name }}</td>
+                          <td>{{ $value->delivered_by_info->name }}</td>
                           <td>{{ $value->remarks }}</td>
                           <td>
                             <?php
@@ -108,10 +118,6 @@
                             }
                             ?>
                           </td>
-                          <td>
-                            <a href="{{ route('kamoperation.order.delivery', $value->id) }}" class="btn btn-sm btn-success">Delivery</a>
-                            <a href="{{ route('kamoperation.order.status', $value->id) }}" class="btn btn-sm btn-warning">Status</a>
-                          </td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -124,6 +130,7 @@
                         <th>Amount</th>
                         <th>Percentage</th>
                         <th>Platform charge</th>
+                        <th>Tips</th>
                         <th>Delivery Amount</th>
                         <th>Client User Id</th>
                         <th>Client Name</th>
@@ -133,11 +140,11 @@
                         <th>Spreadsheed Link</th>
                         <th>Order Status</th>
                         <th>Delivery Date</th>
+                        <th>Team</th>
+                        <th>Delivered By</th>
                         <th>Remarks</th>
                         <th>Coundown Timer</th>
-                        <th>Action</th>
                       </tr>
-
                     </tfoot>
                   </table>
                 </div>
@@ -155,3 +162,4 @@
 
 @endsection
 
+            

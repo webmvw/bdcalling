@@ -196,8 +196,12 @@
 </script>
 
 
-
 <script>
+
+  $(document).ready( function () {
+      $('#myTable').DataTable();
+  } );
+
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()

@@ -11,7 +11,7 @@ use App\Models\OrderDeliver;
 class OrderController extends Controller
 {
     public function view(){
-        $allData = OrderDeliver::orderBy('id', 'desc')->with('responsible_info', 'account')->get();
+        $allData = OrderDeliver::whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Revision', 'Issues', 'Cancalled'])->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
         return view('kamsales.pages.order.view-order', compact('allData'));
     }
 

@@ -78,7 +78,18 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 		Route::post('/account/update/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'update'])->name('account.update');
 		Route::get('/account/delete/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'delete'])->name('account.delete');
 
+		// for franchise
+		Route::get('/franchise/view', [App\Http\Controllers\SuperAdmin\FranchiseController::class, 'view'])->name('franchise.view');
+		Route::get('/franchise/add', [App\Http\Controllers\SuperAdmin\FranchiseController::class, 'add'])->name('franchise.add');
+		Route::post('/franchise/store', [App\Http\Controllers\SuperAdmin\FranchiseController::class, 'store'])->name('franchise.store');
+		Route::get('/franchise/edit/{id}', [App\Http\Controllers\SuperAdmin\FranchiseController::class, 'edit'])->name('franchise.edit');
+		Route::post('/franchise/update/{id}', [App\Http\Controllers\SuperAdmin\FranchiseController::class, 'update'])->name('franchise.update');
+		Route::get('/franchise/delete/{id}', [App\Http\Controllers\SuperAdmin\FranchiseController::class, 'delete'])->name('franchise.delete');
+
 	});
+
+
+
 
 	// employee management
 	Route::group(['prefix' => 'employee_manage'], function(){
@@ -196,6 +207,19 @@ Route::group(['middleware' => ['kamoperation', 'auth']], function(){
 	Route::group(['prefix' => 'kamoperation.order_manage'], function(){
 		// for order
 		Route::get('/order/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'view'])->name('kamoperation.order.view');
+<<<<<<< HEAD
 	});
+=======
+
+
+		Route::get('/order/status/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'status'])->name('kamoperation.order.status');
+		Route::post('/order/status/update/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'statusUpdate'])->name('kamoperation.order.status.update');
+		Route::get('/order/delivery/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'delivery'])->name('kamoperation.order.delivery');
+		Route::post('/order/delivery/success/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'deliverySuccess'])->name('kamoperation.order.delivery.success');
+
+		Route::get('/delivery/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'deliveryList'])->name('kamoperation.delivery.view');
+
+	});	
+>>>>>>> 6e2b2246c1084fe563c7876b0af04d3583d644e4
 
 });

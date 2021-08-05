@@ -57,9 +57,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('kamoperation.delivery.view') }}" class="nav-link {{ ($route == 'kamoperation.delivery.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Develary</p>
+                  <p>Delivery Order List</p>
                 </a>
               </li>
             </ul>
