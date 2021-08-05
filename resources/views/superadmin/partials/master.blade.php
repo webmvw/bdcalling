@@ -10,7 +10,7 @@
 
   <!-- page title -->
   @yield('title')
-  
+
 
   @include('superadmin.partials.style')
 
@@ -202,7 +202,7 @@
           })
         });
       });
-    </script>  
+    </script>
 
 
 
@@ -211,9 +211,11 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "responsive": false, "lengthChange": false, "autoWidth": false,
+
+      "buttons": [ "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -274,7 +276,7 @@
       "hideMethod": "fadeOut"
     }
   </script>
-@endif 
+@endif
 
 @if(Session::has('error'))
   <script type="text/javascript">
@@ -294,7 +296,7 @@
       "hideMethod": "fadeOut"
     }
   </script>
-@endif 
+@endif
 
 @if(Session::has('warning'))
   <script type="text/javascript">
@@ -336,6 +338,7 @@
   </script>
 @endif
 
+@yield('script')
 
 </body>
 </html>

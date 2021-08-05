@@ -35,7 +35,7 @@
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Order List</h3>
               </div>
-              
+
               <!-- /.card-header -->
                 <div class="card-body">
                   <table id="myTable" class="table table-sm table-bordered table-hover table-responsive">
@@ -109,7 +109,7 @@
                         <th>Remarks</th>
                         <th>Action</th>
                       </tr>
-                      </tr>
+
                     </tfoot>
                   </table>
                 </div>
@@ -127,4 +127,3 @@
 
 @endsection
 
-            

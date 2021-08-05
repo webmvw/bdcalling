@@ -1,4 +1,4 @@
-  
+
   @php
     $prefix = Request::route()->getPrefix();
     $route = Route::current()->getName();
@@ -77,7 +77,7 @@
               </li>
             </ul>
           </li>
-          
+
           <li class="nav-item {{ ($prefix == '/employee_manage') ? 'menu-is-opening menu-open': '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -118,8 +118,31 @@
                 </a>
               </li>
             </ul>
-          </li>  
+          </li>
 
+            <li class="nav-item {{ ($prefix == '/allorder_manage') ? 'menu-is-opening menu-open': '' }}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Order Management
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('allorder.view') }}" class="nav-link {{ ($route == 'allorder.view') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Order List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('delivery.view') }}" class="nav-link {{ ($route == 'delivery.view') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Delivery  List</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

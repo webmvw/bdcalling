@@ -102,29 +102,21 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 	});
 
 
+    // employee management
+    Route::group(['prefix' => 'allorder_manage'], function(){
+        // for all order List
+        Route::post('/allorder/view', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'view'])->name('report.view');
+        Route::post('/month/report', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'Month_Report'])->name('month.report');
+        Route::get('/allorder/view', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'allOrderView'])->name('allorder.view');
+        Route::get('/delivery/view', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'DeliveryView'])->name('delivery.view');
+        Route::post('/delivery/report', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'deliveryReport'])->name('delivery.report');
+
+
+        //
+    });
+
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -147,27 +139,6 @@ Route::group(['middleware' => ['admin', 'auth']], function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 |  Routes for user
@@ -180,27 +151,6 @@ Route::group(['middleware' => ['user', 'auth']], function(){
 	Route::get('user/dashboard', [App\Http\Controllers\User\UserController::class, 'index'])->name('user.dashboard');
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -223,30 +173,9 @@ Route::group(['middleware' => ['kamsales', 'auth']], function(){
 		Route::get('/order/view', [App\Http\Controllers\KAMSales\OrderController::class, 'view'])->name('order.view');
 		Route::get('/order/add', [App\Http\Controllers\KAMSales\OrderController::class, 'add'])->name('order.add');
 		Route::post('/order/store', [App\Http\Controllers\KAMSales\OrderController::class, 'store'])->name('order.store');
-	});	
+	});
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -267,6 +196,6 @@ Route::group(['middleware' => ['kamoperation', 'auth']], function(){
 	Route::group(['prefix' => 'kamoperation.order_manage'], function(){
 		// for order
 		Route::get('/order/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'view'])->name('kamoperation.order.view');
-	});	
+	});
 
 });
