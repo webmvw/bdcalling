@@ -74,7 +74,6 @@
                                 </div>
 
 
-                                <span class="btn btn-success btn-sm mb-3">Report -> <strong>{{$Convert}}</strong></span>
                                 <table id="#example2" class="table table-sm table-bordered table-hover table-responsive">
 
                                     <thead>
@@ -96,34 +95,57 @@
                                         <th>Order Status</th>
                                         <th>Delivery Date</th>
                                         <th>Remarks</th>
+                                        <th>Coundown Timer</th>
                                     </tr>
                                     </thead>
                                     <tbody id="getData">
+                                        @foreach($result as $key=>$value)
+                                            <tr>
+                                                <td>{{ $key+1 }}</td>
+                                                <td>{{ $value->responsible_info->name }}</td>
+                                                <td>{{ $value->responsible_info->id_no }}</td>
+                                                <td>{{ $value->account->account_name }}</td>
+                                                <td>${{ $value->amount }}</td>
+                                                <td>{{ $value->percentage }}%</td>
+                                                <td>${{ $value->platform_charges }}</td>
+                                                <td>${{ $value->deli_amount }}</td>
+                                                <td>{{ $value->client_user_id }}</td>
+                                                <td>{{ $value->client_name }}</td>
+                                                <td>{{ $value->client_email }}</td>
+                                                <td>{{ $value->client_linkedin }}</td>
+                                                <td>{{ $value->orderpage_url }}</td>
+                                                <td>{{ $value->spreadsheet_link }}</td>
+                                                <td>{{ $value->order_status }}</td>
+                                                <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
+                                                <td>{{ $value->remarks }}</td>
+                                                <td>
+                                                <?php
+                                                    $deli_dateline = new DateTime($value->deli_last_time);
+                                                    $today = new DateTime(date('Y-m-d'));
 
-
-
-
-                                                                        @foreach($result as $key=>$value)
-                                                                            <tr>
-                                                                                <td>{{ $key+1 }}</td>
-                                                                                <td>{{ $value->responsible_info->name }}</td>
-                                                                                <td>{{ $value->responsible_info->id_no }}</td>
-                                                                                <td>{{ $value->account->account_name }}</td>
-                                                                                <td>${{ $value->amount }}</td>
-                                                                                <td>{{ $value->percentage }}%</td>
-                                                                                <td>${{ $value->platform_charges }}</td>
-                                                                                <td>${{ $value->deli_amount }}</td>
-                                                                                <td>{{ $value->client_user_id }}</td>
-                                                                                <td>{{ $value->client_name }}</td>
-                                                                                <td>{{ $value->client_email }}</td>
-                                                                                <td>{{ $value->client_linkedin }}</td>
-                                                                                <td>{{ $value->orderpage_url }}</td>
-                                                                                <td>{{ $value->spreadsheet_link }}</td>
-                                                                                <td>{{ $value->order_status }}</td>
-                                                                                <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
-                                                                                <td>{{ $value->remarks }}</td>
-                                                                            </tr>
-                                                                        @endforeach
+                                                    $interval = $today->diff($deli_dateline);
+                                                    if($value->order_status == "Delivered"){
+                                                      echo "done project";
+                                                    }elseif($value->order_status == "Revision"){
+                                                      echo "Urgent Revision";
+                                                    }elseif($value->order_status == "Cancalled"){
+                                                      echo "Cancalled";
+                                                    }else{
+                                                      $day = $interval->format("%R%a");
+                                                      if($day <= 2 and $day >= 1){
+                                                        echo $interval->format("%a days ").$interval->h.":".$interval->i.":".$interval->s;
+                                                      }if($day <= 0){
+                                                        echo "<span style='color:red'>Late Order</span>";
+                                                      }elseif($day <= 0 and $value->order_status == "Revision"){
+                                                        echo "<span style='color:red'>Revision and Late Order</span>";
+                                                      }else{
+                                                        echo $day = $interval->format("%a days");
+                                                      }
+                                                    }
+                                                ?>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
@@ -144,6 +166,7 @@
                                         <th>Order Status</th>
                                         <th>Delivery Date</th>
                                         <th>Remarks</th>
+                                        <th>Coundown Timer</th>
                                     </tr>
 
                                     </tfoot>

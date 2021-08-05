@@ -56,54 +56,87 @@
                                 <table id="example1" class="table table-sm table-bordered table-hover table-responsive">
                                     <thead>
                                     <tr>
-                                        <th>SL</th>
-                                        <th>Responsible</th>
-                                        <th>ID No</th>
-                                        <th>Account</th>
-                                        <th>Amount</th>
-                                        <th>Percentage</th>
-                                        <th>Platform charge</th>
-                                        <th>Delivery Amount</th>
-                                        <th>Client User Id</th>
-                                        <th>Client Name</th>
-                                        <th>Client Email</th>
-                                        <th>Client Linkedin</th>
-                                        <th>Order Page Url</th>
-                                        <th>Spreadsheed Link</th>
-                                        <th>Order Status</th>
-                                        <th>Delivery Date</th>
-                                        <th>Remarks</th>
+                                      <th>SL</th>
+                                      <th>Responsible</th>
+                                      <th>ID No</th>
+                                      <th>Account</th>
+                                      <th>Amount</th>
+                                      <th>Percentage</th>
+                                      <th>Platform charge</th>
+                                      <th>Tips</th>
+                                      <th>Delivery Amount</th>
+                                      <th>Client User Id</th>
+                                      <th>Client Name</th>
+                                      <th>Client Email</th>
+                                      <th>Client Linkedin</th>
+                                      <th>Order Page Url</th>
+                                      <th>Spreadsheed Link</th>
+                                      <th>Order Status</th>
+                                      <th>Delivery Date</th>
+                                      <th>Team</th>
+                                      <th>Delivered By</th>
+                                      <th>Remarks</th>
+                                      <th>Coundown Timer</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="getData">
-
-
-
-
-                                    @foreach($allData as $key=>$value)
+                                    <tbody>
+                                      @foreach($allData as $key=>$value)
                                         <tr>
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $value->responsible_info->name }}</td>
-                                            <td>{{ $value->responsible_info->id_no }}</td>
-                                            <td>{{ $value->account->account_name }}</td>
-                                            <td>${{ $value->amount }}</td>
-                                            <td>{{ $value->percentage }}%</td>
-                                            <td>${{ $value->platform_charges }}</td>
-                                            <td>${{ $value->deli_amount }}</td>
-                                            <td>{{ $value->client_user_id }}</td>
-                                            <td>{{ $value->client_name }}</td>
-                                            <td>{{ $value->client_email }}</td>
-                                            <td>{{ $value->client_linkedin }}</td>
-                                            <td>{{ $value->orderpage_url }}</td>
-                                            <td>{{ $value->spreadsheet_link }}</td>
-                                            <td>{{ $value->order_status }}</td>
-                                            <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
-                                            <td>{{ $value->remarks }}</td>
+                                          <td>{{ $key+1 }}</td>
+                                          <td>{{ $value->responsible_info->name }}</td>
+                                          <td>{{ $value->responsible_info->id_no }}</td>
+                                          <td>{{ $value->account->account_name }}</td>
+                                          <td>${{ $value->amount }}</td>
+                                          <td>{{ $value->percentage }}%</td>
+                                          <td>${{ $value->platform_charges }}</td>
+                                          @if($value->tips == null)
+                                          <td>{{ $value->tips }}</td>
+                                          @else
+                                          <td>${{ $value->tips }}</td>
+                                          @endif                          
+                                          <td>${{ $value->deli_amount }}</td>
+                                          <td>{{ $value->client_user_id }}</td>
+                                          <td>{{ $value->client_name }}</td>
+                                          <td>{{ $value->client_email }}</td>
+                                          <td>{{ $value->client_linkedin }}</td>
+                                          <td>{{ $value->orderpage_url }}</td>
+                                          <td>{{ $value->spreadsheet_link }}</td>
+                                          <td>{{ $value->order_status }}</td>
+                                          <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
+                                          <td>{{ $value->team->team_name }}</td>
+                                          <td>{{ $value->delivered_by_info->name }}</td>
+                                          <td>{{ $value->remarks }}</td>
+                                          <td>
+                                            <?php
+                                            $deli_dateline = new DateTime($value->deli_last_time);
+                                            $today = new DateTime(date('Y-m-d'));
+
+                                            $interval = $today->diff($deli_dateline);
+                                            if($value->order_status == "Delivered"){
+                                              echo "done project";
+                                            }elseif($value->order_status == "Revision"){
+                                              echo "Urgent Revision";
+                                            }elseif($value->order_status == "Cancalled"){
+                                              echo "Cancalled";
+                                            }else{
+                                              $day = $interval->format("%R%a");
+                                              if($day <= 2 and $day >= 1){
+                                                echo $interval->format("%a days ").$interval->h.":".$interval->i.":".$interval->s;
+                                              }if($day <= 0){
+                                                echo "<span style='color:red'>Late Order</span>";
+                                              }elseif($day <= 0 and $value->order_status == "Revision"){
+                                                echo "<span style='color:red'>Revision and Late Order</span>";
+                                              }else{
+                                                echo $day = $interval->format("%a days");
+                                              }
+                                            }
+                                            ?>
+                                          </td>
                                         </tr>
-                                    @endforeach
+                                      @endforeach
                                     </tbody>
                                     <tfoot>
-                                    <tr>
+                                      <tr>
                                         <th>SL</th>
                                         <th>Responsible</th>
                                         <th>ID No</th>
@@ -111,6 +144,7 @@
                                         <th>Amount</th>
                                         <th>Percentage</th>
                                         <th>Platform charge</th>
+                                        <th>Tips</th>
                                         <th>Delivery Amount</th>
                                         <th>Client User Id</th>
                                         <th>Client Name</th>
@@ -120,11 +154,13 @@
                                         <th>Spreadsheed Link</th>
                                         <th>Order Status</th>
                                         <th>Delivery Date</th>
+                                        <th>Team</th>
+                                        <th>Delivered By</th>
                                         <th>Remarks</th>
-                                    </tr>
-
+                                        <th>Coundown Timer</th>
+                                      </tr>
                                     </tfoot>
-                                </table>
+                                  </table>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer"></div>

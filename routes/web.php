@@ -207,19 +207,6 @@ Route::group(['middleware' => ['kamoperation', 'auth']], function(){
 	Route::group(['prefix' => 'kamoperation.order_manage'], function(){
 		// for order
 		Route::get('/order/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'view'])->name('kamoperation.order.view');
-<<<<<<< HEAD
-	});
-=======
-
-
-		Route::get('/order/status/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'status'])->name('kamoperation.order.status');
-		Route::post('/order/status/update/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'statusUpdate'])->name('kamoperation.order.status.update');
-		Route::get('/order/delivery/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'delivery'])->name('kamoperation.order.delivery');
-		Route::post('/order/delivery/success/{id}', [App\Http\Controllers\KAMOperation\OrderController::class, 'deliverySuccess'])->name('kamoperation.order.delivery.success');
-
-		Route::get('/delivery/view', [App\Http\Controllers\KAMOperation\OrderController::class, 'deliveryList'])->name('kamoperation.delivery.view');
-
-	});	
->>>>>>> 6e2b2246c1084fe563c7876b0af04d3583d644e4
+	}); 	
 
 });
