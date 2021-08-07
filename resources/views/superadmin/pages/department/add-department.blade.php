@@ -46,24 +46,21 @@
                     <div class="card-body">
                       @include('superadmin.partials.message')
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8 offset-2">
                           <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name">
+                            <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="Enter Name">
                           </div>
-                        </div>
-                        <div class="col-md-6">
                           <div class="form-group">
                             <label for="department_code">Department Code</label>
-                            <input type="number" name="department_code" id="department_code" placeholder="Department Code" class="form-control">
+                            <input type="number" name="department_code" id="department_code" placeholder="Department Code" class="form-control form-control-sm">
                           </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>

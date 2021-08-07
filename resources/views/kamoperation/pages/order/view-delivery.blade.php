@@ -80,7 +80,8 @@
                           <td>{{ $value->tips }}</td>
                           @else
                           <td>${{ $value->tips }}</td>
-                          @endif                          <td>${{ $value->deli_amount }}</td>
+                          @endif                          
+                          <td>${{ $value->deli_amount }}</td>
                           <td>{{ $value->client_user_id }}</td>
                           <td>{{ $value->client_name }}</td>
                           <td>{{ $value->client_email }}</td>

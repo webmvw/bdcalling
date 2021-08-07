@@ -45,6 +45,7 @@
                       <th>Account Name</th>
                       <th>Source</th>
                       <th>Account Link</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -55,6 +56,7 @@
                           <td>{{ $value->account_name }}</td>
                           <td>{{ $value->source }}</td>
                           <td>{{ $value->account_link }}</td>
+                          <td>{{ $value->franchise->username }}</td>
                           <td>
                             <a href="{{ route('account.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                             <a href="{{ route('account.delete', $value->id) }}" onclick="return confirm('Are you sure to delete!');" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
@@ -69,6 +71,7 @@
                       <th>Account Name</th>
                       <th>Source</th>
                       <th>Account Link</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </tfoot>

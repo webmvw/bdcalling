@@ -46,24 +46,21 @@
                     <div class="card-body">
                       @include('superadmin.partials.message')
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8 offset-2">
                           <div class="form-group">
                             <label for="grade_name">Grade Name</label>
-                            <input type="text" name="grade_name" class="form-control" id="grade_name" placeholder="Enter Grade Name">
+                            <input type="text" name="grade_name" class="form-control form-control-sm" id="grade_name" placeholder="Enter Grade Name">
                           </div>
-                        </div>
-                        <div class="col-md-6">
                           <div class="form-group">
                             <label for="amount">Amount</label>
-                            <input type="number" name="amount" id="amount" placeholder="Grade Amount" class="form-control">
+                            <input type="number" name="amount" id="amount" placeholder="Grade Amount" class="form-control form-control-sm">
                           </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>

@@ -106,21 +106,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('adminList.view') }}" class="nav-link {{ ($route == 'adminList.view') ? 'active' : '' }}">
+                <a href="{{ route('franchiseOwner.view') }}" class="nav-link {{ ($route == 'franchiseOwner.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('kamsalesList.view') }}" class="nav-link {{ ($route == 'kamsalesList.view') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>KAM Sales</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('kamoperationList.view') }}" class="nav-link {{ ($route == 'kamoperationList.view') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>KAM Operation</p>
+                  <p>Franchise Owner</p>
                 </a>
               </li>
             </ul>

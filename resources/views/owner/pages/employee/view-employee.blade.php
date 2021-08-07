@@ -1,4 +1,4 @@
-@extends('superadmin.partials.master')
+@extends('owner.partials.master')
 
 @section('title')
   <title>Manage Employee | bdCalling IT Ltd</title>
@@ -16,7 +16,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('superadmin.dashboard') }}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}">Home</a></li>
               <li class="breadcrumb-item active">Employee</li>
             </ol>
           </div><!-- /.col -->
@@ -33,8 +33,8 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">All KAM Sales List</h3>
-                <a href="{{ route('employee.add') }}" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Add Employee</a>
+                <h3 class="card-title">Employee List</h3>
+                <a href="{{ route('owner.employee.add') }}" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Add Employee</a>
               </div>
               
               <!-- /.card-header -->
@@ -49,6 +49,7 @@
                       <th>Role</th>
                       <th>Designation</th>
                       <th>Department</th>
+                      <th>Franchise</th>
                       <th>Phone</th>
                       <th>Email</th>
                       <th>Address</th>
@@ -74,6 +75,7 @@
                           <td>{{ $value->role->name }}</td>
                           <td>{{ $value->designation->name }}</td>
                           <td>{{ $value->department->name }}</td>
+                          <td>{{ $value->franchise->username }}</td>
                           <td>0{{ $value->mobile }}</td>
                           <td>{{ $value->email }}</td>
                           <td>{{ $value->address }}</td>
@@ -81,13 +83,13 @@
                           <td>{{ $value->code }}</td>
                           @endif
                           <td>
-                            <a href="{{ route('employee.show', $value->id) }}" title="View" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                            <a href="{{ route('owner.employee.show', $value->id) }}" title="View" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                             @php
                             $checkincrement = App\Models\EmployeeSalaryLog::where('employee_id', $value->id)->OrderBy('id', 'desc')->first();
                             $incrementValue = $checkincrement->increment_salary;
                             @endphp
                             @if($incrementValue == 0)
-                            <a href="{{ route('employee.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('owner.employee.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                             @endif
                           </td>
                         </tr>
@@ -103,6 +105,7 @@
                         <th>Role</th>
                         <th>Designation</th>
                         <th>Department</th>
+                        <th>Franchise</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Address</th>

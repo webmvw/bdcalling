@@ -17,7 +17,7 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role_id == 3){
+        if(Auth::check() && Auth::user()->role_id == 7){
             return $next($request);
         }else{
             return redirect()->route('login');

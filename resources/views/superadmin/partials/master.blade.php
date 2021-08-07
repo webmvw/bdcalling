@@ -252,6 +252,20 @@
       }
       reader.readAsDataURL(e.target.files['0']);
     });
+    $('#nid_front_image').change(function(e){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        $('#showNid_front_image').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(e.target.files['0']);
+    });
+    $('#nid_back_image').change(function(e){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        $('#showNid_back_image').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(e.target.files['0']);
+    });
   });
 </script>
 

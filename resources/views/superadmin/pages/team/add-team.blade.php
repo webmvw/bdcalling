@@ -46,29 +46,35 @@
                     <div class="card-body">
                       @include('superadmin.partials.message')
                       <div class="row">
-                        <div class="col-md-6">
+                         <div class="col-md-8 offset-2">
                           <div class="form-group">
                             <label for="team_name">Team Name</label>
-                            <input type="text" name="team_name" class="form-control" id="team_name" placeholder="Enter Name">
+                            <input type="text" name="team_name" class="form-control form-control-sm" id="team_name" placeholder="Enter Name">
                           </div>
-                        </div>
-                        <div class="col-md-6">
                           <div class="form-group">
                             <label for="department_code">Department </label>
-                              <select name="department_id" id="department_code" class="form-control">
+                              <select name="department_id" id="department_code" class="select2 form-control form-control-sm">
                                 <option value="">Select Department</option>
                                 @foreach($departments as $value)
                                 <option value="{{$value->id}}">{{$value->name}}</option>
                                 @endforeach
                               </select>
                           </div>
+                          <div class="form-group">
+                            <label for="franchise">Franchise <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{$value->id}}">{{$value->username}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>
@@ -86,11 +92,14 @@
 $(function () {
   $('#quickForm').validate({
     rules: {
-      name: {
+      team_name: {
         required: true,
         maxlength:60,
       },
       department_id:{
+        required: true,
+      },
+      franchise: {
         required: true,
       },
     },
@@ -100,7 +109,10 @@ $(function () {
         maxlength: "Your name must be at least 60 characters long"
       },
       department_id:{
-        required: "Please enter department code",
+        required: "Please select Department",
+      },
+      franchise: {
+        required: "Please select franchise"
       },
     },
     errorElement: 'span',

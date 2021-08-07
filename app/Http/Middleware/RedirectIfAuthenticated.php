@@ -22,14 +22,16 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check() && Auth::user()->role->id == 1) {
+                return redirect()->route('owner.dashboard');
+            }elseif (Auth::guard($guard)->check() && Auth::user()->role->id == 2) {
                 return redirect()->route('superadmin.dashboard');
-            }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 2){
-                return redirect()->route('admin.dashboard');
-            }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 3){
-                return redirect()->route('user.dashboard');
             }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 4){
-                return redirect()->route('kamsales.dashboard');
+                return redirect()->route('admin.dashboard');
+            }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 7){
+                return redirect()->route('user.dashboard');
             }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 5){
+                return redirect()->route('kamsales.dashboard');
+            }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 6){
                 return redirect()->route('kamoperation.dashboard');
             }
         }

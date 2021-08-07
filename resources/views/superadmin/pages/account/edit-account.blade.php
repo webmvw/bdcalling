@@ -46,30 +46,34 @@
                     <div class="card-body">
                       @include('superadmin.partials.message')
                       <div class="row">
-                      <div class="col-md-4">
+                        <div class="col-md-8 offset-2">
                           <div class="form-group">
                             <label for="account_name">Account Name</label>
                             <input type="text" name="account_name" value="{{ $account->account_name }}" class="form-control" id="account_name" placeholder="Enter Account Name">
                           </div>
-                        </div>
-                        <div class="col-md-4">
                           <div class="form-group">
                             <label for="source">Source</label>
                             <input type="text" name="source" value="{{ $account->source }}" class="form-control" id="source" placeholder="Ex. upwork">
                           </div>
-                        </div>
-                        <div class="col-md-4">
                           <div class="form-group">
                             <label for="account_link">Account Link</label>
                             <input type="text" name="account_link" value="{{ $account->account_link }}" class="form-control" id="account_link" placeholder="Enter Account Link">
                           </div>
+                          <div class="form-group">
+                            <label for="franchise">Franchise <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{$value->id}}" {{($account->franchise_id == $value->id)? 'selected':''}}>{{$value->username}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>

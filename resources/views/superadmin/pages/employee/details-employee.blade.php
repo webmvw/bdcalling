@@ -91,6 +91,59 @@
                   <br>
                   <br>
                   <div class="row">
+                    <div class="col-md-6">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Employee NID Front Image</h3>
+                        </div>
+                        <div class="card-body">
+                          @if($getEmployee->nid_front_image == null)
+                          <img src="{{ asset('public/img/noimage.png') }}" style="width: 200px;height: 200px;" alt="user image">
+                          @else
+                          <img src="{{ asset('public/img/employee/nid/'.$getEmployee->nid_front_image) }}" style="width: 100%;height: 200px;" alt="user image">
+                          @endif
+                        </div>
+                        <div class="card-footer"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Employee NID Back Image</h3>
+                        </div>
+                        <div class="card-body">
+                          @if($getEmployee->nid_back_image == null)
+                          <img src="{{ asset('public/img/noimage.png') }}" style="width: 200px;height: 200px;" alt="user image">
+                          @else
+                          <img src="{{ asset('public/img/employee/nid/'.$getEmployee->nid_back_image) }}" style="width: 100%;height: 200px;" alt="user image">
+                          @endif
+                        </div>
+                        <div class="card-footer"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-8 offset-2">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Employee Resume View</h3>
+                        </div>
+                        <div class="card-body">
+                          @if($getEmployee->cv == null)
+                          <img src="{{ asset('public/img/noimage.png') }}" style="width: 200px;height: 200px;" alt="user image">
+                          @else
+                           <embed src="{{ asset('public/img/employee/cv/'.$getEmployee->cv) }}" type="application/pdf" width="100%" height="500px" />
+                          @endif
+                        </div>
+                        <div class="card-footer"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="row">
                     <div class="col-md-12">
                       <h4>Add Increment</h4>
                       <hr>

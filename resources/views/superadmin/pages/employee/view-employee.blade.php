@@ -49,6 +49,7 @@
                       <th>Role</th>
                       <th>Designation</th>
                       <th>Department</th>
+                      <th>Franchise</th>
                       <th>Phone</th>
                       <th>Email</th>
                       <th>Address</th>
@@ -74,6 +75,7 @@
                           <td>{{ $value->role->name }}</td>
                           <td>{{ $value->designation->name }}</td>
                           <td>{{ $value->department->name }}</td>
+                          <td>{{ $value->franchise->username }}</td>
                           <td>0{{ $value->mobile }}</td>
                           <td>{{ $value->email }}</td>
                           <td>{{ $value->address }}</td>
@@ -103,6 +105,7 @@
                         <th>Role</th>
                         <th>Designation</th>
                         <th>Department</th>
+                        <th>Franchise</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Address</th>

@@ -33,7 +33,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">All KAM Operation List</h3>
+                <h3 class="card-title">Franchise Owner List</h3>
                 <a href="{{ route('employee.add') }}" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Add Employee</a>
               </div>
               
@@ -49,6 +49,7 @@
                       <th>Role</th>
                       <th>Designation</th>
                       <th>Department</th>
+                      <th>Franchise</th>
                       <th>Phone</th>
                       <th>Email</th>
                       <th>Address</th>
@@ -74,6 +75,7 @@
                           <td>{{ $value->role->name }}</td>
                           <td>{{ $value->designation->name }}</td>
                           <td>{{ $value->department->name }}</td>
+                          <td>{{ $value->franchise->username }}</td>
                           <td>0{{ $value->mobile }}</td>
                           <td>{{ $value->email }}</td>
                           <td>{{ $value->address }}</td>
@@ -103,6 +105,7 @@
                         <th>Role</th>
                         <th>Designation</th>
                         <th>Department</th>
+                        <th>Franchise</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Address</th>

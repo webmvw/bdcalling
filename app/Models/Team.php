@@ -12,5 +12,9 @@ class Team extends Model
 	public function department(){
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
+
+    public function franchise(){
+    	return $this->belongsTo(Franchise::class, 'franchise_id', 'id');
+    }
 	
 }

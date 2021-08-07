@@ -46,30 +46,34 @@
                     <div class="card-body">
                       @include('superadmin.partials.message')
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-8 offset-2">
                           <div class="form-group">
-                            <label for="account_name">Account Name</label>
-                            <input type="text" name="account_name" class="form-control" id="account_name" placeholder="Enter Account Name">
+                            <label for="account_name">Account Name <span style="color:red">*</span></label>
+                            <input type="text" name="account_name" class="form-control form-control-sm" id="account_name" placeholder="Enter Account Name">
                           </div>
-                        </div>
-                        <div class="col-md-4">
                           <div class="form-group">
-                            <label for="source">Source</label>
-                            <input type="text" name="source" class="form-control" id="source" placeholder="Ex. upwork">
+                            <label for="source">Source <span style="color:red">*</span></label>
+                            <input type="text" name="source" class="form-control form-control-sm" id="source" placeholder="Ex. upwork">
                           </div>
-                        </div>
-                        <div class="col-md-4">
                           <div class="form-group">
-                            <label for="account_link">Account Link</label>
-                            <input type="text" name="account_link" class="form-control" id="account_link" placeholder="Enter Account Link">
+                            <label for="account_link">Account Link <span style="color:red">*</span></label>
+                            <input type="text" name="account_link" class="form-control form-control-sm" id="account_link" placeholder="Enter Account Link">
                           </div>
+                          <div class="form-group">
+                            <label for="franchise">Franchise <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{$value->id}}">{{$value->username}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>
@@ -96,6 +100,9 @@ $(function () {
       account_link: {
         required: true,
       },
+      franchise: {
+        required: true,
+      },
     },
     messages: {
       account_name: {
@@ -106,6 +113,9 @@ $(function () {
       },
       account_link: {
         required: "Please enter account link"
+      },
+      franchise: {
+        required: "Please select Franchise"
       },
     },
     errorElement: 'span',

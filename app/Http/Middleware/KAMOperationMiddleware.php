@@ -17,7 +17,7 @@ class KAMOperationMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role_id == 5){
+        if(Auth::check() && Auth::user()->role_id == 6){
             return $next($request);
         }else{
             return redirect()->route('login');

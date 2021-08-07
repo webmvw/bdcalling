@@ -11,6 +11,7 @@ use App\Models\Designation;
 use App\Models\Grade;
 use App\Models\EmployeeSalaryLog;
 use App\Models\Role;
+use App\Models\Franchise;
 use File;
 use DB;
 
@@ -22,7 +23,7 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function view(){
-        $allData = User::whereIn('role_id', [2,3,4,5])->orderBy('id', 'desc')->get();
+        $allData = User::whereIn('role_id', [2,3,4,5,6,7])->orderBy('id', 'desc')->get();
     	return view('superadmin.pages.employee.view-employee', compact('allData'));
     }
 
@@ -38,7 +39,8 @@ class EmployeeController extends Controller
         $data['department'] = Department::all();
         $data['designation'] = Designation::all();
         $data['grades'] = Grade::all();
-        $data['roles'] = Role::all();
+        $data['roles'] = Role::whereIn('id', [2,3,4,5,6,7])->get();
+        $data['franchises'] = Franchise::all();
     	return view('superadmin.pages.employee.add-employee', $data);
     }
 
@@ -104,7 +106,14 @@ class EmployeeController extends Controller
             $user->department_id = $request->department;
             $user->designation_id = $request->designation;
             $user->grade_id = $request->grade;
+            $user->franchise_id = $request->franchise;
             $user->salary = $request->salary;
+            $user->nid_number = $request->nid_number;
+            $user->bank_account_holder_name = $request->account_holder_name;
+            $user->bank_account_number = $request->account_number;
+            $user->bank_name = $request->bank_name;
+            $user->branch_name = $request->branch_name;
+            $user->routing_number = $request->routing_number;
             $user->role_id = $request->role;
             $user->status = '1';
             if($request->hasfile('image')){
@@ -112,6 +121,24 @@ class EmployeeController extends Controller
                 $filename = time().$file->getClientOriginalName();
                 $file->move('public/img/employee/',$filename);
                 $user->image = $filename;
+            }
+            if($request->hasfile('nid_front_image')){
+                $file = $request->file('nid_front_image');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/img/employee/nid',$filename);
+                $user->nid_front_image = $filename;
+            }
+            if($request->hasfile('nid_back_image')){
+                $file = $request->file('nid_back_image');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/img/employee/nid',$filename);
+                $user->nid_back_image = $filename;
+            }
+            if($request->hasfile('cv')){
+                $file = $request->file('cv');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/img/employee/cv',$filename);
+                $user->cv = $filename;
             }
             $user->save();
             // end insert Employee data in user model
@@ -146,7 +173,8 @@ class EmployeeController extends Controller
         $data['department'] = Department::all();
         $data['designation'] = Designation::all();
         $data['grades'] = Grade::all();
-        $data['roles'] = Role::all();
+        $data['roles'] = Role::whereIn('id', [2,3,4,5,6,7])->get();
+        $data['franchises'] = Franchise::all();
         return view('superadmin.pages.employee.edit-employee', $data);
     }
 
@@ -181,7 +209,14 @@ class EmployeeController extends Controller
             $user->department_id = $request->department;
             $user->designation_id = $request->designation;
             $user->grade_id = $request->grade;
+            $user->franchise_id = $request->franchise;
             $user->salary = $request->salary;
+            $user->nid_number = $request->nid_number;
+            $user->bank_account_holder_name = $request->account_holder_name;
+            $user->bank_account_number = $request->account_number;
+            $user->bank_name = $request->bank_name;
+            $user->branch_name = $request->branch_name;
+            $user->routing_number = $request->routing_number;
             if($request->hasfile('image')){
                 if(File::exists('public/img/employee/'.$user->image)){
                     File::delete('public/img/employee/'.$user->image);
@@ -190,6 +225,33 @@ class EmployeeController extends Controller
                 $filename = time().$file->getClientOriginalName();
                 $file->move('public/img/employee/',$filename);
                 $user->image = $filename;
+            }
+            if($request->hasfile('nid_front_image')){
+                if(File::exists('public/img/employee/nid'.$user->nid_front_image)){
+                    File::delete('public/img/employee/nid'.$user->nid_front_image);
+                }
+                $file = $request->file('nid_front_image');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/img/employee/nid',$filename);
+                $user->nid_front_image = $filename;
+            }
+            if($request->hasfile('nid_back_image')){
+                if(File::exists('public/img/employee/nid'.$user->nid_back_image)){
+                    File::delete('public/img/employee/nid'.$user->nid_back_image);
+                }
+                $file = $request->file('nid_back_image');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/img/employee/nid',$filename);
+                $user->nid_back_image = $filename;
+            }
+            if($request->hasfile('cv')){
+                if(File::exists('public/img/employee/cv'.$user->cv)){
+                    File::delete('public/img/employee/cv'.$user->cv);
+                }
+                $file = $request->file('cv');
+                $filename = time().$file->getClientOriginalName();
+                $file->move('public/img/employee/cv',$filename);
+                $user->cv = $filename;
             }
             $user->save();
             // end insert Employee data in user model
@@ -248,41 +310,9 @@ class EmployeeController extends Controller
 
 
 
-
-
-    /**
-     * Display all admin listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function adminview(){
-        $allData = User::where('role_id', 2)->orderBy('id', 'desc')->get();
-        return view('superadmin.pages.employee.view-adminEmployee', compact('allData'));
-    }
-
-
-
-
-    /**
-     * Display kamsales listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function kamsalesview(){
-        $allData = User::where('role_id', 4)->orderBy('id', 'desc')->get();
-        return view('superadmin.pages.employee.view-kamsalesEmployee', compact('allData'));
-    }
-
-
-
-    /**
-     * Display kamoperation listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function kamoperationview(){
-        $allData = User::where('role_id', 5)->orderBy('id', 'desc')->get();
-        return view('superadmin.pages.employee.view-kamsalesEmployee', compact('allData'));
+    public function franchiseOwnerView(){
+        $allData = User::where('role_id', [3])->orderBy('id', 'desc')->get();
+        return view('superadmin.pages.employee.view-franchiseOwner', compact('allData'));
     }
 
 

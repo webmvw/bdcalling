@@ -22,4 +22,8 @@ class Account extends Model
         'account_link'
     ];
 
+    public function franchise(){
+        return $this->belongsTo(Franchise::class, 'franchise_id', 'id');
+    }
+
 }

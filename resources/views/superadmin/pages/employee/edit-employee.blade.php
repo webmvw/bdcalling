@@ -60,6 +60,10 @@
                             <input type="number" value="{{ $getEmployee->mobile }}" name="phone" class="form-control form-control-sm" id="phone" placeholder="Enter Phone">
                           </div>
                           <div class="form-group">
+                            <label for="nid_number">NID <span style="color:red">*</span></label>
+                            <input type="text" value="{{ $getEmployee->nid_number }}" name="nid_number" class="form-control form-control-sm" id="nid_number" placeholder="Enter NID Number">
+                          </div>
+                          <div class="form-group">
                             <label for="address">Address <span style="color:red">*</span></label>
                             <input type="text" name="address" value="{{ $getEmployee->address }}" class="form-control form-control-sm" id="address" placeholder="Enter Address">
                           </div>
@@ -116,6 +120,15 @@
                             </select>
                           </div>
                           <div class="form-group">
+                            <label for="franchise">Franchise</label>
+                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{$value->id}}" {{ ($getEmployee->franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
                             <label for="salary">Salary <span style="color:red">*</span></label>
                             <input type="number" name="salary" value="{{ $getEmployee->salary }}" class="form-control form-control-sm" id="salary" placeholder="Enter Salary">
                           </div>
@@ -128,6 +141,31 @@
                               @endforeach
                             </select>
                           </div>
+                          <br>
+                          <br>
+                          <span>Bank Account Details</span>
+                          <hr>
+                          <div class="form-group">
+                            <label for="account_holder_name">Account Holder Name</label>
+                            <input type="text" value="{{ $getEmployee->bank_account_holder_name }}" name="account_holder_name" id="account_holder_name" class="form-control form-control-sm" placeholder="Account Holder Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="account_number">Account Number</label>
+                            <input type="text" value="{{ $getEmployee->bank_account_number }}" name="account_number" id="account_number" class="form-control form-control-sm" placeholder="Account Number">
+                          </div>
+                          <div class="form-group">
+                            <label for="bank_name">Bank Name</label>
+                            <input type="text" value="{{ $getEmployee->bank_name }}" name="bank_name" id="bank_name" class="form-control form-control-sm" placeholder="Bank Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="branch_name">Branch Name</label>
+                            <input type="text" value="{{ $getEmployee->branch_name }}" name="branch_name" id="branch_name" class="form-control form-control-sm" placeholder="Branch Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="routing_number">Routing Number</label>
+                            <input type="text" value="{{ $getEmployee->routing_number }}" name="routing_number" id="routing_number" class="form-control form-control-sm" placeholder="Routing Number">
+                          </div>
+                          <br>
                           <div class="form-group">
                             <label for="image">Image</label>
                             <div class="row">
@@ -139,6 +177,51 @@
                                 <img id="showImage" src="{{ asset('public/img/employee/'.$getEmployee->image) }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
                                 @else
                                 <img id="showImage" src="{{ asset('public/img/user.png') }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
+                                @endif
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="nid_front_image">NID Front Image</label>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <input type="file" name="nid_front_image" id="nid_front_image" class="form-control form-control-sm">
+                              </div>
+                              <div class="col-md-8">
+                                @if($getEmployee->nid_front_image != null)
+                                <img id="showNid_front_image" src="{{ asset('public/img/employee/nid/'.$getEmployee->nid_front_image) }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
+                                @else
+                                <img id="showNid_front_image" src="{{ asset('public/img/noimage.png') }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
+                                @endif
+                                
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="nid_back_image">NID Back Image</label>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <input type="file" name="nid_back_image" id="nid_back_image" class="form-control form-control-sm">
+                              </div>
+                              <div class="col-md-8">
+                                @if($getEmployee->nid_back_image != null)
+                                <img id="showNid_front_image" src="{{ asset('public/img/employee/nid/'.$getEmployee->nid_back_image) }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
+                                @else
+                                <img id="showNid_back_image" src="{{ asset('public/img/noimage.png') }}" alt="user image" style="width:80px; height: 80px;border:1px solid #0069D9;padding:1px;">
+                                @endif
+                                
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="cv">CV <span style="color:red">*</span></label>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <input type="file" name="cv" id="cv" class="form-control form-control-sm">
+                              </div>
+                              <div class="col-md-8">
+                                @if($getEmployee->cv != null)
+                                <embed src="{{ asset('public/img/employee/cv/'.$getEmployee->cv) }}" type="application/pdf" width="60%" height="400px" />
                                 @endif
                               </div>
                             </div>

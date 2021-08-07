@@ -46,28 +46,34 @@
                     <div class="card-body">
                       @include('superadmin.partials.message')
                       <div class="row">
-                        <div class="col-md-6">
+                       <div class="col-md-8 offset-2">
                           <div class="form-group">
                             <label for="team_name">Name</label>
-                            <input type="text" value="{{ $getTeam->team_name }}" name="team_name" class="form-control" id="team_name" placeholder="Enter Name">
+                            <input type="text" value="{{ $getTeam->team_name }}" name="team_name" class="form-control form-control-sm" id="team_name" placeholder="Enter Name">
                           </div>
-                        </div>
-                        <div class="col-md-6">
                           <div class="form-group">
                             <label for="department_id">Department Code</label>
-                            <select name="department_id" id="department_id" class="form-control">
+                            <select name="department_id" id="department_id" class="form-control form-control-sm select2">
                               @foreach($getDepartment as $key=>$value)
                               <option value="{{$value->id}}" {{($value->id == $getTeam->department_id) ? 'selected' : ''}}>{{$value->name}}</option>
                               @endforeach
                             </select>
                           </div>
+                          <div class="form-group">
+                            <label for="franchise">Franchise <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{$value->id}}" {{ ($getTeam->franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>
@@ -89,11 +95,23 @@ $(function () {
         required: true,
         maxlength:60,
       },
+      department_id: {
+        required: true,
+      },
+      franchise: {
+        required: true,
+      },
     },
     messages: {
       team_name: {
         required: "Please enter name",
         maxlength: "Your name must be at least 60 characters long"
+      },
+      department_id: {
+        required: "Please select department"
+      },
+      franchise: {
+        required: "Please select franchise"
       },
     },
     errorElement: 'span',

@@ -18,7 +18,9 @@ class CreateAccountsTable extends Migration
             $table->string("account_name")->nullable();
             $table->string("source")->nullable();
             $table->string("account_link")->nullable();
+            $table->unsignedBigInteger("franchise_id")->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('franchise_id')->references('id')->on('franchises')->onDelete('cascade');
         });
     }
 
