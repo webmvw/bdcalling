@@ -68,6 +68,15 @@
                             <input type="text" name="address" class="form-control form-control-sm" id="address" placeholder="Enter Address">
                           </div>
                           <div class="form-group">
+                            <label for="franchise">Franchise </label>
+                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{$value->id}}">{{$value->username}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
                             <label for="department">Department <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="department" id="department">
                               <option value="">Select Department</option>
@@ -82,6 +91,15 @@
                               <option value="">Select Designation</option>
                               @foreach($designation as $key=>$value)
                                 <option value="{{$value->id}}">{{$value->name}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="grade">Grade <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="grade" id="grade">
+                              <option value="">Select Grade</option>
+                              @foreach($grades as $key=>$value)
+                                <option value="{{$value->id}}">{{$value->grade_name}}</option>
                               @endforeach
                             </select>
                           </div>
@@ -109,24 +127,6 @@
                           <div class="form-group">
                             <label for="join_date">Joining Date <span style="color:red">*</span></label>
                             <input type="date" name="join_date" class="form-control form-control-sm" id="join_date" placeholder="Joining Date">
-                          </div>
-                          <div class="form-group">
-                            <label for="grade">Grade <span style="color:red">*</span></label>
-                            <select class="form-control select2 form-control-sm" name="grade" id="grade">
-                              <option value="">Select Grade</option>
-                              @foreach($grades as $key=>$value)
-                                <option value="{{$value->id}}">{{$value->grade_name}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="franchise">Franchise </label>
-                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
-                              <option value="">Select Franchise</option>
-                              @foreach($franchises as $key=>$value)
-                                <option value="{{$value->id}}">{{$value->username}}</option>
-                              @endforeach
-                            </select>
                           </div>
                           <div class="form-group">
                             <label for="salary">Salary <span style="color:red">*</span></label>

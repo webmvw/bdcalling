@@ -29,10 +29,10 @@ class AccountController extends Controller
         ]);
 
     	$account = new Account;
-    	$account->account_name = $request->account_name;
-        $account->source = $request->source;
-        $account->account_link = $request->account_link;
-        $account->franchise_id = $request->franchise;
+    	$account->account_name = strip_tags($request->account_name);
+        $account->source = strip_tags($request->source);
+        $account->account_link = strip_tags($request->account_link);
+        $account->franchise_id = strip_tags($request->franchise);
     	$account->save();
     	return redirect()->route('owner.account.view')->with("success", "Account Added Successfully!!");
     }
@@ -56,10 +56,10 @@ class AccountController extends Controller
             'franchise' => "required"
         ]);
     	$account = Account::find($id);
-    	$account->account_name = $request->account_name;
-        $account->source = $request->source;
-        $account->account_link = $request->account_link;
-        $account->franchise_id = $request->franchise;
+    	$account->account_name = strip_tags($request->account_name);
+        $account->source = strip_tags($request->source);
+        $account->account_link = strip_tags($request->account_link);
+        $account->franchise_id = strip_tags($request->franchise);
     	$account->save();
     	return redirect()->route('owner.account.view')->with("success", "Account updated Successfully!!");
     }

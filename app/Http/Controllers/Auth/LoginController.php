@@ -33,6 +33,8 @@ class LoginController extends Controller
             return route('owner.dashboard');
         }elseif(Auth()->user()->role_id == 2){
             return route('superadmin.dashboard');
+        }elseif(Auth()->user()->role_id == 3){
+            return route('franchiseowner.dashboard');
         }elseif(Auth()->user()->role_id == 4){
             return route('admin.dashboard');
         }elseif(Auth()->user()->role_id == 7){

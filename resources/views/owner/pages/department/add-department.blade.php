@@ -55,6 +55,15 @@
                             <label for="department_code">Department Code</label>
                             <input type="number" name="department_code" id="department_code" placeholder="Department Code" class="form-control form-control-sm">
                           </div>
+                          <div class="form-group">
+                            <label for="franchise_id">Franchise</label>
+                            <select name="franchise_id" id="franchise_id" class="form-control form-control-sm select2">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{ $value->id }}">{{ $value->username }}</option>
+                              @endforeach
+                            </select>
+                          </div>
                           <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                         </div>
                       </div>
@@ -86,6 +95,9 @@ $(function () {
         required: true,
         number:true,
       },
+      franchise_id: {
+        required: true,
+      },
     },
     messages: {
       name: {
@@ -95,6 +107,9 @@ $(function () {
       department_code:{
         required: "Please enter department code",
         number: "Invalid department code",
+      },
+      franchise_id: {
+        required: "Please select Franchise",
       },
     },
     errorElement: 'span',

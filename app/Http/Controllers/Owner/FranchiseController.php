@@ -34,16 +34,16 @@ class FranchiseController extends Controller
         ]);
 
         $franchise = new Franchise;
-        $franchise->username = $request->username;
-        $franchise->nid_number = $request->nid_number;
-        $franchise->active_bank_account_details = $request->active_bank_account_details;
-        $franchise->account_name = $request->account_name;
-        $franchise->account_number = $request->account_number;
-        $franchise->bank_name = $request->bank_name;
-        $franchise->branch_name = $request->branch_name;
-        $franchise->address = $request->address;
-        $franchise->phone = $request->phone;
-        $franchise->location = $request->location;
+        $franchise->username = strip_tags($request->username);
+        $franchise->nid_number = strip_tags($request->nid_number);
+        $franchise->active_bank_account_details = strip_tags($request->active_bank_account_details);
+        $franchise->account_name = strip_tags($request->account_name);
+        $franchise->account_number = strip_tags($request->account_number);
+        $franchise->bank_name = strip_tags($request->bank_name);
+        $franchise->branch_name = strip_tags($request->branch_name);
+        $franchise->address = strip_tags($request->address);
+        $franchise->phone = strip_tags($request->phone);
+        $franchise->location = strip_tags($request->location);
         $franchise->save();
         return redirect()->route('owner.franchise.view')->with("success", "Franchise Added Successfully!!");
     }
@@ -72,16 +72,16 @@ class FranchiseController extends Controller
             'location' => 'required',
         ]);
         $franchise = Franchise::find($id);
-        $franchise->username = $request->username;
-        $franchise->nid_number = $request->nid_number;
-        $franchise->active_bank_account_details = $request->active_bank_account_details;
-        $franchise->account_name = $request->account_name;
-        $franchise->account_number = $request->account_number;
-        $franchise->bank_name = $request->bank_name;
-        $franchise->branch_name = $request->branch_name;
-        $franchise->address = $request->address;
-        $franchise->phone = $request->phone;
-        $franchise->location = $request->location;
+        $franchise->username = strip_tags($request->username);
+        $franchise->nid_number = strip_tags($request->nid_number);
+        $franchise->active_bank_account_details = strip_tags($request->active_bank_account_details);
+        $franchise->account_name = strip_tags($request->account_name);
+        $franchise->account_number = strip_tags($request->account_number);
+        $franchise->bank_name = strip_tags($request->bank_name);
+        $franchise->branch_name = strip_tags($request->branch_name);
+        $franchise->address = strip_tags($request->address);
+        $franchise->phone = strip_tags($request->phone);
+        $franchise->location = strip_tags($request->location);
         $franchise->save();
         return redirect()->route('owner.franchise.view')->with("success", "Franchise updated Successfully!!");
     }

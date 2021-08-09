@@ -44,6 +44,7 @@
                       <th>SL</th>
                       <th>Grade Name</th>
                       <th>Amount</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -53,6 +54,7 @@
                           <td>{{ $key+1 }}</td>
                           <td>{{ $value->grade_name }}</td>
                           <td>{{ $value->amount }}/=</td>
+                          <td>{{ $value->franchise->username }}</td>
                           <td>
                             <a href="{{ route('owner.grade.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                             <a href="{{ route('owner.grade.delete', $value->id) }}" onclick="return confirm('Are you sure to delete!');" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
@@ -66,6 +68,7 @@
                       <th>SL</th>
                       <th>Grade Name</th>
                       <th>Amount</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </tfoot>

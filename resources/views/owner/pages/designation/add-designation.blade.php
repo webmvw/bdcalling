@@ -46,20 +46,26 @@
                     <div class="card-body">
                       @include('owner.partials.message')
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8 offset-2">
                           <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name">
+                            <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="Enter Name">
                           </div>
-                        </div>
-                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="franchise_id">Franchise</label>
+                            <select name="franchise_id" id="franchise_id" class="form-control form-control-sm select2">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{ $value->id }}">{{ $value->username }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>
@@ -81,11 +87,17 @@ $(function () {
         required: true,
         maxlength:60,
       },
+      franchise_id: {
+        required: true,
+      },
     },
     messages: {
       name: {
         required: "Please enter semester name",
         maxlength: "Your name must be at least 60 characters long"
+      },
+      franchise_id: {
+        required: "Please select franchise",
       },
     },
     errorElement: 'span',

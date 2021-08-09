@@ -17,7 +17,9 @@ class CreateGradesTable extends Migration
             $table->id();
             $table->string("grade_name");
             $table->integer("amount");
+            $table->unsignedBigInteger("franchise_id")->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('franchise_id')->references('id')->on('franchises')->onDelete('cascade');
         });
     }
 

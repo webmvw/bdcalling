@@ -55,6 +55,15 @@
                             <label for="department_code">Department Code</label>
                             <input type="number" value="{{ $getDepartment->department_code }}" name="department_code" id="department_code" placeholder="Department Code" class="form-control form-control-sm">
                           </div>
+                          <div class="form-group">
+                            <label for="franchise_id">Franchise</label>
+                            <select name="franchise_id" id="franchise_id" class="form-control form-control-sm select2">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{ $value->id }}" {{ ($getDepartment->franchise_id == $value->id) ? 'selected' : '' }}>{{ $value->username }}</option>
+                              @endforeach
+                            </select>
+                          </div>
                           <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </div>
                       </div>
@@ -82,11 +91,25 @@ $(function () {
         required: true,
         maxlength:60,
       },
+      department_code:{
+        required: true,
+        number:true,
+      },
+      franchise_id: {
+        required: true,
+      },
     },
     messages: {
       name: {
         required: "Please enter name",
         maxlength: "Your name must be at least 60 characters long"
+      },
+      department_code:{
+        required: "Please enter department code",
+        number: "Invalid department code",
+      },
+      franchise_id: {
+        required: "Please select Franchise",
       },
     },
     errorElement: 'span',
@@ -102,7 +125,5 @@ $(function () {
     }
   });
 });
-</script>
-
 
 @endsection

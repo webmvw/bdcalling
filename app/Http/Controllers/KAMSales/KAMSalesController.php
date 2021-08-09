@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
 class KAMSalesController extends Controller

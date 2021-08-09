@@ -25,6 +25,8 @@ class RedirectIfAuthenticated
                 return redirect()->route('owner.dashboard');
             }elseif (Auth::guard($guard)->check() && Auth::user()->role->id == 2) {
                 return redirect()->route('superadmin.dashboard');
+            }elseif (Auth::guard($guard)->check() && Auth::user()->role->id == 3) {
+                return redirect()->route('franchiseowner.dashboard');
             }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 4){
                 return redirect()->route('admin.dashboard');
             }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 7){

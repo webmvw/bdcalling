@@ -55,6 +55,15 @@
                             <label for="amount">Amount</label>
                             <input type="number" value="{{ $getGrade->amount }}" name="amount" id="amount" placeholder="Grade Amount" class="form-control form-control-sm">
                           </div>
+                          <div class="form-group">
+                            <label class="franchise_id">Franchise</label>
+                            <select class="form-control form-control-sm select2" id="franchise_id" name="franchise_id">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                              <option value="{{ $value->id }}" {{($getGrade->franchise_id == $value->id)? 'selected': ''}}>{{ $value->username }}</option>
+                              @endforeach
+                            </select>
+                          </div>
                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </div>
                       </div>
@@ -74,7 +83,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <script>
+<script>
 $(function () {
   $('#quickForm').validate({
     rules: {
@@ -86,6 +95,9 @@ $(function () {
         required: true,
         number:true,
       },
+      franchise_id: {
+        required: true,
+      },
     },
     messages: {
       grade_name: {
@@ -95,6 +107,9 @@ $(function () {
       amount:{
         required: "Please enter grade amount",
         number: "Invalid amount. only number allowed",
+      },
+      franchise_id: {
+        required: "Please select Franchise",
       },
     },
     errorElement: 'span',

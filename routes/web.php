@@ -27,10 +27,10 @@ Auth::routes();
 
 /*
 |--------------------------------------------------------------------------
-|  Routes for admin
+|  Routes for owner
 |--------------------------------------------------------------------------
 |
-| this routes access for only admin
+| this routes access for only owner
 |
 */
 Route::group(['middleware' => ['owner', 'auth']], function(){
@@ -253,6 +253,48 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 
 
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  Routes for admin
+|--------------------------------------------------------------------------
+|
+| this routes access for only admin
+|
+*/
+Route::group(['middleware' => ['franchiseOwner', 'auth']], function(){
+	Route::get('franchiseOwner/dashboard', [App\Http\Controllers\FranchiseOwner\FranchiseOwnerController::class, 'index'])->name('franchiseowner.dashboard');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 |  Routes for admin
@@ -270,6 +312,23 @@ Route::group(['middleware' => ['admin', 'auth']], function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 |  Routes for user
@@ -282,6 +341,21 @@ Route::group(['middleware' => ['user', 'auth']], function(){
 	Route::get('user/dashboard', [App\Http\Controllers\User\UserController::class, 'index'])->name('user.dashboard');
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -307,6 +381,20 @@ Route::group(['middleware' => ['kamsales', 'auth']], function(){
 	});
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

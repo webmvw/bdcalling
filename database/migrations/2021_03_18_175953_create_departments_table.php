@@ -17,7 +17,9 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('department_code')->unique();
+            $table->unsignedBigInteger("franchise_id")->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('franchise_id')->references('id')->on('franchises')->onDelete('cascade');
         });
     }
 

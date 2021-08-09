@@ -53,7 +53,7 @@
                       <th>Phone</th>
                       <th>Email</th>
                       <th>Address</th>
-                      @if(Auth::user()->role_id == 1)
+                      @if(Auth::user()->role_id == 2)
                       <th>code</th>
                       @endif
                       <th style="width:12% !important">Action</th>
@@ -79,7 +79,7 @@
                           <td>0{{ $value->mobile }}</td>
                           <td>{{ $value->email }}</td>
                           <td>{{ $value->address }}</td>
-                          @if(Auth::user()->role_id == 1)
+                          @if(Auth::user()->role_id == 2)
                           <td>{{ $value->code }}</td>
                           @endif
                           <td>
@@ -109,7 +109,7 @@
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Address</th>
-                        @if(Auth::user()->role_id == 1)
+                        @if(Auth::user()->role_id == 2)
                         <th>code</th>
                         @endif
                         <th width="10%">Action</th>

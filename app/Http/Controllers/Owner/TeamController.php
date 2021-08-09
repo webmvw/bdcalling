@@ -12,7 +12,7 @@ use App\Models\Franchise;
 class TeamController extends Controller
 {
     public function view(){
-    	$allteams = Team::latest()->get();
+    	$allteams = Team::orderBy('id', 'desc')->get();
     	return view('owner.pages.team.view-team', compact('allteams'));
     }
 
@@ -25,15 +25,15 @@ class TeamController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'team_name' => 'required|unique:teams',
+            'team_name' => 'required',
             'department_id' => 'required',
             'franchise' => 'required',
         ]);
 
     	$team = new Team;
-    	$team->team_name = $request->team_name;
-        $team->department_id = $request->department_id;
-        $team->franchise_id = $request->franchise;
+    	$team->team_name = strip_tags($request->team_name);
+        $team->department_id = strip_tags($request->department_id);
+        $team->franchise_id = strip_tags($request->franchise);
     	$team->save();
     	return redirect()->route('owner.team.view')->with("success", "Team Added Successfully!!");
     }
@@ -51,17 +51,14 @@ class TeamController extends Controller
     public function update(Request $request, $id){
         // Form validation
         $request->validate([
-            'team_name'   =>  [
-                'required',
-                 Rule::unique('teams')->ignore($id),
-            ],
+            'team_name'   =>  'required',
             'department_id'   => 'required',
             'franchise' => 'required',
         ]);
     	$team = Team::find($id);
-    	$team->team_name = $request->team_name;
-        $team->department_id = $request->department_id;
-        $team->franchise_id = $request->franchise;
+    	$team->team_name = strip_tags($request->team_name);
+        $team->department_id = strip_tags($request->department_id);
+        $team->franchise_id = strip_tags($request->franchise);
     	$team->save();
     	return redirect()->route('owner.team.view')->with("success", "Team updated Successfully!!");
     }

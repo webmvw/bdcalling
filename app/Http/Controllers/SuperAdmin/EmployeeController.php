@@ -91,7 +91,7 @@ class EmployeeController extends Controller
 
             // start insert Employee data in user model
             $user = new User;
-            $code = rand(000000, 999999);
+            $code = rand(00000000, 99999999);
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($code);

@@ -6,16 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Department;
+use App\Models\Franchise;
 
 class DepartmentController extends Controller
 {
-    public function view(){
-    	$allDepartments = Department::latest()->get();
-    	return view('owner.pages.department.view-department', compact('allDepartments'));
+
+
+     public function view(){
+        $allDepartments = Department::orderBy('id', 'desc')->get();
+        return view('owner.pages.department.view-department', compact('allDepartments'));
     }
 
     public function add(){
-    	return view('owner.pages.department.add-department');
+        $data['franchises'] = Franchise::all();
+        return view('owner.pages.department.add-department', $data);
     }
 
     public function store(Request $request){
@@ -23,20 +27,24 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|unique:departments',
             'department_code' => 'required|unique:departments',
+            'franchise_id' => 'required',
         ]);
 
-    	$department = new Department;
-    	$department->name = $request->name;
-        $department->department_code = $request->department_code;
-    	$department->save();
-    	return redirect()->route('owner.department.view')->with("success", "Department Added Successfully!!");
+        $data = Department::insert([
+            'name' => strip_tags($request->name),
+            'department_code' => strip_tags($request->department_code),
+            'franchise_id' => strip_tags($request->franchise_id),
+        ]);
+        return redirect()->route('owner.department.view')->with('success', 'Department Added Success');
     }
 
 
     public function edit($id){
-    	$getDepartment = Department::find($id);
-    	return view('owner.pages.department.edit-department', compact('getDepartment'));
+        $data['getDepartment'] = Department::find($id);
+        $data['franchises'] = Franchise::all();
+        return view('owner.pages.department.edit-department', $data);
     }
+
 
     public function update(Request $request, $id){
         // Form validation
@@ -48,11 +56,13 @@ class DepartmentController extends Controller
             'department_code'   =>  [
                 'required',
                  Rule::unique('departments')->ignore($id),
-            ]
+            ],
+            'franchise_id' => 'required',
         ]);
     	$department = Department::find($id);
-    	$department->name = $request->name;
-        $department->department_code = $request->department_code;
+    	$department->name = strip_tags($request->name);
+        $department->department_code = strip_tags($request->department_code);
+        $department->franchise_id = strip_tags($request->franchise_id);
     	$department->save();
     	return redirect()->route('owner.department.view')->with("success", "Department updated Successfully!!");
     }

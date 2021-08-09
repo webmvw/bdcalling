@@ -43,6 +43,7 @@
                     <tr>
                       <th>SL</th>
                       <th>Name</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -51,6 +52,7 @@
                         <tr>
                           <td>{{ $key+1 }}</td>
                           <td>{{ $value->name }}</td>
+                          <td>{{ $value->franchise->username }}</td>
                           <td>
                             <a href="{{ route('owner.designation.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                             <a href="{{ route('owner.designation.delete', $value->id) }}" onclick="return confirm('Are you sure to delete!');" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
@@ -63,6 +65,7 @@
                     <tr>
                       <th>SL</th>
                       <th>Name</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </tfoot>

@@ -6,50 +6,54 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Grade;
+use App\Models\Franchise;
 
 class GradeController extends Controller
 {
     public function view(){
-    	$allGrades = Grade::get();
+    	$allGrades = Grade::orderBy('id', 'desc')->get();
     	return view('owner.pages.grade.view-grade', compact('allGrades'));
     }
 
     public function add(){
-    	return view('owner.pages.grade.add-grade');
+        $data['franchises'] = Franchise::all();
+    	return view('owner.pages.grade.add-grade', $data);
     }
 
     public function store(Request $request){
 
         $request->validate([
-            'grade_name' => 'required|unique:grades',
+            'grade_name' => 'required',
             'amount' => 'required',
+            'franchise_id' => 'required',
         ]);
 
     	$grade = new Grade;
-    	$grade->grade_name = $request->grade_name;
-        $grade->amount = $request->amount;
+    	$grade->grade_name = strip_tags($request->grade_name);
+        $grade->amount = strip_tags($request->amount);
+        $grade->franchise_id = strip_tags($request->franchise_id);
     	$grade->save();
     	return redirect()->route('owner.grade.view')->with("success", "Grade Added Successfully!!");
     }
 
 
     public function edit($id){
-    	$getGrade = Grade::find($id);
-    	return view('owner.pages.grade.edit-grade', compact('getGrade'));
+    	$data['getGrade'] = Grade::find($id);
+        $data['franchises'] = Franchise::all();
+    	return view('owner.pages.grade.edit-grade', $data);
     }
 
     public function update(Request $request, $id){
         // Form validation
         $request->validate([
-            'grade_name'   =>  [
-                'required',
-                 Rule::unique('grades')->ignore($id),
-            ],
-            'amount' => 'required',  
+            'grade_name'   =>  'required',
+            'amount' => 'required',
+            'franchise_id' => 'required',
         ]);
     	$grade = Grade::find($id);
-    	$grade->grade_name = $request->grade_name;
-        $grade->amount = $request->amount;
+    	$grade->grade_name = strip_tags($request->grade_name);
+        $grade->amount = strip_tags($request->amount);
+        $grade->franchise_id = strip_tags($request->franchise_id);
     	$grade->save();
     	return redirect()->route('owner.grade.view')->with("success", "Grade updated Successfully!!");
     }
