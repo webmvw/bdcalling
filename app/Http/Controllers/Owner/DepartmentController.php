@@ -13,9 +13,20 @@ class DepartmentController extends Controller
 
 
      public function view(){
-        $allDepartments = Department::orderBy('id', 'desc')->get();
-        return view('owner.pages.department.view-department', compact('allDepartments'));
+        $data['franchises'] = Franchise::all();
+        $data['allDepartments'] = Department::orderBy('id', 'desc')->get();
+        return view('owner.pages.department.view-department', $data);
     }
+
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allDepartments'] = Department::where('franchise_id', $request->franchise_id)->get();
+       return view('owner.pages.department.view-department', $data);
+    }
+
+
 
     public function add(){
         $data['franchises'] = Franchise::all();
@@ -25,7 +36,7 @@ class DepartmentController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'name' => 'required|unique:departments',
+            'name' => 'required',
             'department_code' => 'required|unique:departments',
             'franchise_id' => 'required',
         ]);
@@ -49,10 +60,7 @@ class DepartmentController extends Controller
     public function update(Request $request, $id){
         // Form validation
         $request->validate([
-            'name'   =>  [
-                'required',
-                 Rule::unique('departments')->ignore($id),
-            ],
+            'name'   => 'required',
             'department_code'   =>  [
                 'required',
                  Rule::unique('departments')->ignore($id),
@@ -72,4 +80,9 @@ class DepartmentController extends Controller
     	$getDepartment->delete();
     	return redirect()->route('owner.department.view')->with("success", "Department deleted Successfully!!");
     }
+
+
+
+
+
 }

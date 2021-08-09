@@ -11,9 +11,20 @@ use App\Models\Franchise;
 class AccountController extends Controller
 {
      public function view(){
-    	$allAccount = Account::latest()->get();
-    	return view('owner.pages.account.view-account', compact('allAccount'));
+        $data['franchises'] = Franchise::all(); 
+    	$data['allAccount'] = Account::latest()->get();
+    	return view('owner.pages.account.view-account', $data);
     }
+
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allAccount'] = Account::where('franchise_id', $request->franchise_id)->get();
+       return view('owner.pages.account.view-account', $data);
+    }
+
+
 
     public function add(){
         $data['franchises'] = Franchise::all();

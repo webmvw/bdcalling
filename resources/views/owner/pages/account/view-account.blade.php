@@ -38,6 +38,26 @@
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
+                  <form action="{{ route('owner.account.search') }}" method="post" class="row">
+                    @csrf
+                    <div class="form-group col-md-4">
+                      <label for="franchise_id">Franchise</label>
+                      <select class="form-control form-control-sm select2" name="franchise_id" id="franchise_id">
+                        <option value="">Select Franchise</option>
+                        @foreach($franchises as $key=>$value)
+                        <option value="{{ $value->id }}" {{ (@$franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-sm btn-info" type="submit" name="search" style="margin-top:32px">Search</button>
+                    </div>
+                    <div class="col-md-6"></div>
+                  </form>
+                  <br>
+                  <hr>
+                  <br>
+                  @if(!@search)
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                     <tr>
@@ -76,6 +96,46 @@
                     </tr>
                     </tfoot>
                   </table>
+                  @else
+                  <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                      <th>SL</th>
+                      <th>Account Name</th>
+                      <th>Source</th>
+                      <th>Account Link</th>
+                      <th>Franchise</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($allAccount as $key=>$value)
+                        <tr>
+                          <td>{{ $key+1 }}</td>
+                          <td>{{ $value->account_name }}</td>
+                          <td>{{ $value->source }}</td>
+                          <td>{{ $value->account_link }}</td>
+                          <td>{{ $value->franchise->username }}</td>
+                          <td>
+                            <a href="{{ route('owner.account.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('owner.account.delete', $value->id) }}" onclick="return confirm('Are you sure to delete!');" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                      <th>SL</th>
+                      <th>Account Name</th>
+                      <th>Source</th>
+                      <th>Account Link</th>
+                      <th>Franchise</th>
+                      <th>Action</th>
+                    </tr>
+                    </tfoot>
+                  </table>
+                  @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>

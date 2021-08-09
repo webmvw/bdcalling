@@ -11,9 +11,20 @@ use App\Models\Franchise;
 class GradeController extends Controller
 {
     public function view(){
-    	$allGrades = Grade::orderBy('id', 'desc')->get();
-    	return view('owner.pages.grade.view-grade', compact('allGrades'));
+        $data['franchises'] = Franchise::all();
+    	$data['allGrades'] = Grade::orderBy('id', 'desc')->get();
+    	return view('owner.pages.grade.view-grade', $data);
     }
+
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allGrades'] = Grade::where('franchise_id', $request->franchise_id)->get();
+       return view('owner.pages.grade.view-grade', $data);
+    }
+
+
 
     public function add(){
         $data['franchises'] = Franchise::all();

@@ -15,7 +15,7 @@ class CreateDesignationsTable extends Migration
     {
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->unsignedBigInteger("franchise_id")->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('franchise_id')->references('id')->on('franchises')->onDelete('cascade');

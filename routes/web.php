@@ -38,8 +38,11 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 
 	// setups management
 	Route::group(['prefix' => 'setups'], function(){
+
+
 		// department
 		Route::get('owner/department/view', [App\Http\Controllers\Owner\DepartmentController::class, 'view'])->name('owner.department.view');
+		Route::post('owner/department/search', [App\Http\Controllers\Owner\DepartmentController::class, 'search'])->name('owner.department.search');
 		Route::get('owner/department/add', [App\Http\Controllers\Owner\DepartmentController::class, 'add'])->name('owner.department.add');
 		Route::post('owner/department/store', [App\Http\Controllers\Owner\DepartmentController::class, 'store'])->name('owner.department.store');
 		Route::get('owner/department/edit/{id}', [App\Http\Controllers\Owner\DepartmentController::class, 'edit'])->name('owner.department.edit');
@@ -47,8 +50,9 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 		Route::get('owner/department/delete/{id}', [App\Http\Controllers\Owner\DepartmentController::class, 'delete'])->name('owner.department.delete');
 
 
-		// department
+		// team
 		Route::get('owner/team/view', [App\Http\Controllers\Owner\TeamController::class, 'view'])->name('owner.team.view');
+		Route::post('owner/team/search', [App\Http\Controllers\Owner\TeamController::class, 'search'])->name('owner.team.search');
 		Route::get('owner/team/add', [App\Http\Controllers\Owner\TeamController::class, 'add'])->name('owner.team.add');
 		Route::post('owner/team/store', [App\Http\Controllers\Owner\TeamController::class, 'store'])->name('owner.team.store');
 		Route::get('owner/team/edit/{id}', [App\Http\Controllers\Owner\TeamController::class, 'edit'])->name('owner.team.edit');
@@ -58,6 +62,7 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 
 		// for designation
 		Route::get('owner/designation/view', [App\Http\Controllers\Owner\DesignationController::class, 'view'])->name('owner.designation.view');
+		Route::post('owner/designation/search', [App\Http\Controllers\Owner\DesignationController::class, 'search'])->name('owner.designation.search');
 		Route::get('owner/designation/add', [App\Http\Controllers\Owner\DesignationController::class, 'add'])->name('owner.designation.add');
 		Route::post('owner/designation/store', [App\Http\Controllers\Owner\DesignationController::class, 'store'])->name('owner.designation.store');
 		Route::get('owner/designation/edit/{id}', [App\Http\Controllers\Owner\DesignationController::class, 'edit'])->name('owner.designation.edit');
@@ -67,6 +72,7 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 
 		// for grade
 		Route::get('owner/grade/view', [App\Http\Controllers\Owner\GradeController::class, 'view'])->name('owner.grade.view');
+		Route::post('owner/grade/search', [App\Http\Controllers\Owner\GradeController::class, 'search'])->name('owner.grade.search');
 		Route::get('owner/grade/add', [App\Http\Controllers\Owner\GradeController::class, 'add'])->name('owner.grade.add');
 		Route::post('owner/grade/store', [App\Http\Controllers\Owner\GradeController::class, 'store'])->name('owner.grade.store');
 		Route::get('owner/grade/edit/{id}', [App\Http\Controllers\Owner\GradeController::class, 'edit'])->name('owner.grade.edit');
@@ -76,6 +82,7 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 
 		// for account
 		Route::get('owner/account/view', [App\Http\Controllers\Owner\AccountController::class, 'view'])->name('owner.account.view');
+		Route::post('owner/account/search', [App\Http\Controllers\Owner\AccountController::class, 'search'])->name('owner.account.search');
 		Route::get('owner/account/add', [App\Http\Controllers\Owner\AccountController::class, 'add'])->name('owner.account.add');
 		Route::post('owner/account/store', [App\Http\Controllers\Owner\AccountController::class, 'store'])->name('owner.account.store');
 		Route::get('owner/account/edit/{id}', [App\Http\Controllers\Owner\AccountController::class, 'edit'])->name('owner.account.edit');
@@ -92,6 +99,7 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 
 	});
 
+	
 
 
 
@@ -106,6 +114,10 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 		Route::get('owner/employee/details/{id}', [App\Http\Controllers\Owner\EmployeeController::class, 'show'])->name('owner.employee.show');
 		Route::post('owner/salaryincrement/store', [App\Http\Controllers\Owner\EmployeeController::class, 'employeSalaryIncrement'])->name('owner.employee.salaryIncrement');
 		Route::get('owner/franchiseOwner/view', [App\Http\Controllers\Owner\EmployeeController::class, 'franchiseOwnerView'])->name('owner.franchiseOwner.view');
+
+		Route::get('owner/get/department', [App\Http\Controllers\Owner\EmployeeController::class, 'get_department'])->name('owner.get_department');
+		Route::get('owner/get/designation', [App\Http\Controllers\Owner\EmployeeController::class, 'get_designation'])->name('owner.get_designation');
+		Route::get('owner/get/grade', [App\Http\Controllers\Owner\EmployeeController::class, 'get_grade'])->name('owner.get_grade');
 
 	});
 

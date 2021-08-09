@@ -80,27 +80,18 @@
                             <label for="department">Department <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="department" id="department">
                               <option value="">Select Department</option>
-                              @foreach($department as $key=>$value)
-                                <option value="{{$value->id}}">{{$value->name}}</option>
-                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
                             <label for="designation">Designation <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="designation" id="designation">
                               <option value="">Select Designation</option>
-                              @foreach($designation as $key=>$value)
-                                <option value="{{$value->id}}">{{$value->name}}</option>
-                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
                             <label for="grade">Grade <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="grade" id="grade">
                               <option value="">Select Grade</option>
-                              @foreach($grades as $key=>$value)
-                                <option value="{{$value->id}}">{{$value->grade_name}}</option>
-                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
@@ -224,6 +215,67 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+
+
+
+<script type="text/javascript">
+      $(function(){
+        $.ajaxSetup({
+          headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $(document).on('change', '#franchise', function(){
+          var franchise_id = $(this).val();
+          $.ajax({
+            url:"{{ route('owner.get_department') }}",
+            type:"GET",
+            data:{franchise_id:franchise_id},
+            success:function(data){
+              var html = '<option value="">Select Department</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.name+'</option>';
+              });
+              $('#department').html(html);
+            }
+          });
+           $.ajax({
+            url:"{{ route('owner.get_designation') }}",
+            type:"GET",
+            data:{franchise_id:franchise_id},
+            success:function(data){
+              var html = '<option value="">Select Designation</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.name+'</option>';
+              });
+              $('#designation').html(html);
+            }
+          });
+           $.ajax({
+            url:"{{ route('owner.get_grade') }}",
+            type:"GET",
+            data:{franchise_id:franchise_id},
+            success:function(data){
+              var html = '<option value="">Select Grade</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.grade_name+'</option>';
+              });
+              $('#grade').html(html);
+            }
+          });  
+        });
+      });
+</script>
+
+
+
+
+
+
+
+
+
 
 <script>
 $(function () {

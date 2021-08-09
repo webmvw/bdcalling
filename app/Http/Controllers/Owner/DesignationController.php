@@ -11,9 +11,20 @@ use App\Models\Franchise;
 class DesignationController extends Controller
 {
      public function view(){
-    	$allDesignation = Designation::get();
-    	return view('owner.pages.designation.view-designation', compact('allDesignation'));
+        $data['franchises'] = Franchise::all();
+    	$data['allDesignation'] = Designation::get();
+    	return view('owner.pages.designation.view-designation', $data);
     }
+
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allDesignation'] = Designation::where('franchise_id', $request->franchise_id)->get();
+       return view('owner.pages.designation.view-designation', $data);
+    }
+
+
 
     public function add(){
         $data['franchises'] = Franchise::all();

@@ -12,9 +12,20 @@ use App\Models\Franchise;
 class TeamController extends Controller
 {
     public function view(){
-    	$allteams = Team::orderBy('id', 'desc')->get();
-    	return view('owner.pages.team.view-team', compact('allteams'));
+        $data['franchises'] = Franchise::all();
+    	$data['allteams'] = Team::orderBy('id', 'desc')->get();
+    	return view('owner.pages.team.view-team', $data);
     }
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allteams'] = Team::where('franchise_id', $request->franchise_id)->get();
+       return view('owner.pages.team.view-team', $data);
+    }
+
+
+
 
     public function add(){
         $data['departments'] = Department::all();

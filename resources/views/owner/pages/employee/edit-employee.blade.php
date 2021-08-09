@@ -68,21 +68,30 @@
                             <input type="text" name="address" value="{{ $getEmployee->address }}" class="form-control form-control-sm" id="address" placeholder="Enter Address">
                           </div>
                           <div class="form-group">
+                            <label for="franchise">Franchise</label>
+                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{$value->id}}" {{ ($getEmployee->franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
                             <label for="address">Department <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="department" id="department">
                               <option value="">Select Department</option>
-                              @foreach($department as $key=>$value)
-                                <option value="{{$value->id}}" {{ ($getEmployee->department_id == $value->id)? 'selected': '' }}>{{$value->name}}</option>
-                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
                             <label for="address">Designation <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="designation" id="designation">
                               <option value="">Select Designation</option>
-                              @foreach($designation as $key=>$value)
-                                <option value="{{$value->id}}" {{ ($getEmployee->designation_id == $value->id)? 'selected': '' }}>{{$value->name}}</option>
-                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="grade">Grade <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="grade" id="grade">
+                              <option value="">Select Grade</option>
                             </select>
                           </div>
                           <div class="form-group">
@@ -110,24 +119,7 @@
                             <label for="join_date">Joining Date <span style="color:red">*</span></label>
                             <input type="date" name="join_date" value="{{ $getEmployee->join_date }}" class="form-control form-control-sm" id="join_date" placeholder="Joining Date">
                           </div>
-                          <div class="form-group">
-                            <label for="grade">Grade <span style="color:red">*</span></label>
-                            <select class="form-control select2 form-control-sm" name="grade" id="grade">
-                              <option value="">Select Grade</option>
-                              @foreach($grades as $key=>$value)
-                                <option value="{{$value->id}}" {{ ($getEmployee->grade_id == $value->id)? 'selected': '' }}>{{$value->grade_name}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="franchise">Franchise</label>
-                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
-                              <option value="">Select Franchise</option>
-                              @foreach($franchises as $key=>$value)
-                                <option value="{{$value->id}}" {{ ($getEmployee->franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
-                              @endforeach
-                            </select>
-                          </div>
+                          
                           <div class="form-group">
                             <label for="salary">Salary <span style="color:red">*</span></label>
                             <input type="number" name="salary" value="{{ $getEmployee->salary }}" class="form-control form-control-sm" id="salary" placeholder="Enter Salary">
@@ -244,6 +236,63 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+
+
+
+<script type="text/javascript">
+      $(function(){
+        $.ajaxSetup({
+          headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $(document).on('change', '#franchise', function(){
+          var franchise_id = $(this).val();
+          $.ajax({
+            url:"{{ route('owner.get_department') }}",
+            type:"GET",
+            data:{franchise_id:franchise_id},
+            success:function(data){
+              var html = '<option value="">Select Department</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.name+'</option>';
+              });
+              $('#department').html(html);
+            }
+          });
+           $.ajax({
+            url:"{{ route('owner.get_designation') }}",
+            type:"GET",
+            data:{franchise_id:franchise_id},
+            success:function(data){
+              var html = '<option value="">Select Designation</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.name+'</option>';
+              });
+              $('#designation').html(html);
+            }
+          });
+           $.ajax({
+            url:"{{ route('owner.get_grade') }}",
+            type:"GET",
+            data:{franchise_id:franchise_id},
+            success:function(data){
+              var html = '<option value="">Select Grade</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.grade_name+'</option>';
+              });
+              $('#grade').html(html);
+            }
+          });  
+        });
+      });
+</script>
+
+
+
+
+
 
 <script>
 $(function () {

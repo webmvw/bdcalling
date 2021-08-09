@@ -46,6 +46,12 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{{ route('owner.franchise.view') }}" class="nav-link {{ ($route == 'owner.franchise.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Franchise</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('owner.department.view') }}" class="nav-link {{ ($route == 'owner.department.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Department</p>
@@ -73,12 +79,6 @@
                 <a href="{{ route('owner.account.view') }}" class="nav-link {{ ($route == 'owner.account.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Account</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('owner.franchise.view') }}" class="nav-link {{ ($route == 'owner.franchise.view') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Franchise</p>
                 </a>
               </li>
             </ul>
