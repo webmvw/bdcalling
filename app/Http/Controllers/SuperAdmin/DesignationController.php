@@ -6,46 +6,61 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Designation;
+use App\Models\Franchise;
 
 class DesignationController extends Controller
 {
      public function view(){
-    	$allDesignation = Designation::get();
-    	return view('superadmin.pages.designation.view-designation', compact('allDesignation'));
+        $data['franchises'] = Franchise::all(); 
+    	$data['allDesignation'] = Designation::orderBy('id', 'desc')->get();
+    	return view('superadmin.pages.designation.view-designation', $data);
     }
 
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allDesignation'] = Designation::where('franchise_id', $request->franchise_id)->orderBy('id', 'desc')->get();
+       return view('superadmin.pages.designation.view-designation', $data);
+    }
+
+
+
     public function add(){
-    	return view('superadmin.pages.designation.add-designation');
+         $data['franchises'] = Franchise::all();
+    	return view('superadmin.pages.designation.add-designation', $data);
     }
 
     public function store(Request $request){
 
         $request->validate([
-            'name' => 'required|unique:designations',
+            'name' => 'required',
+            'franchise_id' => 'required',
         ]);
 
     	$designation = new Designation;
-    	$designation->name = $request->name;
+    	$designation->name = strip_tags($request->name);
+        $designation->franchise_id = strip_tags($request->franchise_id);
     	$designation->save();
     	return redirect()->route('designation.view')->with("success", "Designation Added Successfully!!");
     }
 
 
     public function edit($id){
-    	$designation = Designation::find($id);
-    	return view('superadmin.pages.designation.edit-designation', compact('designation'));
+        $data['franchises'] = Franchise::all();
+    	$data['designation'] = Designation::find($id);
+    	return view('superadmin.pages.designation.edit-designation', $data);
     }
 
     public function update(Request $request, $id){
         // Form validation
         $request->validate([
-            'name'   =>  [
-                'required',
-                 Rule::unique('designations')->ignore($id),
-            ]
+            'name' => 'required',
+            'franchise_id' => 'required',
         ]);
     	$designation = Designation::find($id);
-    	$designation->name = $request->name;
+    	$designation->name = strip_tags($request->name);
+        $designation->franchise_id = strip_tags($request->franchise_id);
     	$designation->save();
     	return redirect()->route('designation.view')->with("success", "Designation updated Successfully!!");
     }

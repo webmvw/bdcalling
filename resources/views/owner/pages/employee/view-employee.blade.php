@@ -39,6 +39,26 @@
               
               <!-- /.card-header -->
                 <div class="card-body">
+                  <form action="{{ route('owner.employee.search') }}" method="post" class="row">
+                    @csrf
+                    <div class="form-group col-md-4">
+                      <label for="franchise_id">Franchise</label>
+                      <select class="form-control form-control-sm select2" name="franchise_id" id="franchise_id">
+                        <option value="">Select Franchise</option>
+                        @foreach($franchises as $key=>$value)
+                        <option value="{{ $value->id }}" {{ (@$franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-sm btn-info" type="submit" name="search" style="margin-top:32px">Search</button>
+                    </div>
+                    <div class="col-md-6"></div>
+                  </form>
+                  <br>
+                  <hr>
+                  <br>
+                  @if(!@search)
                   <table id="myTable" class="table table-sm table-bordered table-hover table-responsive">
                     <thead>
                     <tr>
@@ -116,6 +136,85 @@
                       </tr>
                     </tfoot>
                   </table>
+                  @else
+                  <table id="myTable" class="table table-sm table-bordered table-hover table-responsive">
+                    <thead>
+                    <tr>
+                      <th>SL</th>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>ID No</th>
+                      <th>Role</th>
+                      <th>Designation</th>
+                      <th>Department</th>
+                      <th>Franchise</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      @if(Auth::user()->role_id == 1)
+                      <th>code</th>
+                      @endif
+                      <th style="width:12% !important">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($allData as $key=>$value)
+                        <tr>
+                          <td>{{ $key+1 }}</td>
+                          <td>
+                            @if($value->image == null)
+                            <img src="{{ asset('public/img/user.png') }}" style="width: 50px;height: 50px;" alt="user image">
+                            @else
+                            <img src="{{ asset('public/img/employee/'.$value->image) }}" style="width: 60px;height: 60px;" alt="user image">
+                            @endif
+                          </td>
+                          <td>{{ $value->name }}</td>
+                          <td>{{ $value->id_no }}</td>
+                          <td>{{ $value->role->name }}</td>
+                          <td>{{ $value->designation->name }}</td>
+                          <td>{{ $value->department->name }}</td>
+                          <td>{{ $value->franchise->username }}</td>
+                          <td>0{{ $value->mobile }}</td>
+                          <td>{{ $value->email }}</td>
+                          <td>{{ $value->address }}</td>
+                          @if(Auth::user()->role_id == 1)
+                          <td>{{ $value->code }}</td>
+                          @endif
+                          <td>
+                            <a href="{{ route('owner.employee.show', $value->id) }}" title="View" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                            @php
+                            $checkincrement = App\Models\EmployeeSalaryLog::where('employee_id', $value->id)->OrderBy('id', 'desc')->first();
+                            $incrementValue = $checkincrement->increment_salary;
+                            @endphp
+                            @if($incrementValue == 0)
+                            <a href="{{ route('owner.employee.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            @endif
+                          </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>SL</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>ID No</th>
+                        <th>Role</th>
+                        <th>Designation</th>
+                        <th>Department</th>
+                        <th>Franchise</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        @if(Auth::user()->role_id == 1)
+                        <th>code</th>
+                        @endif
+                        <th width="10%">Action</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>

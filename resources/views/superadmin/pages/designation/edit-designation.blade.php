@@ -46,20 +46,26 @@
                     <div class="card-body">
                       @include('superadmin.partials.message')
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8 offset-2">
                           <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" value="{{ $designation->name }}" name="name" class="form-control" id="name" placeholder="Enter Name">
+                            <input type="text" value="{{ $designation->name }}" name="name" class="form-control form-control-sm" id="name" placeholder="Enter Name">
                           </div>
-                        </div>
-                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="franchise_id">Franchise</label>
+                            <select name="franchise_id" id="franchise_id" class="form-control form-control-sm select2">
+                              <option value="">Select Franchise</option>
+                              @foreach($franchises as $key=>$value)
+                                <option value="{{ $value->id }}" {{($designation->franchise_id == $value->id)?'selected':''}}>{{ $value->username }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
+                    <div class="card-footer"></div>
                   </form> 
 
               <div class="card-footer"></div>

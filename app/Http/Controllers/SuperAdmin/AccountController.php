@@ -11,8 +11,16 @@ use App\Models\Franchise;
 class AccountController extends Controller
 {
      public function view(){
-    	$allAccount = Account::latest()->get();
-    	return view('superadmin.pages.account.view-account', compact('allAccount'));
+        $data['franchises'] = Franchise::all();
+    	$data['allAccount'] = Account::orderBy('id', 'desc')->get();
+    	return view('superadmin.pages.account.view-account', $data);
+    }
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allAccount'] = Account::where('franchise_id', $request->franchise_id)->orderBy('id', 'desc')->get();
+       return view('superadmin.pages.account.view-account', $data);
     }
 
     public function add(){

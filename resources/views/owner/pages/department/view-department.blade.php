@@ -38,7 +38,7 @@
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
-                  <form action="{{ route('owner.department.search') }}" method="post" class="row">
+                  <form id="quickForm" action="{{ route('owner.department.search') }}" method="post" class="row">
                     @csrf
                     <div class="form-group col-md-4">
                       <label for="franchise_id">Franchise</label>
@@ -142,5 +142,36 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+
+<script>
+$(function () {
+  $('#quickForm').validate({
+    rules: {
+      franchise_id: {
+        required: true,
+      },
+    },
+    messages: {
+      franchise_id: {
+        required: "Please select Franchise",
+      },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>
+
+
 @endsection
 

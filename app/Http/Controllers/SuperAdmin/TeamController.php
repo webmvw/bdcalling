@@ -12,9 +12,19 @@ use App\Models\Franchise;
 class TeamController extends Controller
 {
     public function view(){
-    	$allteams = Team::latest()->get();
-    	return view('superadmin.pages.team.view-team', compact('allteams'));
+        $data['franchises'] = Franchise::all();
+    	$data['allteams'] = Team::orderBy('id', 'desc')->get();
+    	return view('superadmin.pages.team.view-team', $data);
     }
+
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allteams'] = Team::where('franchise_id', $request->franchise_id)->orderBy('id', 'desc')->get();
+       return view('superadmin.pages.team.view-team', $data);
+    }
+
 
     public function add(){
         $data['departments'] = Department::all();
@@ -24,15 +34,15 @@ class TeamController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'team_name' => 'required|unique:teams',
+            'team_name' => 'required',
             'department_id' => 'required',
             'franchise' => 'required',
         ]);
 
         $team = new Team;
-        $team->team_name = $request->team_name;
-        $team->department_id = $request->department_id;
-        $team->franchise_id = $request->franchise;
+        $team->team_name = strip_tags($request->team_name);
+        $team->department_id = strip_tags($request->department_id);
+        $team->franchise_id = strip_tags($request->franchise);
         $team->save();
     	return redirect()->route('team.view')->with("success", "Team Added Successfully!!");
     }
@@ -50,17 +60,14 @@ class TeamController extends Controller
     public function update(Request $request, $id){
         // Form validation
         $request->validate([
-            'team_name'   =>  [
-                'required',
-                 Rule::unique('teams')->ignore($id),
-            ],
+            'team_name'   => 'required',
             'department_id'   => 'required',
             'franchise' => 'required',
         ]);
         $team = Team::find($id);
-        $team->team_name = $request->team_name;
-        $team->department_id = $request->department_id;
-        $team->franchise_id = $request->franchise;
+        $team->team_name = strip_tags($request->team_name);
+        $team->department_id = strip_tags($request->department_id);
+        $team->franchise_id = strip_tags($request->franchise);
         $team->save();
     	return redirect()->route('team.view')->with("success", "Team updated Successfully!!");
     }

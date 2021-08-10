@@ -107,6 +107,7 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 	Route::group(['prefix' => 'employee_manage'], function(){
 		// for employee
 		Route::get('owner/employee/view', [App\Http\Controllers\Owner\EmployeeController::class, 'view'])->name('owner.employee.view');
+		Route::post('owner/employee/search', [App\Http\Controllers\Owner\EmployeeController::class, 'search'])->name('owner.employee.search');
 		Route::get('owner/employee/add', [App\Http\Controllers\Owner\EmployeeController::class, 'add'])->name('owner.employee.add');
 		Route::post('owner/employee/store', [App\Http\Controllers\Owner\EmployeeController::class, 'store'])->name('owner.employee.store');
 		Route::get('owner/employee/edit/{id}', [App\Http\Controllers\Owner\EmployeeController::class, 'edit'])->name('owner.employee.edit');
@@ -173,6 +174,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 	Route::group(['prefix' => 'setups'], function(){
 		// department
 		Route::get('/department/view', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'view'])->name('department.view');
+		Route::post('/department/search', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'search'])->name('department.search');
 		Route::get('/department/add', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'add'])->name('department.add');
 		Route::post('/department/store', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'store'])->name('department.store');
 		Route::get('/department/edit/{id}', [App\Http\Controllers\SuperAdmin\DepartmentController::class, 'edit'])->name('department.edit');
@@ -182,6 +184,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 		// department
 		Route::get('/team/view', [App\Http\Controllers\SuperAdmin\TeamController::class, 'view'])->name('team.view');
+		Route::post('/team/search', [App\Http\Controllers\SuperAdmin\TeamController::class, 'search'])->name('team.search');
 		Route::get('/team/add', [App\Http\Controllers\SuperAdmin\TeamController::class, 'add'])->name('team.add');
 		Route::post('/team/store', [App\Http\Controllers\SuperAdmin\TeamController::class, 'store'])->name('team.store');
 		Route::get('/team/edit/{id}', [App\Http\Controllers\SuperAdmin\TeamController::class, 'edit'])->name('team.edit');
@@ -191,6 +194,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 		// for designation
 		Route::get('/designation/view', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'view'])->name('designation.view');
+		Route::post('/designation/search', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'search'])->name('designation.search');
 		Route::get('/designation/add', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'add'])->name('designation.add');
 		Route::post('/designation/store', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'store'])->name('designation.store');
 		Route::get('/designation/edit/{id}', [App\Http\Controllers\SuperAdmin\DesignationController::class, 'edit'])->name('designation.edit');
@@ -200,6 +204,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 		// for grade
 		Route::get('/grade/view', [App\Http\Controllers\SuperAdmin\GradeController::class, 'view'])->name('grade.view');
+		Route::post('/grade/search', [App\Http\Controllers\SuperAdmin\GradeController::class, 'search'])->name('grade.search');
 		Route::get('/grade/add', [App\Http\Controllers\SuperAdmin\GradeController::class, 'add'])->name('grade.add');
 		Route::post('/grade/store', [App\Http\Controllers\SuperAdmin\GradeController::class, 'store'])->name('grade.store');
 		Route::get('/grade/edit/{id}', [App\Http\Controllers\SuperAdmin\GradeController::class, 'edit'])->name('grade.edit');
@@ -209,6 +214,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 		// for account
 		Route::get('/account/view', [App\Http\Controllers\SuperAdmin\AccountController::class, 'view'])->name('account.view');
+		Route::post('/account/search', [App\Http\Controllers\SuperAdmin\AccountController::class, 'search'])->name('account.search');
 		Route::get('/account/add', [App\Http\Controllers\SuperAdmin\AccountController::class, 'add'])->name('account.add');
 		Route::post('/account/store', [App\Http\Controllers\SuperAdmin\AccountController::class, 'store'])->name('account.store');
 		Route::get('/account/edit/{id}', [App\Http\Controllers\SuperAdmin\AccountController::class, 'edit'])->name('account.edit');

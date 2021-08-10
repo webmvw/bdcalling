@@ -23,9 +23,20 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function view(){
-        $allData = User::whereIn('role_id', [2,3,4,5,6,7])->orderBy('id', 'desc')->get();
-    	return view('owner.pages.employee.view-employee', compact('allData'));
+        $data['franchises'] = Franchise::all(); 
+        $data['allData'] = User::whereIn('role_id', [2,3,4,5,6,7])->orderBy('id', 'desc')->get();
+    	return view('owner.pages.employee.view-employee', $data);
     }
+
+
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allData'] = User::whereIn('role_id', [2,3,4,5,6,7])->where('franchise_id', $request->franchise_id)->get();
+       return view('owner.pages.employee.view-employee', $data);
+    }
+
+
 
 
     public function get_department(Request $request){

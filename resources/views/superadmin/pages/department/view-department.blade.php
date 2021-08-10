@@ -38,12 +38,33 @@
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
+                  <form id="quickForm" action="{{ route('department.search') }}" method="post" class="row">
+                    @csrf
+                    <div class="form-group col-md-4">
+                      <label for="franchise_id">Franchise</label>
+                      <select class="form-control form-control-sm select2" name="franchise_id" id="franchise_id">
+                        <option value="">Select Franchise</option>
+                        @foreach($franchises as $key=>$value)
+                        <option value="{{ $value->id }}" {{ (@$franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-sm btn-info" type="submit" name="search" style="margin-top:32px">Search</button>
+                    </div>
+                    <div class="col-md-6"></div>
+                  </form>
+                  <br>
+                  <hr>
+                  <br>
+                  @if(!@search)
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                     <tr>
                       <th>SL</th>
                       <th>Name</th>
                       <th>Department Code</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -53,6 +74,7 @@
                           <td>{{ $key+1 }}</td>
                           <td>{{ $value->name }}</td>
                           <td>{{ $value->department_code }}</td>
+                          <td>{{ $value->franchise->username }}</td>
                           <td>
                             <a href="{{ route('department.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                             <a href="{{ route('department.delete', $value->id) }}" onclick="return confirm('Are you sure to delete!');" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
@@ -66,10 +88,48 @@
                       <th>SL</th>
                       <th>Name</th>
                       <th>Department Code</th>
+                      <th>Franchise</th>
                       <th>Action</th>
                     </tr>
                     </tfoot>
                   </table>
+                  @else
+                  <table id="example1" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                      <th>SL</th>
+                      <th>Name</th>
+                      <th>Department Code</th>
+                      <th>Franchise</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($allDepartments as $key=>$value)
+                        <tr>
+                          <td>{{ $key+1 }}</td>
+                          <td>{{ $value->name }}</td>
+                          <td>{{ $value->department_code }}</td>
+                          <td>{{ $value->franchise->username }}</td>
+                          <td>
+                            <a href="{{ route('department.edit', $value->id) }}" title="Edit" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('department.delete', $value->id) }}" onclick="return confirm('Are you sure to delete!');" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                      <th>SL</th>
+                      <th>Name</th>
+                      <th>Department Code</th>
+                      <th>Franchise</th>
+                      <th>Action</th>
+                    </tr>
+                    </tfoot>
+                  </table>
+                  @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>
@@ -82,5 +142,38 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+
+<script>
+$(function () {
+  $('#quickForm').validate({
+    rules: {
+      franchise_id: {
+        required: true,
+      },
+    },
+    messages: {
+      franchise_id: {
+        required: "Please select Franchise",
+      },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>
+
+
+
+
 @endsection
 
