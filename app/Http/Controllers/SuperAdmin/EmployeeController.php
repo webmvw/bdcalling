@@ -23,10 +23,36 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function view(){
-        $allData = User::whereIn('role_id', [2,3,4,5,6,7])->orderBy('id', 'desc')->get();
-    	return view('superadmin.pages.employee.view-employee', compact('allData'));
+        $data['franchises'] = Franchise::all();
+        $data['allData'] = User::whereIn('role_id', [2,3,4,5,6,7])->orderBy('id', 'desc')->get();
+    	return view('superadmin.pages.employee.view-employee', $data);
     }
 
+    public function search(Request $request){
+       $data['franchises'] = Franchise::all(); 
+       $data['franchise_id'] = strip_tags($request->franchise_id);
+       $data['allData'] = User::whereIn('role_id', [2,3,4,5,6,7])->where('franchise_id', $request->franchise_id)->get();
+       return view('superadmin.pages.employee.view-employee', $data);
+    }
+
+
+    public function get_department(Request $request){
+        $franchise_id = $request->franchise_id;
+        $alldepartment = Department::where('franchise_id', $franchise_id)->get();
+        return response()->json($alldepartment, 200);
+    }
+
+    public function get_designation(Request $request){
+        $franchise_id = $request->franchise_id;
+        $alldesignation = Designation::where('franchise_id', $franchise_id)->get();
+        return response()->json($alldesignation, 200);
+    }
+
+    public function get_grade(Request $request){
+        $franchise_id = $request->franchise_id;
+        $allgrade = Grade::where('franchise_id', $franchise_id)->get();
+        return response()->json($allgrade, 200);
+    }
 
 
 
@@ -36,9 +62,6 @@ class EmployeeController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
     public function add(){
-        $data['department'] = Department::all();
-        $data['designation'] = Designation::all();
-        $data['grades'] = Grade::all();
         $data['roles'] = Role::whereIn('id', [2,3,4,5,6,7])->get();
         $data['franchises'] = Franchise::all();
     	return view('superadmin.pages.employee.add-employee', $data);
@@ -57,6 +80,10 @@ class EmployeeController extends Controller
 
         $request->validate([
             'email' => 'required|unique:users',
+            'image' => 'mimes:jpg,png',
+            'nid_front_image' => 'mimes:jpg,png',
+            'nid_back_image' => 'mimes:jpg,png',
+            'cv' => 'mimes:pdf',
         ]);
 
         DB::transaction(function() use($request){
@@ -92,29 +119,29 @@ class EmployeeController extends Controller
             // start insert Employee data in user model
             $user = new User;
             $code = rand(00000000, 99999999);
-            $user->name = $request->name;
-            $user->email = $request->email;
+            $user->name = strip_tags($request->name);
+            $user->email = strip_tags($request->email);
             $user->password = bcrypt($code);
-            $user->mobile = $request->phone;
-            $user->address = $request->address;
-            $user->gender = $request->gender;
-            $user->religion = $request->religion;
+            $user->mobile = strip_tags($request->phone);
+            $user->address = strip_tags($request->address);
+            $user->gender = strip_tags($request->gender);
+            $user->religion = strip_tags($request->religion);
             $user->id_no = $final_id_no;
-            $user->dob = date('Y-m-d', strtotime($request->dob));
+            $user->dob = date('Y-m-d', strtotime(strip_tags($request->dob)));
             $user->code = $code;
-            $user->join_date = date('Y-m-d', strtotime($request->join_date));
-            $user->department_id = $request->department;
-            $user->designation_id = $request->designation;
-            $user->grade_id = $request->grade;
-            $user->franchise_id = $request->franchise;
-            $user->salary = $request->salary;
-            $user->nid_number = $request->nid_number;
-            $user->bank_account_holder_name = $request->account_holder_name;
-            $user->bank_account_number = $request->account_number;
-            $user->bank_name = $request->bank_name;
-            $user->branch_name = $request->branch_name;
-            $user->routing_number = $request->routing_number;
-            $user->role_id = $request->role;
+            $user->join_date = date('Y-m-d', strtotime(strip_tags($request->join_date)));
+            $user->department_id = strip_tags($request->department);
+            $user->designation_id = strip_tags($request->designation);
+            $user->grade_id = strip_tags($request->grade);
+            $user->franchise_id = strip_tags($request->franchise);
+            $user->salary = strip_tags($request->salary);
+            $user->nid_number = strip_tags($request->nid_number);
+            $user->bank_account_holder_name = strip_tags($request->account_holder_name);
+            $user->bank_account_number = strip_tags($request->account_number);
+            $user->bank_name = strip_tags($request->bank_name);
+            $user->branch_name = strip_tags($request->branch_name);
+            $user->routing_number = strip_tags($request->routing_number);
+            $user->role_id = strip_tags($request->role);
             $user->status = '1';
             if($request->hasfile('image')){
                 $file = $request->file('image');
@@ -147,10 +174,10 @@ class EmployeeController extends Controller
             // start insert employee data in EmployeeSalaryLog model
             $employeeSalaryLog = new EmployeeSalaryLog;
             $employeeSalaryLog->employee_id = $user->id;
-            $employeeSalaryLog->previous_salary = $request->salary;
-            $employeeSalaryLog->present_salary = $request->salary;
+            $employeeSalaryLog->previous_salary = strip_tags($request->salary);
+            $employeeSalaryLog->present_salary = strip_tags($request->salary);
             $employeeSalaryLog->increment_salary = '0';
-            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime($request->join_date));
+            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime(strip_tags($request->join_date)));
             $employeeSalaryLog->save();
             // end insert employee data in EmployeeSalaryLog model
         });
@@ -170,9 +197,6 @@ class EmployeeController extends Controller
      */
     public function edit($id){
     	$data['getEmployee'] = User::find($id);
-        $data['department'] = Department::all();
-        $data['designation'] = Designation::all();
-        $data['grades'] = Grade::all();
         $data['roles'] = Role::whereIn('id', [2,3,4,5,6,7])->get();
         $data['franchises'] = Franchise::all();
         return view('superadmin.pages.employee.edit-employee', $data);
@@ -194,29 +218,33 @@ class EmployeeController extends Controller
                 'required',
                  Rule::unique('users')->ignore($id),
             ],
+            'image' => 'mimes:jpg,png',
+            'nid_front_image' => 'mimes:jpg,png',
+            'nid_back_image' => 'mimes:jpg,png',
+            'cv' => 'mimes:pdf',
         ]);
         DB::transaction(function() use($request, $id){
             // start insert Employee data in user model
             $user = User::find($id);
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->mobile = $request->phone;
-            $user->address = $request->address;
-            $user->gender = $request->gender;
-            $user->religion = $request->religion;
-            $user->dob = date('Y-m-d', strtotime($request->dob));
-            $user->join_date = date('Y-m-d', strtotime($request->join_date));
-            $user->department_id = $request->department;
-            $user->designation_id = $request->designation;
-            $user->grade_id = $request->grade;
-            $user->franchise_id = $request->franchise;
-            $user->salary = $request->salary;
-            $user->nid_number = $request->nid_number;
-            $user->bank_account_holder_name = $request->account_holder_name;
-            $user->bank_account_number = $request->account_number;
-            $user->bank_name = $request->bank_name;
-            $user->branch_name = $request->branch_name;
-            $user->routing_number = $request->routing_number;
+            $user->name = strip_tags($request->name);
+            $user->email = strip_tags($request->email);
+            $user->mobile = strip_tags($request->phone);
+            $user->address = strip_tags($request->address);
+            $user->gender = strip_tags($request->gender);
+            $user->religion = strip_tags($request->religion);
+            $user->dob = date('Y-m-d', strtotime(strip_tags($request->dob)));
+            $user->join_date = date('Y-m-d', strtotime(strip_tags($request->join_date)));
+            $user->department_id = strip_tags($request->department);
+            $user->designation_id = strip_tags($request->designation);
+            $user->grade_id = strip_tags($request->grade);
+            $user->franchise_id = strip_tags($request->franchise);
+            $user->salary = strip_tags($request->salary);
+            $user->nid_number = strip_tags($request->nid_number);
+            $user->bank_account_holder_name = strip_tags($request->account_holder_name);
+            $user->bank_account_number = strip_tags($request->account_number);
+            $user->bank_name = strip_tags($request->bank_name);
+            $user->branch_name = strip_tags($request->branch_name);
+            $user->routing_number = strip_tags($request->routing_number);
             if($request->hasfile('image')){
                 if(File::exists('public/img/employee/'.$user->image)){
                     File::delete('public/img/employee/'.$user->image);
@@ -259,9 +287,9 @@ class EmployeeController extends Controller
 
            // start update employee data in EmployeeSalaryLog model
             $employeeSalaryLog = EmployeeSalaryLog::where('employee_id', $id)->first();
-            $employeeSalaryLog->previous_salary = $request->salary;
-            $employeeSalaryLog->present_salary = $request->salary;
-            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime($request->join_date));
+            $employeeSalaryLog->previous_salary = strip_tags($request->salary);
+            $employeeSalaryLog->present_salary = strip_tags($request->salary);
+            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime(strip_tags($request->join_date)));
             $employeeSalaryLog->save();
             // end update employee data in EmployeeSalaryLog model
         });
@@ -286,9 +314,9 @@ class EmployeeController extends Controller
     public function employeSalaryIncrement(Request $request){
         DB::transaction(function() use($request){
 
-            $employee_id = $request->employee_id;
-            $increment_amount = $request->increment_amount;
-            $effective_date = $request->effective_date;
+            $employee_id = strip_tags($request->employee_id);
+            $increment_amount = strip_tags($request->increment_amount);
+            $effective_date = strip_tags($request->effective_date);
 
             $employee = User::find($employee_id);
             $previous_salary = $employee->salary;

@@ -238,6 +238,7 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 	Route::group(['prefix' => 'employee_manage'], function(){
 		// for employee
 		Route::get('/employee/view', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'view'])->name('employee.view');
+		Route::post('/employee/search', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'search'])->name('employee.search');
 		Route::get('/employee/add', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'add'])->name('employee.add');
 		Route::post('/employee/store', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'store'])->name('employee.store');
 		Route::get('/employee/edit/{id}', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'edit'])->name('employee.edit');
@@ -247,6 +248,9 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 		Route::get('/franchise/owner/view', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'franchiseOwnerView'])->name('franchiseOwner.view');
 
+		Route::get('get/department', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'get_department'])->name('get_department');
+		Route::get('get/designation', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'get_designation'])->name('get_designation');
+		Route::get('get/grade', [App\Http\Controllers\SuperAdmin\EmployeeController::class, 'get_grade'])->name('get_grade');
 	
 	});
 

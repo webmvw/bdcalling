@@ -84,6 +84,10 @@ class EmployeeController extends Controller
 
         $request->validate([
             'email' => 'required|unique:users',
+            'image' => 'mimes:jpg,png',
+            'nid_front_image' => 'mimes:jpg,png',
+            'nid_back_image' => 'mimes:jpg,png',
+            'cv' => 'mimes:pdf',
         ]);
 
         DB::transaction(function() use($request){
@@ -218,6 +222,10 @@ class EmployeeController extends Controller
                 'required',
                  Rule::unique('users')->ignore($id),
             ],
+            'image' => 'mimes:jpg,png',
+            'nid_front_image' => 'mimes:jpg,png',
+            'nid_back_image' => 'mimes:jpg,png',
+            'cv' => 'mimes:pdf',
         ]);
         DB::transaction(function() use($request, $id){
             // start insert Employee data in user model
