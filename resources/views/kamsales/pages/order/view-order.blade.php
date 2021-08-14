@@ -130,13 +130,8 @@
                         <th>Order Status</th>
                         <th>Delivery Date</th>
                         <th>Remarks</th>
-<<<<<<< HEAD
-                      </tr>
-
-=======
                         <th>Coundown Timer</th>
-                      </tr>
->>>>>>> 6e2b2246c1084fe563c7876b0af04d3583d644e4
+                      </tr> 
                     </tfoot>
                   </table>
                 </div>

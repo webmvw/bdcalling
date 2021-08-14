@@ -11,14 +11,16 @@ use App\Models\OrderDeliver;
 class OrderController extends Controller
 {
     public function view(){
-        $allData = OrderDeliver::whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Revision', 'Issues', 'Cancalled'])->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
+        $franchise_id = Auth::user()->franchise_id;
+        $allData = OrderDeliver::whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Revision', 'Issues', 'Cancalled'])->where('franchise_id', $franchise_id)->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
         return view('kamsales.pages.order.view-order', compact('allData'));
     }
 
 
 
     public function add(){
-        $data['accounts'] = Account::all();
+        $franchise_id = Auth::user()->franchise_id;
+        $data['accounts'] = Account::where('franchise_id', $franchise_id)->get();
         $data['date'] = date('Y-m-d');
         return view('kamsales.pages.order.add-order', $data);
     }
@@ -59,6 +61,7 @@ class OrderController extends Controller
         $order->deli_last_time = $request->deli_last_date;
         $order->order_status = "NRA";
         $order->deli_amount = $request->amount-$platform_charge;
+        $order->franchise_id = Auth::user()->franchise_id;
         $order->save();
         return redirect()->route('order.view')->with("success", "Order Added Successfully!!");
     }
