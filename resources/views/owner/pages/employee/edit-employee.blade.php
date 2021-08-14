@@ -347,6 +347,18 @@ $(function () {
       role: {
         required: true,
       },
+      image: {
+        extension: "jpg|png",
+      },
+      nid_front_image: {
+        extension: "jpg|png",
+      },
+      nid_back_image: {
+        extension: "jpg|png",
+      },
+      cv: {
+        extension: "pdf",
+      },
     },
     messages: {
       name: {
@@ -397,6 +409,18 @@ $(function () {
       },
       role: {
         required: "Please select role",
+      },
+      image: {
+        extension: "Only jpg, png format accepted",
+      },
+      nid_front_image: {
+        extension: "Only jpg, png format accepted",
+      },
+      nid_back_image: {
+        extension: "Only jpg, png format accepted",
+      },
+      cv: {
+        extension: "Only PDF File accepted",
       },
     },
     errorElement: 'span',

@@ -1,5 +1,5 @@
 
-@extends('superadmin.partials.master')
+@extends('franchiseowner.partials.master')
 
 @section('title')
   <title>Edit Employee | bdCalling IT Ltd</title>
@@ -17,8 +17,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('superadmin.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('employee.view') }}">Employee</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('franchiseowner.dashboard') }}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('franchiseowner.employee.view') }}">Employee</a></li>
               <li class="breadcrumb-item active">Edit Employee</li>
             </ol>
           </div><!-- /.col -->
@@ -37,14 +37,14 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Edit Employee - {{ $getEmployee->name }}</h3>
-                <a href="{{ route('employee.view') }}" class="btn btn-success btn-sm"><i class="fa fa-list"></i> Employee List</a>
+                <a href="{{ route('franchiseowner.employee.view') }}" class="btn btn-success btn-sm"><i class="fa fa-list"></i> Employee List</a>
               </div>
 
               <!-- /.card-header -->
-                 <form method="post" action="{{ route('employee.update', $getEmployee->id) }}" id="quickForm" novalidate="novalidate" enctype="multipart/form-data"> 
+                 <form method="post" action="{{ route('franchiseowner.employee.update', $getEmployee->id) }}" id="quickForm" novalidate="novalidate" enctype="multipart/form-data"> 
                   @csrf
                     <div class="card-body">
-                      @include('superadmin.partials.message')
+                      @include('franchiseowner.partials.message')
                       <div class="row">
                         <div class="col-md-8 offset-2">
                           <div class="form-group">
@@ -68,30 +68,30 @@
                             <input type="text" name="address" value="{{ $getEmployee->address }}" class="form-control form-control-sm" id="address" placeholder="Enter Address">
                           </div>
                           <div class="form-group">
-                            <label for="franchise">Franchise</label>
-                            <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
-                              <option value="">Select Franchise</option>
-                              @foreach($franchises as $key=>$value)
-                                <option value="{{$value->id}}" {{ ($getEmployee->franchise_id == $value->id)? 'selected': '' }}>{{$value->username}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                          <div class="form-group">
                             <label for="address">Department <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="department" id="department">
                               <option value="">Select Department</option>
+                              @foreach($departments as $key=>$value)
+                              <option value="{{$value->id}}" {{($getEmployee->department_id == $value->id)?'selected':''}}>{{ $value->name }}</option>
+                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
                             <label for="address">Designation <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="designation" id="designation">
                               <option value="">Select Designation</option>
+                              @foreach($designations as $key=>$value)
+                              <option value="{{$value->id}}" {{ ($getEmployee->designation_id==$value->id)?'selected':'' }}>{{ $value->name }}</option>
+                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
                             <label for="grade">Grade <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="grade" id="grade">
                               <option value="">Select Grade</option>
+                              @foreach($grades as $key=>$value)
+                              <option value="{{$value->id}}" {{($getEmployee->grade_id==$value->id)?'selected':''}}>{{$value->grade_name}}</option>
+                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
@@ -218,7 +218,7 @@
                               </div>
                             </div>
                           </div>
-                          <button type="submit" class="btn btn-primary">Update</button>
+                          <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </div>
                       </div>
                     </div>
@@ -238,55 +238,6 @@
   <!-- /.content-wrapper -->
 
 
-<script type="text/javascript">
-      $(function(){
-        $.ajaxSetup({
-          headers:{
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        $(document).on('change', '#franchise', function(){
-          var franchise_id = $(this).val();
-          $.ajax({
-            url:"{{ route('get_department') }}",
-            type:"GET",
-            data:{franchise_id:franchise_id},
-            success:function(data){
-              var html = '<option value="">Select Department</option>';
-              $.each(data,function(key,v){
-                html += '<option value="'+v.id+'">'+v.name+'</option>';
-              });
-              $('#department').html(html);
-            }
-          });
-           $.ajax({
-            url:"{{ route('get_designation') }}",
-            type:"GET",
-            data:{franchise_id:franchise_id},
-            success:function(data){
-              var html = '<option value="">Select Designation</option>';
-              $.each(data,function(key,v){
-                html += '<option value="'+v.id+'">'+v.name+'</option>';
-              });
-              $('#designation').html(html);
-            }
-          });
-           $.ajax({
-            url:"{{ route('get_grade') }}",
-            type:"GET",
-            data:{franchise_id:franchise_id},
-            success:function(data){
-              var html = '<option value="">Select Grade</option>';
-              $.each(data,function(key,v){
-                html += '<option value="'+v.id+'">'+v.grade_name+'</option>';
-              });
-              $('#grade').html(html);
-            }
-          });  
-        });
-      });
-</script>
-
 
 
 
@@ -305,6 +256,9 @@ $(function () {
       phone: {
         required: true,
         number:true,
+      },
+      nid_number:{
+        required: true,
       },
       address: {
         required: true,
@@ -362,6 +316,9 @@ $(function () {
       phone: {
         required: "Please enter phone number",
         number: "Invalid Phone number",
+      },
+      nid_number: {
+        required: "Please enter NID number",
       },
       address: {
         required: "Please enter address",

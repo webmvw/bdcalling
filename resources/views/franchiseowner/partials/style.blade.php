@@ -6,6 +6,9 @@
   <link rel="stylesheet" href="{{ asset('public/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('public/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+    <!-- jquery datatable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
   <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('public/admin/plugins/select2/css/select2.min.css') }}">
 

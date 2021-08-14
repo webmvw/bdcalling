@@ -284,14 +284,70 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 
 /*
 |--------------------------------------------------------------------------
-|  Routes for admin
+|  Routes for franchise owner
 |--------------------------------------------------------------------------
 |
-| this routes access for only admin
+| this routes access for only franchise owner
 |
 */
 Route::group(['middleware' => ['franchiseOwner', 'auth']], function(){
 	Route::get('franchiseOwner/dashboard', [App\Http\Controllers\FranchiseOwner\FranchiseOwnerController::class, 'index'])->name('franchiseowner.dashboard');
+
+	// setups management
+	Route::group(['prefix' => 'setups'], function(){
+		// department
+		Route::get('franchiseOwner/department/view', [App\Http\Controllers\FranchiseOwner\DepartmentController::class, 'view'])->name('franchiseowner.department.view');
+		Route::get('franchiseOwner/department/add', [App\Http\Controllers\FranchiseOwner\DepartmentController::class, 'add'])->name('franchiseowner.department.add');
+		Route::post('franchiseOwner/department/store', [App\Http\Controllers\FranchiseOwner\DepartmentController::class, 'store'])->name('franchiseowner.department.store');
+		Route::get('franchiseOwner/department/edit/{id}', [App\Http\Controllers\FranchiseOwner\DepartmentController::class, 'edit'])->name('franchiseowner.department.edit');
+		Route::post('franchiseOwner/department/update/{id}', [App\Http\Controllers\FranchiseOwner\DepartmentController::class, 'update'])->name('franchiseowner.department.update');
+		Route::get('franchiseOwner/department/delete/{id}', [App\Http\Controllers\FranchiseOwner\DepartmentController::class, 'delete'])->name('franchiseowner.department.delete');
+
+		// for designation
+		Route::get('franchiseOwner/designation/view', [App\Http\Controllers\FranchiseOwner\DesignationController::class, 'view'])->name('franchiseowner.designation.view');
+		Route::get('franchiseOwner/designation/add', [App\Http\Controllers\FranchiseOwner\DesignationController::class, 'add'])->name('franchiseowner.designation.add');
+		Route::post('franchiseOwner/designation/store', [App\Http\Controllers\FranchiseOwner\DesignationController::class, 'store'])->name('franchiseowner.designation.store');
+		Route::get('franchiseOwner/designation/edit/{id}', [App\Http\Controllers\FranchiseOwner\DesignationController::class, 'edit'])->name('franchiseowner.designation.edit');
+		Route::post('franchiseOwner/designation/update/{id}', [App\Http\Controllers\FranchiseOwner\DesignationController::class, 'update'])->name('franchiseowner.designation.update');
+		Route::get('franchiseOwner/designation/delete/{id}', [App\Http\Controllers\FranchiseOwner\DesignationController::class, 'delete'])->name('franchiseowner.designation.delete');
+
+		// for grade
+		Route::get('franchiseOwner/grade/view', [App\Http\Controllers\FranchiseOwner\GradeController::class, 'view'])->name('franchiseowner.grade.view');
+		Route::get('franchiseOwner/grade/add', [App\Http\Controllers\FranchiseOwner\GradeController::class, 'add'])->name('franchiseowner.grade.add');
+		Route::post('franchiseOwner/grade/store', [App\Http\Controllers\FranchiseOwner\GradeController::class, 'store'])->name('franchiseowner.grade.store');
+		Route::get('franchiseOwner/grade/edit/{id}', [App\Http\Controllers\FranchiseOwner\GradeController::class, 'edit'])->name('franchiseowner.grade.edit');
+		Route::post('franchiseOwner/grade/update/{id}', [App\Http\Controllers\FranchiseOwner\GradeController::class, 'update'])->name('franchiseowner.grade.update');
+		Route::get('franchiseOwner/grade/delete/{id}', [App\Http\Controllers\FranchiseOwner\GradeController::class, 'delete'])->name('franchiseowner.grade.delete');
+
+		// for team
+		Route::get('franchiseOwner/team/view', [App\Http\Controllers\FranchiseOwner\TeamController::class, 'view'])->name('franchiseowner.team.view');
+		Route::get('franchiseOwner/team/add', [App\Http\Controllers\FranchiseOwner\TeamController::class, 'add'])->name('franchiseowner.team.add');
+		Route::post('franchiseOwner/team/store', [App\Http\Controllers\FranchiseOwner\TeamController::class, 'store'])->name('franchiseowner.team.store');
+		Route::get('franchiseOwner/team/edit/{id}', [App\Http\Controllers\FranchiseOwner\TeamController::class, 'edit'])->name('franchiseowner.team.edit');
+		Route::post('franchiseOwner/team/update/{id}', [App\Http\Controllers\FranchiseOwner\TeamController::class, 'update'])->name('franchiseowner.team.update');
+		Route::get('franchiseOwner/team/delete/{id}', [App\Http\Controllers\FranchiseOwner\TeamController::class, 'delete'])->name('franchiseowner.team.delete');
+
+		// for account
+		Route::get('franchiseOwner/account/view', [App\Http\Controllers\FranchiseOwner\AccountController::class, 'view'])->name('franchiseowner.account.view');
+		Route::get('franchiseOwner/account/add', [App\Http\Controllers\FranchiseOwner\AccountController::class, 'add'])->name('franchiseowner.account.add');
+		Route::post('franchiseOwner/account/store', [App\Http\Controllers\FranchiseOwner\AccountController::class, 'store'])->name('franchiseowner.account.store');
+		Route::get('franchiseOwner/account/edit/{id}', [App\Http\Controllers\FranchiseOwner\AccountController::class, 'edit'])->name('franchiseowner.account.edit');
+		Route::post('franchiseOwner/account/update/{id}', [App\Http\Controllers\FranchiseOwner\AccountController::class, 'update'])->name('franchiseowner.account.update');
+		Route::get('franchiseOwner/account/delete/{id}', [App\Http\Controllers\FranchiseOwner\AccountController::class, 'delete'])->name('franchiseowner.account.delete');
+
+	});	
+
+	// employee management
+	Route::group(['prefix' => 'employee_manage'], function(){
+		// for employee
+		Route::get('franchiseOwner/employee/view', [App\Http\Controllers\FranchiseOwner\EmployeeController::class, 'view'])->name('franchiseowner.employee.view');
+		Route::get('franchiseOwner/employee/add', [App\Http\Controllers\FranchiseOwner\EmployeeController::class, 'add'])->name('franchiseowner.employee.add');
+		Route::post('franchiseOwner/employee/store', [App\Http\Controllers\FranchiseOwner\EmployeeController::class, 'store'])->name('franchiseowner.employee.store');
+		Route::get('franchiseOwner/employee/edit/{id}', [App\Http\Controllers\FranchiseOwner\EmployeeController::class, 'edit'])->name('franchiseowner.employee.edit');
+		Route::post('franchiseOwner/employee/update/{id}', [App\Http\Controllers\FranchiseOwner\EmployeeController::class, 'update'])->name('franchiseowner.employee.update');
+		Route::get('franchiseOwner/employee/details/{id}', [App\Http\Controllers\FranchiseOwner\EmployeeController::class, 'show'])->name('franchiseowner.employee.show');
+		Route::post('franchiseOwner/salaryincrement/store', [App\Http\Controllers\FranchiseOwner\EmployeeController::class, 'employeSalaryIncrement'])->name('franchiseowner.employee.salaryIncrement');
+	});
 
 });
 
@@ -319,10 +375,10 @@ Route::group(['middleware' => ['franchiseOwner', 'auth']], function(){
 
 /*
 |--------------------------------------------------------------------------
-|  Routes for admin
+|  Routes for franchise admin
 |--------------------------------------------------------------------------
 |
-| this routes access for only admin
+| this routes access for only franchise admin
 |
 */
 Route::group(['middleware' => ['admin', 'auth']], function(){
@@ -387,7 +443,7 @@ Route::group(['middleware' => ['user', 'auth']], function(){
 |  Routes for KAM Sales
 |--------------------------------------------------------------------------
 |
-| this routes access for only user
+| this routes access for kam sales
 |
 */
 Route::group(['middleware' => ['kamsales', 'auth']], function(){

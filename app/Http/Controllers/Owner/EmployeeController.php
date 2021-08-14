@@ -92,7 +92,7 @@ class EmployeeController extends Controller
 
         DB::transaction(function() use($request){
             // start generate employee id number
-            $employee = User::where('role_id', '3')->orderBy('id','desc')->get()->count();
+            $employee = User::orderBy('id','desc')->get()->count();
             if($employee == 0){
                 $firstReg = 0;
                 $employeeId = $firstReg+1;
@@ -104,7 +104,7 @@ class EmployeeController extends Controller
                     $id_no = '0'.$employeeId;
                 }
             }else{
-                $employee = User::where('role_id', '3')->orderBy('id','desc')->first()->id;
+                $employee = User::orderBy('id','desc')->first()->id;
                 $employeeId = $employee+1;
                 if($employeeId<10){
                     $id_no = '000'.$employeeId;

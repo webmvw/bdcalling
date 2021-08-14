@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\FranchiseOwner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Designation;
@@ -23,36 +24,11 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function view(){
-        $data['franchises'] = Franchise::all();
-        $data['allData'] = User::whereIn('role_id', [2,3,4,5,6,7])->orderBy('id', 'desc')->get();
-    	return view('superadmin.pages.employee.view-employee', $data);
+        $franchise_id = Auth::user()->franchise_id;
+        $data['allData'] = User::whereIn('role_id', [4,5,6,7])->where('franchise_id', $franchise_id)->orderBy('id', 'desc')->get();
+    	return view('franchiseowner.pages.employee.view-employee', $data);
     }
 
-    public function search(Request $request){
-       $data['franchises'] = Franchise::all(); 
-       $data['franchise_id'] = strip_tags($request->franchise_id);
-       $data['allData'] = User::whereIn('role_id', [2,3,4,5,6,7])->where('franchise_id', $request->franchise_id)->get();
-       return view('superadmin.pages.employee.view-employee', $data);
-    }
-
-
-    public function get_department(Request $request){
-        $franchise_id = $request->franchise_id;
-        $alldepartment = Department::where('franchise_id', $franchise_id)->get();
-        return response()->json($alldepartment, 200);
-    }
-
-    public function get_designation(Request $request){
-        $franchise_id = $request->franchise_id;
-        $alldesignation = Designation::where('franchise_id', $franchise_id)->get();
-        return response()->json($alldesignation, 200);
-    }
-
-    public function get_grade(Request $request){
-        $franchise_id = $request->franchise_id;
-        $allgrade = Grade::where('franchise_id', $franchise_id)->get();
-        return response()->json($allgrade, 200);
-    }
 
 
 
@@ -62,9 +38,12 @@ class EmployeeController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
     public function add(){
-        $data['roles'] = Role::whereIn('id', [2,3,4,5,6,7])->get();
-        $data['franchises'] = Franchise::all();
-    	return view('superadmin.pages.employee.add-employee', $data);
+        $franchise_id = Auth::user()->franchise_id;
+        $data['roles'] = Role::whereIn('id', [4,5,6,7])->get();
+        $data['departments'] = Department::where('franchise_id', $franchise_id)->get();
+        $data['designations'] = Designation::where('franchise_id', $franchise_id)->get();
+        $data['grades'] = Grade::where('franchise_id', $franchise_id)->get();
+    	return view('franchiseowner.pages.employee.add-employee', $data);
     }
 
 
@@ -133,7 +112,7 @@ class EmployeeController extends Controller
             $user->department_id = strip_tags($request->department);
             $user->designation_id = strip_tags($request->designation);
             $user->grade_id = strip_tags($request->grade);
-            $user->franchise_id = strip_tags($request->franchise);
+            $user->franchise_id = Auth::user()->franchise_id;
             $user->salary = strip_tags($request->salary);
             $user->nid_number = strip_tags($request->nid_number);
             $user->bank_account_holder_name = strip_tags($request->account_holder_name);
@@ -177,11 +156,11 @@ class EmployeeController extends Controller
             $employeeSalaryLog->previous_salary = strip_tags($request->salary);
             $employeeSalaryLog->present_salary = strip_tags($request->salary);
             $employeeSalaryLog->increment_salary = '0';
-            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime(strip_tags($request->join_date)));
+            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime($request->join_date));
             $employeeSalaryLog->save();
             // end insert employee data in EmployeeSalaryLog model
         });
-        return redirect()->route('employee.view')->with('success', 'Employee Registration Successfully!!');
+        return redirect()->route('franchiseowner.employee.view')->with('success', 'Employee Registration Successfully!!');
     }
 
 
@@ -197,9 +176,12 @@ class EmployeeController extends Controller
      */
     public function edit($id){
     	$data['getEmployee'] = User::find($id);
-        $data['roles'] = Role::whereIn('id', [2,3,4,5,6,7])->get();
-        $data['franchises'] = Franchise::all();
-        return view('superadmin.pages.employee.edit-employee', $data);
+        $franchise_id = Auth::user()->franchise_id;
+        $data['roles'] = Role::whereIn('id', [4,5,6,7])->get();
+        $data['departments'] = Department::where('franchise_id', $franchise_id)->get();
+        $data['designations'] = Designation::where('franchise_id', $franchise_id)->get();
+        $data['grades'] = Grade::where('franchise_id', $franchise_id)->get();
+        return view('franchiseowner.pages.employee.edit-employee', $data);
     }
 
 
@@ -237,7 +219,7 @@ class EmployeeController extends Controller
             $user->department_id = strip_tags($request->department);
             $user->designation_id = strip_tags($request->designation);
             $user->grade_id = strip_tags($request->grade);
-            $user->franchise_id = strip_tags($request->franchise);
+            $user->franchise_id = Auth::user()->franchise_id;
             $user->salary = strip_tags($request->salary);
             $user->nid_number = strip_tags($request->nid_number);
             $user->bank_account_holder_name = strip_tags($request->account_holder_name);
@@ -289,11 +271,11 @@ class EmployeeController extends Controller
             $employeeSalaryLog = EmployeeSalaryLog::where('employee_id', $id)->first();
             $employeeSalaryLog->previous_salary = strip_tags($request->salary);
             $employeeSalaryLog->present_salary = strip_tags($request->salary);
-            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime(strip_tags($request->join_date)));
+            $employeeSalaryLog->effected_date = date('Y-m-d', strtotime($request->join_date));
             $employeeSalaryLog->save();
             // end update employee data in EmployeeSalaryLog model
         });
-        return redirect()->route('employee.view')->with('success', 'Employee Update Successfully!!');
+        return redirect()->route('franchiseowner.employee.view')->with('success', 'Employee Update Successfully!!');
     }
 
 
@@ -304,7 +286,7 @@ class EmployeeController extends Controller
     public function show($id){
         $data['getEmployee'] = User::find($id);
         $data['incrementHistory'] = EmployeeSalaryLog::where('employee_id', $id)->get();
-        return view('superadmin.pages.employee.details-employee', $data);
+        return view('franchiseowner.pages.employee.details-employee', $data);
     }
 
 
@@ -314,7 +296,7 @@ class EmployeeController extends Controller
     public function employeSalaryIncrement(Request $request){
         DB::transaction(function() use($request){
 
-            $employee_id = strip_tags($request->employee_id);
+            $employee_id = $request->employee_id;
             $increment_amount = strip_tags($request->increment_amount);
             $effective_date = strip_tags($request->effective_date);
 
@@ -338,10 +320,7 @@ class EmployeeController extends Controller
 
 
 
-    public function franchiseOwnerView(){
-        $allData = User::where('role_id', [3])->orderBy('id', 'desc')->get();
-        return view('superadmin.pages.employee.view-franchiseOwner', compact('allData'));
-    }
+
 
 
 }
