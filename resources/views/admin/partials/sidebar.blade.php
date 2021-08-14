@@ -41,25 +41,61 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item {{ ($prefix == '/setups') ? 'menu-is-opening menu-open': '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Order Management
+                Setups Management
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.department.view') }}" class="nav-link {{ ($route == 'admin.department.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Order</p>
+                  <p>Department</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.designation.view') }}" class="nav-link {{ ($route == 'admin.designation.view') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Develary</p>
+                  <p>Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.grade.view') }}" class="nav-link {{ ($route == 'admin.grade.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Grade</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.team.view') }}" class="nav-link {{ ($route == 'admin.team.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Team</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.account.view') }}" class="nav-link {{ ($route == 'admin.account.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Account</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{ ($prefix == '/employee_manage') ? 'menu-is-opening menu-open': '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Employee Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.employee.view') }}" class="nav-link {{ ($route == 'admin.employee.view') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View Employee</p>
                 </a>
               </li>
             </ul>

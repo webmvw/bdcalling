@@ -384,6 +384,64 @@ Route::group(['middleware' => ['franchiseOwner', 'auth']], function(){
 Route::group(['middleware' => ['admin', 'auth']], function(){
 	Route::get('admin/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
 
+	// setups management
+	Route::group(['prefix' => 'setups'], function(){
+		// department
+		Route::get('admin/department/view', [App\Http\Controllers\Admin\DepartmentController::class, 'view'])->name('admin.department.view');
+		Route::get('admin/department/add', [App\Http\Controllers\Admin\DepartmentController::class, 'add'])->name('admin.department.add');
+		Route::post('admin/department/store', [App\Http\Controllers\Admin\DepartmentController::class, 'store'])->name('admin.department.store');
+		Route::get('admin/department/edit/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'edit'])->name('admin.department.edit');
+		Route::post('admin/department/update/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'update'])->name('admin.department.update');
+		Route::get('admin/department/delete/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'delete'])->name('admin.department.delete');
+
+		// for designation
+		Route::get('admin/designation/view', [App\Http\Controllers\Admin\DesignationController::class, 'view'])->name('admin.designation.view');
+		Route::get('admin/designation/add', [App\Http\Controllers\Admin\DesignationController::class, 'add'])->name('admin.designation.add');
+		Route::post('admin/designation/store', [App\Http\Controllers\Admin\DesignationController::class, 'store'])->name('admin.designation.store');
+		Route::get('admin/designation/edit/{id}', [App\Http\Controllers\Admin\DesignationController::class, 'edit'])->name('admin.designation.edit');
+		Route::post('admin/designation/update/{id}', [App\Http\Controllers\Admin\DesignationController::class, 'update'])->name('admin.designation.update');
+		Route::get('admin/designation/delete/{id}', [App\Http\Controllers\Admin\DesignationController::class, 'delete'])->name('admin.designation.delete');
+
+		// for grade
+		Route::get('admin/grade/view', [App\Http\Controllers\Admin\GradeController::class, 'view'])->name('admin.grade.view');
+		Route::get('admin/grade/add', [App\Http\Controllers\Admin\GradeController::class, 'add'])->name('admin.grade.add');
+		Route::post('admin/grade/store', [App\Http\Controllers\Admin\GradeController::class, 'store'])->name('admin.grade.store');
+		Route::get('admin/grade/edit/{id}', [App\Http\Controllers\Admin\GradeController::class, 'edit'])->name('admin.grade.edit');
+		Route::post('admin/grade/update/{id}', [App\Http\Controllers\Admin\GradeController::class, 'update'])->name('admin.grade.update');
+		Route::get('admin/grade/delete/{id}', [App\Http\Controllers\Admin\GradeController::class, 'delete'])->name('admin.grade.delete');
+
+		// for team
+		Route::get('admin/team/view', [App\Http\Controllers\Admin\TeamController::class, 'view'])->name('admin.team.view');
+		Route::get('admin/team/add', [App\Http\Controllers\Admin\TeamController::class, 'add'])->name('admin.team.add');
+		Route::post('admin/team/store', [App\Http\Controllers\Admin\TeamController::class, 'store'])->name('admin.team.store');
+		Route::get('admin/team/edit/{id}', [App\Http\Controllers\Admin\TeamController::class, 'edit'])->name('admin.team.edit');
+		Route::post('admin/team/update/{id}', [App\Http\Controllers\Admin\TeamController::class, 'update'])->name('admin.team.update');
+		Route::get('admin/team/delete/{id}', [App\Http\Controllers\Admin\TeamController::class, 'delete'])->name('admin.team.delete');
+
+		// for account
+		Route::get('admin/account/view', [App\Http\Controllers\Admin\AccountController::class, 'view'])->name('admin.account.view');
+		Route::get('admin/account/add', [App\Http\Controllers\Admin\AccountController::class, 'add'])->name('admin.account.add');
+		Route::post('admin/account/store', [App\Http\Controllers\Admin\AccountController::class, 'store'])->name('admin.account.store');
+		Route::get('admin/account/edit/{id}', [App\Http\Controllers\Admin\AccountController::class, 'edit'])->name('admin.account.edit');
+		Route::post('admin/account/update/{id}', [App\Http\Controllers\Admin\AccountController::class, 'update'])->name('admin.account.update');
+		Route::get('admin/account/delete/{id}', [App\Http\Controllers\Admin\AccountController::class, 'delete'])->name('admin.account.delete');
+	});	
+	
+	
+	// employee management
+	Route::group(['prefix' => 'employee_manage'], function(){
+		// for employee
+		Route::get('admin/employee/view', [App\Http\Controllers\Admin\EmployeeController::class, 'view'])->name('admin.employee.view');
+		Route::get('admin/employee/add', [App\Http\Controllers\Admin\EmployeeController::class, 'add'])->name('admin.employee.add');
+		Route::post('admin/employee/store', [App\Http\Controllers\Admin\EmployeeController::class, 'store'])->name('admin.employee.store');
+		Route::get('admin/employee/edit/{id}', [App\Http\Controllers\Admin\EmployeeController::class, 'edit'])->name('admin.employee.edit');
+		Route::post('admin/employee/update/{id}', [App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('admin.employee.update');
+		Route::get('admin/employee/details/{id}', [App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('admin.employee.show');
+		Route::post('admin/salaryincrement/store', [App\Http\Controllers\Admin\EmployeeController::class, 'employeSalaryIncrement'])->name('admin.employee.salaryIncrement');
+	});
+
+
+
 });
 
 
