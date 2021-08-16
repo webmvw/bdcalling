@@ -12,20 +12,23 @@ class OrderController extends Controller
 {
 
     public function deliveryList(){
-      $allData = OrderDeliver::where('order_status', 'Delivered')->orderBy('id', 'desc')->with('responsible_info', 'account', 'team', 'delivered_by_info')->get();
+      $franchise_id = Auth::user()->franchise_id;
+      $allData = OrderDeliver::with('responsible_info', 'account', 'team', 'delivered_by_info')->where('franchise_id', $franchise_id)->where('order_status', 'Delivered')->orderBy('id', 'desc')->get();
         return view('kamoperation.pages.order.view-delivery', compact('allData'));
     }
 
      public function view(){
-        $allData = OrderDeliver::whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Delivered', 'Revision', 'Issues', 'Cancalled'])->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
+        $franchise_id = Auth::user()->franchise_id;
+        $allData = OrderDeliver::where('franchise_id', $franchise_id)->whereIn('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Revision', 'Issues', 'Cancalled'])->orderBy('id', 'desc')->with('responsible_info', 'account')->get();
         return view('kamoperation.pages.order.view-order', compact('allData'));
     }
 
 
 
     public function status($id){
+      $franchise_id = Auth::user()->franchise_id;
       $data['getOrder'] = OrderDeliver::find($id);
-      $data['teams'] = Team::all();
+      $data['teams'] = Team::where('franchise_id', $franchise_id)->get();
       return view('kamoperation.pages.order.status-order', $data);
     }
 
@@ -41,8 +44,9 @@ class OrderController extends Controller
 
 
     public function delivery($id){
+      $franchise_id = Auth::user()->franchise_id;
       $data['getOrder'] = OrderDeliver::find($id);
-      $data['teams'] = Team::all();
+      $data['teams'] = Team::where('franchise_id', $franchise_id)->get();
       return view('kamoperation.pages.order.delivery-order', $data);
     }
 

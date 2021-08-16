@@ -28,7 +28,6 @@ class TeamController extends Controller
 
 
     public function add(){
-        $data['departments'] = Department::all();
         $data['franchises'] = Franchise::all();
     	return view('owner.pages.team.add-team', $data);
     }
@@ -51,8 +50,6 @@ class TeamController extends Controller
 
 
     public function edit($id){
-
-        $data['getDepartment'] = Department::all();
     	$data['getTeam'] = Team::find($id);
         $data['franchises'] = Franchise::all();
       

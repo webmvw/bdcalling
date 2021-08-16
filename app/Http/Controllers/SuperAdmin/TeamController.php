@@ -27,7 +27,6 @@ class TeamController extends Controller
 
 
     public function add(){
-        $data['departments'] = Department::all();
         $data['franchises'] = Franchise::all();
     	return view('superadmin.pages.team.add-team', $data);
     }

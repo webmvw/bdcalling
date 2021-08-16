@@ -52,14 +52,6 @@
                             <input type="text" value="{{ $getTeam->team_name }}" name="team_name" class="form-control form-control-sm" id="team_name" placeholder="Enter Name">
                           </div>
                           <div class="form-group">
-                            <label for="department_id">Department Code</label>
-                            <select name="department_id" id="department_id" class="form-control form-control-sm select2">
-                              @foreach($getDepartment as $key=>$value)
-                              <option value="{{$value->id}}" {{($value->id == $getTeam->department_id) ? 'selected' : ''}}>{{$value->name}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                          <div class="form-group">
                             <label for="franchise">Franchise <span style="color:red">*</span></label>
                             <select class="form-control select2 form-control-sm" name="franchise" id="franchise">
                               <option value="">Select Franchise</option>
@@ -68,6 +60,13 @@
                               @endforeach
                             </select>
                           </div>
+                          <div class="form-group">
+                            <label for="department_id">Department</label>
+                            <select name="department_id" id="department_id" class="form-control form-control-sm select2">
+                              <option value="">Select Department</option>
+                            </select>
+                          </div>
+                          
                           <button type="submit" class="btn btn-sm btn-primary">Update</button>
                         </div>
                       </div>
@@ -86,6 +85,34 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+
+<script type="text/javascript">
+      $(function(){
+        $.ajaxSetup({
+          headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $(document).on('change', '#franchise', function(){
+          var franchise_id = $(this).val();
+          $.ajax({
+            url:"{{ route('owner.get_department') }}",
+            type:"GET",
+            data:{franchise_id:franchise_id},
+            success:function(data){
+              var html = '<option value="">Select Department</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.name+'</option>';
+              });
+              $('#department_id').html(html);
+            }
+          }); 
+        });
+      });
+</script>
+
+
 
 <script>
 $(function () {
