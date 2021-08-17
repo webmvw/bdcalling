@@ -13,7 +13,7 @@ class OrderController extends Controller
 
     public function deliveryList(){
       $franchise_id = Auth::user()->franchise_id;
-      $allData = OrderDeliver::with('responsible_info', 'account', 'team', 'delivered_by_info')->where('franchise_id', $franchise_id)->where('order_status', 'Delivered')->orderBy('id', 'desc')->get();
+      $allData = OrderDeliver::with('responsible_info', 'account', 'team', 'delivered_by_info')->where('franchise_id', $franchise_id)->where('order_status', 'Delivered')->orderBy('deli_date', 'desc')->get();
         return view('kamoperation.pages.order.view-delivery', compact('allData'));
     }
 

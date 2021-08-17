@@ -126,11 +126,11 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
     // order&delivery management
     Route::group(['prefix' => 'allorder_manage'], function(){
         // for all order List
-        Route::post('owner/allorder/view', [App\Http\Controllers\Owner\AllorderController::class, 'view'])->name('owner.report.view');
-        Route::post('owner/month/report', [App\Http\Controllers\Owner\AllorderController::class, 'Month_Report'])->name('owner.month.report');
-        Route::get('owner/allorder/view', [App\Http\Controllers\Owner\AllorderController::class, 'allOrderView'])->name('owner.allorder.view');
-        Route::get('owner/delivery/view', [App\Http\Controllers\Owner\AllorderController::class, 'DeliveryView'])->name('owner.delivery.view');
-        Route::post('owner/delivery/report', [App\Http\Controllers\Owner\AllorderController::class, 'deliveryReport'])->name('owner.delivery.report');
+        Route::post('owner/allorder/view', [App\Http\Controllers\Owner\AllOrderController::class, 'view'])->name('owner.report.view');
+        Route::post('owner/month/report', [App\Http\Controllers\Owner\AllOrderController::class, 'Month_Report'])->name('owner.month.report');
+        Route::get('owner/allorder/view', [App\Http\Controllers\Owner\AllOrderController::class, 'allOrderView'])->name('owner.allorder.view');
+        Route::get('owner/delivery/view', [App\Http\Controllers\Owner\AllOrderController::class, 'DeliveryView'])->name('owner.delivery.view');
+        Route::post('owner/delivery/report', [App\Http\Controllers\Owner\AllOrderController::class, 'deliveryReport'])->name('owner.delivery.report');
 
 
         //
@@ -258,11 +258,11 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
     // order&delivery management
     Route::group(['prefix' => 'allorder_manage'], function(){
         // for all order List
-        Route::post('/allorder/view', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'view'])->name('report.view');
-        Route::post('/month/report', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'Month_Report'])->name('month.report');
-        Route::get('/allorder/view', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'allOrderView'])->name('allorder.view');
-        Route::get('/delivery/view', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'DeliveryView'])->name('delivery.view');
-        Route::post('/delivery/report', [App\Http\Controllers\SuperAdmin\AllorderController::class, 'deliveryReport'])->name('delivery.report');
+        Route::post('/allorder/view', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'view'])->name('report.view');
+        Route::post('/month/report', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'Month_Report'])->name('month.report');
+        Route::get('/allorder/view', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'allOrderView'])->name('allorder.view');
+        Route::get('/delivery/view', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'DeliveryView'])->name('delivery.view');
+        Route::post('/delivery/report', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'deliveryReport'])->name('delivery.report');
 
 
         //
