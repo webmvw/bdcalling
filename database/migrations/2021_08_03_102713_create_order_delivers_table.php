@@ -29,6 +29,7 @@ class CreateOrderDeliversTable extends Migration
             $table->string('spreadsheet_link')->nullable();
             $table->string('remarks')->nullable();
             $table->bigInteger('team_id')->unsigned()->nullable();
+            $table->bigInteger('department_id')->unsigned()->nullable();
             $table->double('tips')->nullable();
             $table->enum('order_status', ['NRA', 'WIP', 'NE', 'Complete', 'Delivered', 'Revision', 'Issues', 'Cancalled'])->nullable();
             $table->bigInteger('delivered_by')->unsigned()->nullable();
@@ -41,6 +42,7 @@ class CreateOrderDeliversTable extends Migration
             $table->foreign('responsible')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->foreign('delivered_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('franchise_id')->references('id')->on('franchises')->onDelete('cascade');
         });

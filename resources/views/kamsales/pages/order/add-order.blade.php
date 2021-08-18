@@ -97,12 +97,27 @@
                             <input type="text" name="spreadsheet_link" class="form-control form-control-sm" id="spreadsheet_link">
                           </div>
                           <div class="form-group">
-                            <label for="remarks">Remarks </label>
-                            <input type="text" name="remarks" class="form-control form-control-sm" id="remarks">
+                            <label for="department">Department <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="department" id="department">
+                              <option value="">Select Department</option>
+                              @foreach($departments as $key=>$value)
+                                <option value="{{$value->id}}">{{$value->name}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="team">Team <span style="color:red">*</span></label>
+                            <select class="form-control select2 form-control-sm" name="team" id="team">
+                              <option value="">Select Team</option>
+                            </select>
                           </div>
                           <div class="form-group">
                             <label for="deli_last_date">Delivery Last Date <span style="color:red">*</span></label>
                             <input type="datetime-local" name="deli_last_date" class="form-control form-control-sm" id="deli_last_date">
+                          </div>
+                          <div class="form-group">
+                            <label for="remarks">Remarks </label>
+                            <input type="text" name="remarks" class="form-control form-control-sm" id="remarks">
                           </div>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
@@ -125,6 +140,40 @@
   </div>
   <!-- /.content-wrapper -->
 
+
+
+<script type="text/javascript">
+      $(function(){
+
+        $.ajaxSetup({
+          headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+
+        $(document).on('change', '#department', function(){
+          var department_id = $(this).val();
+          $.ajax({
+            url:"{{ route('get_team') }}",
+            type:"GET",
+            data:{department_id:department_id},
+            success:function(data){
+              var html = '<option value="">Select Team</option>';
+              $.each(data,function(key,v){
+                html += '<option value="'+v.id+'">'+v.team_name+'</option>';
+              });
+              $('#team').html(html);
+            }
+          });  
+        });
+
+      });
+</script>
+
+
+
+
+
 <script>
 $(function () {
   $('#quickForm').validate({
@@ -143,6 +192,9 @@ $(function () {
         required: true,
       },
       order_page_url: {
+        required: true,
+      },
+      department: {
         required: true,
       },
       deli_last_date: {
@@ -165,6 +217,9 @@ $(function () {
       },
       order_page_url: {
         required: "Please enter order page url",
+      },
+      department: {
+        required: "Please select Department",
       },
       deli_last_date: {
         required: "Please enter delivery last date",

@@ -75,6 +75,15 @@
                             </select>
                           </div>
                           <div class="form-group">
+                            <label for="department">Department <span style="color:red">*</span></label>
+                            <select name="department" id="department" class="form-control select2 form-control-sm">
+                              <option value="">Select Department</option>
+                              @foreach($departments as $key=>$value)
+                              <option value="{{ $value->id }}" {{ ($getOrder->department_id == $value->id)? 'selected': '' }}>{{ $value->name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
                             <label for="deli_date">Delivery Date <span style="color:red">*</span></label>
                             <input type="date" name="deli_date" class="form-control form-control-sm">
                           </div>
@@ -111,6 +120,9 @@ $(function () {
       team:{
         required: true,
       },
+      department: {
+        required: true,
+      },
       deli_date:{
         required: true,
       },
@@ -121,6 +133,9 @@ $(function () {
       },
       team:{
         required: "Please select team",
+      },
+      department: {
+        required: "Please select department",
       },
       deli_date:{
         required: "Please select delivery date",

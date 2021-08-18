@@ -43,45 +43,41 @@
                     <thead>
                     <tr>
                       <th>SL</th>
-                      <th>Responsible</th>
-                      <th>ID No</th>
+                      <th>Inc. Date</th>
                       <th>Account</th>
+                      <th>Responsible</th>
                       <th>Amount</th>
-                      <th>Percentage</th>
-                      <th>Platform charge</th>
-                      <th>Delivery Amount</th>
-                      <th>Client User Id</th>
                       <th>Client Name</th>
-                      <th>Client Email</th>
-                      <th>Client Linkedin</th>
-                      <th>Order Page Url</th>
-                      <th>Spreadsheed Link</th>
-                      <th>Order Status</th>
+                      <th>Status</th>
+                      <th>Team</th>
+                      <th>Department</th>
                       <th>Delivery Date</th>
+                      <th>Coundown</th>
                       <th>Remarks</th>
-                      <th>Coundown Timer</th>
+                      <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                       @foreach($allData as $key=>$value)
                         <tr>
                           <td>{{ $key+1 }}</td>
-                          <td>{{ $value->responsible_info->name }}</td>
-                          <td>{{ $value->responsible_info->id_no }}</td>
+                          <td>{{ date('j M, Y', strtotime($value->inc_date)) }}</td>
                           <td>{{ $value->account->account_name }}</td>
+                          <td>{{ $value->responsible_info->name }}</td>
                           <td>${{ $value->amount }}</td>
-                          <td>{{ $value->percentage }}%</td>
-                          <td>${{ $value->platform_charges }}</td>
-                          <td>${{ $value->deli_amount }}</td>
-                          <td>{{ $value->client_user_id }}</td>
                           <td>{{ $value->client_name }}</td>
-                          <td>{{ $value->client_email }}</td>
-                          <td>{{ $value->client_linkedin }}</td>
-                          <td>{{ $value->orderpage_url }}</td>
-                          <td>{{ $value->spreadsheet_link }}</td>
                           <td>{{ $value->order_status }}</td>
-                          <td>{{ date('Y-m-d H:i:s', strtotime($value->deli_last_time)) }}</td>
-                          <td>{{ $value->remarks }}</td>
+                          <td>
+                            @if($value->team_id != null)
+                            {{ $value->team->team_name }}
+                            @endif
+                          </td>
+                          <td>
+                            @if($value->department_id != null)
+                            {{ $value->department->name }}
+                            @endif
+                          </td>
+                          <td>{{ date('j M, Y', strtotime($value->deli_last_time)) }}</td>
                           <td>
                             <?php
                             $deli_dateline = new DateTime($value->deli_last_time);
@@ -98,7 +94,7 @@
                               $day = $interval->format("%R%a");
                               if($day <= 2 and $day >= 1){
                                 echo $interval->format("%a days ").$interval->h.":".$interval->i.":".$interval->s;
-                              }if($day <= 0){
+                              }elseif($day <= 0){
                                 echo "<span style='color:red'>Late Order</span>";
                               }elseif($day <= 0 and $value->order_status == "Revision"){
                                 echo "<span style='color:red'>Revision and Late Order</span>";
@@ -108,29 +104,26 @@
                             }
                             ?>
                           </td>
+                          <td>{{ $value->remarks }}</td>
+                          <td><a href="{{ route('order.details', $value->id) }}" class="btn btn-sm btn-success">Details</a></td>
                         </tr>
                       @endforeach
                     </tbody>
                     <tfoot>
                       <tr>
                         <th>SL</th>
-                        <th>Responsible</th>
-                        <th>ID No</th>
+                        <th>Inc. Date</th>
                         <th>Account</th>
+                        <th>Responsible</th>
                         <th>Amount</th>
-                        <th>Percentage</th>
-                        <th>Platform charge</th>
-                        <th>Delivery Amount</th>
-                        <th>Client User Id</th>
                         <th>Client Name</th>
-                        <th>Client Email</th>
-                        <th>Client Linkedin</th>
-                        <th>Order Page Url</th>
-                        <th>Spreadsheed Link</th>
-                        <th>Order Status</th>
+                        <th>Status</th>
+                        <th>Team</th>
+                        <th>Department</th>
                         <th>Delivery Date</th>
+                        <th>Coundown</th>
                         <th>Remarks</th>
-                        <th>Coundown Timer</th>
+                        <th>Action</th>
                       </tr> 
                     </tfoot>
                   </table>

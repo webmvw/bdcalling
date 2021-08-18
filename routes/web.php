@@ -512,7 +512,9 @@ Route::group(['middleware' => ['kamsales', 'auth']], function(){
 	Route::group(['prefix' => 'order_manage'], function(){
 		// for order
 		Route::get('/order/view', [App\Http\Controllers\KAMSales\OrderController::class, 'view'])->name('order.view');
+		Route::get('/order/details/{id}', [App\Http\Controllers\KAMSales\OrderController::class, 'details'])->name('order.details');
 		Route::get('/order/add', [App\Http\Controllers\KAMSales\OrderController::class, 'add'])->name('order.add');
+		Route::get('/order/get_team', [App\Http\Controllers\KAMSales\OrderController::class, 'get_team'])->name('get_team');
 		Route::post('/order/store', [App\Http\Controllers\KAMSales\OrderController::class, 'store'])->name('order.store');
 	});
 

@@ -45,7 +45,6 @@
                     <tr>
                       <th>SL</th>
                       <th>Responsible</th>
-                      <th>ID No</th>
                       <th>Account</th>
                       <th>Amount</th>
                       <th>Percentage</th>
@@ -61,6 +60,7 @@
                       <th>Order Status</th>
                       <th>Delivery Date</th>
                       <th>Team</th>
+                      <th>Department</th>
                       <th>Delivered By</th>
                       <th>Remarks</th>
                     </tr>
@@ -70,7 +70,6 @@
                         <tr>
                           <td>{{ $key+1 }}</td>
                           <td>{{ $value->responsible_info->name }}</td>
-                          <td>{{ $value->responsible_info->id_no }}</td>
                           <td>{{ $value->account->account_name }}</td>
                           <td>${{ $value->amount }}</td>
                           <td>{{ $value->percentage }}%</td>
@@ -88,8 +87,9 @@
                           <td>{{ $value->orderpage_url }}</td>
                           <td>{{ $value->spreadsheet_link }}</td>
                           <td>{{ $value->order_status }}</td>
-                          <td>{{ date('Y-m-d', strtotime($value->deli_date)) }}</td>
+                          <td>{{ date('M j, Y', strtotime($value->deli_date)) }}</td>
                           <td>{{ $value->team->team_name }}</td>
+                          <td>{{ $value->department->name }}</td>
                           <td>{{ $value->delivered_by_info->name }}</td>
                           <td>{{ $value->remarks }}</td>
                         </tr>
@@ -99,7 +99,6 @@
                       <tr>
                         <th>SL</th>
                         <th>Responsible</th>
-                        <th>ID No</th>
                         <th>Account</th>
                         <th>Amount</th>
                         <th>Percentage</th>
@@ -115,6 +114,7 @@
                         <th>Order Status</th>
                         <th>Delivery Date</th>
                         <th>Team</th>
+                        <th>Department</th>
                         <th>Delivered By</th>
                         <th>Remarks</th>
                       </tr>

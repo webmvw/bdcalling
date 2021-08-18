@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrderDeliver;
 use App\Models\Team;
+use App\Models\Department;
 
 class OrderController extends Controller
 {
@@ -29,15 +30,17 @@ class OrderController extends Controller
       $franchise_id = Auth::user()->franchise_id;
       $data['getOrder'] = OrderDeliver::find($id);
       $data['teams'] = Team::where('franchise_id', $franchise_id)->get();
+      $data['departments'] = Department::where('franchise_id', $franchise_id)->get();
       return view('kamoperation.pages.order.status-order', $data);
     }
 
 
     public function statusUpdate(Request $request, $id){
       $getOrderDeliver = OrderDeliver::find($id);
-      $getOrderDeliver->order_status = $request->order_status;
-      $getOrderDeliver->team_id = $request->team;
-      $getOrderDeliver->remarks = $request->remarks;
+      $getOrderDeliver->order_status = strip_tags($request->order_status);
+      $getOrderDeliver->team_id = strip_tags($request->team);
+      $getOrderDeliver->department_id = strip_tags($request->department);
+      $getOrderDeliver->remarks = strip_tags($request->remarks);
       $getOrderDeliver->save();
       return redirect()->route('kamoperation.order.view')->with('success', 'Order Status Updated Success');
     }
@@ -47,6 +50,7 @@ class OrderController extends Controller
       $franchise_id = Auth::user()->franchise_id;
       $data['getOrder'] = OrderDeliver::find($id);
       $data['teams'] = Team::where('franchise_id', $franchise_id)->get();
+      $data['departments'] = Department::where('franchise_id', $franchise_id)->get();
       return view('kamoperation.pages.order.delivery-order', $data);
     }
 
@@ -58,6 +62,7 @@ class OrderController extends Controller
         $getOrder->tips = $request->tips;
         $getOrder->order_status = $request->order_status;
         $getOrder->team_id = $request->team;
+        $getOrder->department_id = $request->department;
         $getOrder->remarks = $request->remarks;
         $getOrder->deli_date = $request->deli_date;
         $getOrder->delivered_by = Auth::user()->id;
@@ -74,6 +79,7 @@ class OrderController extends Controller
         $getOrder->tips = $tips;
         $getOrder->order_status = $request->order_status;
         $getOrder->team_id = $request->team;
+        $getOrder->department_id = $request->department;
         $getOrder->remarks = $request->remarks;
         $getOrder->deli_date = $request->deli_date;
         $getOrder->deli_amount = $new_deli_amount;

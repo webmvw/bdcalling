@@ -71,6 +71,15 @@
                             </select>
                           </div>
                           <div class="form-group">
+                            <label for="department">Department <span style="color:red">*</span></label>
+                            <select name="department" id="department" class="form-control select2 form-control-sm">
+                              <option value="">Select Department</option>
+                              @foreach($departments as $key=>$value)
+                              <option value="{{ $value->id }}" {{ ($getOrder->department_id == $value->id)? 'selected': '' }}>{{ $value->name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="form-group">
                             <label for="remarks">Remarks</label>
                             <input type="text" name="remarks" id="remarks" value="{{ $getOrder->remarks }}" class="form-control form-control-sm">
                           </div>
@@ -103,6 +112,9 @@ $(function () {
       team:{
         required: true,
       },
+      department: {
+        required: true,
+      },
     },
     messages: {
       order_status: {
@@ -110,6 +122,9 @@ $(function () {
       },
       team:{
         required: "Please select team",
+      },
+      department: {
+        required: "Please select Department",
       },
     },
     errorElement: 'span',

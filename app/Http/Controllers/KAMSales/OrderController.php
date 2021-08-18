@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
+use App\Models\Department;
+use App\Models\Team;
 use App\Models\OrderDeliver;
 
 class OrderController extends Controller
@@ -16,13 +18,26 @@ class OrderController extends Controller
         return view('kamsales.pages.order.view-order', compact('allData'));
     }
 
+    public function details($id){
+        $getOrder = OrderDeliver::find($id);
+        return view('kamsales.pages.order.details-order', compact('getOrder'));
+    }
 
 
     public function add(){
         $franchise_id = Auth::user()->franchise_id;
         $data['accounts'] = Account::where('franchise_id', $franchise_id)->get();
+        $data['departments'] = Department::where('franchise_id', $franchise_id)->get();
+        $data['teams'] = Team::where('franchise_id', $franchise_id)->get();
         $data['date'] = date('Y-m-d');
         return view('kamsales.pages.order.add-order', $data);
+    }
+
+    public function get_team(Request $request){
+        $franchise_id = Auth::user()->franchise_id;
+        $department_id = $request->department_id;
+        $get_team = Team::where('department_id', $department_id)->where('franchise_id', $franchise_id)->get();
+        return response()->json($get_team, 200);
     }
 
 
@@ -58,6 +73,8 @@ class OrderController extends Controller
         $order->orderpage_url = $request->order_page_url;
         $order->spreadsheet_link = $request->spreadsheet_link;
         $order->remarks = $request->remarks;
+        $order->team_id = $request->team;
+        $order->department_id = $request->department;
         $order->deli_last_time = $request->deli_last_date;
         $order->order_status = "NRA";
         $order->deli_amount = $request->amount-$platform_charge;

@@ -21,6 +21,10 @@ class OrderDeliver extends Model
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
+    public function department(){
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
     public function delivered_by_info(){
         return $this->belongsTo(User::class, 'delivered_by', 'id');
     }
