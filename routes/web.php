@@ -131,9 +131,22 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
         Route::get('owner/allorder/view', [App\Http\Controllers\Owner\AllOrderController::class, 'allOrderView'])->name('owner.allorder.view');
         Route::get('owner/delivery/view', [App\Http\Controllers\Owner\AllOrderController::class, 'DeliveryView'])->name('owner.delivery.view');
         Route::post('owner/delivery/report', [App\Http\Controllers\Owner\AllOrderController::class, 'deliveryReport'])->name('owner.delivery.report');
+    });
 
 
-        //
+    Route::group(['prefix' => 'order_report'], function(){
+    	// all order report
+    	Route::get('owner/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'allOrderReport'])->name('owner.allOrderReport');
+    	Route::post('owner/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'allOrderReportRequest'])->name('owner.allOrderReportRequest');
+
+    	// franchise wise order report
+    	Route::get('owner/franchise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'franchiseWiseOrderReport'])->name('owner.franchiseWiseOrderReport');
+    	Route::post('owner/franchise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'franchiseWiseOrderReportRequest'])->name('owner.franchiseWiseOrderReportRequest');
+
+    	// department wise order report
+    	Route::get('owner/departmentwise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'departmentwiseOrderReport'])->name('owner.departmentwiseOrderReport');
+    	Route::post('owner/departmentwise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'departmentwiseOrderReportRequest'])->name('owner.departmentwiseOrderReportRequest');
+    	Route::get('owner/departmentwise/order-report/get/department', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'get_department'])->name('owner.departmentwiseOrderReportGet_department');
     });
 
 });

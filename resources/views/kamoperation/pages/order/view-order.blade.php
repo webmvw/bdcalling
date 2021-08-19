@@ -49,7 +49,7 @@
                       <th>Platform charge</th>
                       <th>Delivery Amount</th>
                       <th>Client Name</th>
-                      <th>Order Page Url</th>
+                      <th>Spreadsheet Link</th>
                       <th>Order Status</th>
                       <th>Team</th>
                       <th>Department</th>
@@ -70,7 +70,7 @@
                           <td>${{ $value->platform_charges }}</td>
                           <td>${{ $value->deli_amount }}</td>
                           <td>{{ $value->client_name }}</td>
-                          <td>{{ $value->orderpage_url }}</td>
+                          <td>{{ $value->spreadsheet_link }}</td>
                           <td>{{ $value->order_status }}</td>
                           <td>
                             @if($value->team_id != null)
@@ -127,7 +127,7 @@
                         <th>Platform charge</th>
                         <th>Delivery Amount</th>
                         <th>Client Name</th>
-                        <th>Order Page Url</th>
+                        <th>Spreadsheet Link</th>
                         <th>Order Status</th>
                         <th>Team</th>
                         <th>Department</th>

@@ -84,6 +84,8 @@
             </ul>
           </li>
 
+
+
           <li class="nav-item {{ ($prefix == '/employee_manage') ? 'menu-is-opening menu-open': '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -114,29 +116,64 @@
             </ul>
           </li>
 
-            <li class="nav-item {{ ($prefix == '/allorder_manage') ? 'menu-is-opening menu-open': '' }}">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>
-                        Order Management
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('owner.allorder.view') }}" class="nav-link {{ ($route == 'owner.allorder.view') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Order List</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('owner.delivery.view') }}" class="nav-link {{ ($route == 'owner.delivery.view') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Delivery  List</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+
+
+          <li class="nav-item {{ ($prefix == '/allorder_manage') ? 'menu-is-opening menu-open': '' }}">
+              <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                      Order & Delivery
+                      <i class="fas fa-angle-left right"></i>
+                  </p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a href="{{ route('owner.allorder.view') }}" class="nav-link {{ ($route == 'owner.allorder.view') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Order List</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('owner.delivery.view') }}" class="nav-link {{ ($route == 'owner.delivery.view') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Delivery  List</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+
+
+
+
+          <li class="nav-item {{ ($prefix == '/order_report') ? 'menu-is-opening menu-open': '' }}">
+              <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                      Order Report
+                      <i class="fas fa-angle-left right"></i>
+                  </p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a href="{{ route('owner.allOrderReport') }}" class="nav-link {{ ($route == 'owner.allOrderReport' or $route == 'owner.allOrderReportRequest') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Order</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('owner.franchiseWiseOrderReport') }}" class="nav-link {{ ($route == 'owner.franchiseWiseOrderReport' or $route == 'owner.franchiseWiseOrderReportRequest') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Franchise Wise</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('owner.departmentwiseOrderReport') }}" class="nav-link {{ ($route == 'owner.departmentwiseOrderReport' or $route == 'owner.departmentwiseOrderReportRequest') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Department Wise</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
 
         </ul>
       </nav>
