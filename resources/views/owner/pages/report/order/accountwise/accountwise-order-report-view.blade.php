@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-body">
                  @include('owner.partials.message')
-                 <form id="quickForm" action="{{ route('owner.departmentwiseOrderReportRequest') }}" method="post">
+                 <form id="quickForm" action="{{ route('owner.accountwiseOrderReportRequest') }}" method="post">
                   @csrf
                   <div class="row">
                     <div class="col-md-3 col-lg-3">
@@ -49,11 +49,11 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-md-3 col-lg-3">
+                   <div class="col-md-3 col-lg-3">
                       <div class="form-group">
-                        <label for="department" class="form-control-sm">Department</label>
-                        <select class="form-control form-control-sm select2" name="department" id="department">
-                          <option value="">Select Department</option>
+                        <label for="account" class="form-control-sm">Account</label>
+                        <select class="form-control form-control-sm select2" name="account" id="account">
+                          <option value="">Select Account</option>
                         </select>
                       </div>
                     </div>
@@ -79,7 +79,7 @@
 
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Department Wise Order Report - <mark>{{ $department_name }}</mark></h3>
+                <h3 class="card-title">Account Wise Order Report - <mark>{{ $account_name }}</mark></h3>
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
@@ -126,7 +126,6 @@
   <!-- /.content-wrapper -->
 
 
-
 <script type="text/javascript">
   $(function(){
 
@@ -139,15 +138,15 @@
     $(document).on('change', '#franchise', function(){
       var franchise_id = $(this).val();
       $.ajax({
-        url:"{{ route('owner.departmentwiseOrderReportGet_department') }}",
+        url:"{{ route('owner.accountwiseOrderReportGet_account') }}",
         type:"GET",
         data:{franchise_id:franchise_id},
         success:function(data){
-          var html = '<option value="">Select Department</option>';
+          var html = '<option value="">Select Account</option>';
           $.each(data,function(key,v){
-            html += '<option value="'+v.id+'">'+v.name+'</option>';
+            html += '<option value="'+v.id+'">'+v.account_name+'</option>';
           });
-          $('#department').html(html);
+          $('#account').html(html);
         }
       });  
     });
@@ -167,7 +166,7 @@ $(function () {
       franchise: {
         required: true,
       },
-      department: {
+      account: {
         required: true,
       },
       start_date: {
@@ -181,8 +180,8 @@ $(function () {
       franchise: {
         required: "Please select franchise",
       },
-      department: {
-        required: "Please select department",
+      account: {
+        required: "Please select Account",
       },
       start_date: {
         required: "Please select Start Date",
@@ -205,7 +204,6 @@ $(function () {
   });
 });
 </script>
-
 
 
 @endsection

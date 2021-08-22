@@ -29,6 +29,7 @@ class EmployeeController extends Controller
     }
 
     public function search(Request $request){
+        $data['search'] = true;
        $data['franchises'] = Franchise::all(); 
        $data['franchise_id'] = strip_tags($request->franchise_id);
        $data['allData'] = User::whereIn('role_id', [2,3,4,5,6,7])->where('franchise_id', $request->franchise_id)->get();

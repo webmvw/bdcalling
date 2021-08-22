@@ -18,6 +18,7 @@ class TeamController extends Controller
     }
 
     public function search(Request $request){
+        $data['search'] = true;
        $data['franchises'] = Franchise::all(); 
        $data['franchise_id'] = strip_tags($request->franchise_id);
        $data['allteams'] = Team::where('franchise_id', $request->franchise_id)->get();

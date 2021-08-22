@@ -57,7 +57,7 @@
                   <br>
                   <hr>
                   <br>
-                  @if(!@search)
+                  @if(!@$search)
                   <table id="myTable" class="table table-bordered table-hover">
                     <thead>
                     <tr>

@@ -154,24 +154,30 @@
                   </p>
               </a>
               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                      <a href="{{ route('owner.allOrderReport') }}" class="nav-link {{ ($route == 'owner.allOrderReport' or $route == 'owner.allOrderReportRequest') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Order</p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ route('owner.franchiseWiseOrderReport') }}" class="nav-link {{ ($route == 'owner.franchiseWiseOrderReport' or $route == 'owner.franchiseWiseOrderReportRequest') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Franchise Wise</p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ route('owner.departmentwiseOrderReport') }}" class="nav-link {{ ($route == 'owner.departmentwiseOrderReport' or $route == 'owner.departmentwiseOrderReportRequest') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Department Wise</p>
-                      </a>
-                  </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.allOrderReport') }}" class="nav-link {{ ($route == 'owner.allOrderReport' or $route == 'owner.allOrderReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Order</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.franchiseWiseOrderReport') }}" class="nav-link {{ ($route == 'owner.franchiseWiseOrderReport' or $route == 'owner.franchiseWiseOrderReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Franchise Wise</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.departmentwiseOrderReport') }}" class="nav-link {{ ($route == 'owner.departmentwiseOrderReport' or $route == 'owner.departmentwiseOrderReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Department Wise</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.accountwiseOrderReport') }}" class="nav-link {{ ($route == 'owner.accountwiseOrderReport' or $route == 'owner.accountwiseOrderReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Account Wise</p>
+                    </a>
+                </li>
               </ul>
           </li>
 

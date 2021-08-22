@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-body">
                  @include('owner.partials.message')
-                 <form id="quickForm" action="{{ route('owner.departmentwiseOrderReportRequest') }}" method="post">
+                <form id="quickForm" action="{{ route('owner.accountwiseOrderReportRequest') }}" method="post">
                   @csrf
                   <div class="row">
                     <div class="col-md-3 col-lg-3">
@@ -44,32 +44,32 @@
                         <select class="form-control form-control-sm select2" name="franchise" id="franchise">
                           <option value="">Select Franchise</option>
                           @foreach($franchises as $key=>$value)
-                          <option value="{{ $value->id }}" {{($value->id==$franchise_id)?'selected':''}}>{{ $value->username }}</option>
+                          <option value="{{ $value->id }}">{{ $value->username }}</option>
                           @endforeach
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3 col-lg-3">
                       <div class="form-group">
-                        <label for="department" class="form-control-sm">Department</label>
-                        <select class="form-control form-control-sm select2" name="department" id="department">
-                          <option value="">Select Department</option>
+                        <label for="account" class="form-control-sm">Account</label>
+                        <select class="form-control form-control-sm select2" name="account" id="account">
+                          <option value="">Select Account</option>
                         </select>
                       </div>
                     </div>
-                    <div class="col-md-2 col-lg-2">
+                    <div class="col-md-3 col-lg-2">
                       <div class="form-group">
                         <label for="start_date" class="form-control-sm">Start date</label>
-                        <input type="date" value="{{ $start_date }}" id="start_date" name="start_date" class="form-control form-control-sm">
+                        <input type="date" id="start_date" name="start_date" class="form-control form-control-sm">
                       </div>
                     </div>
-                    <div class="col-md-2 col-lg-2">
+                    <div class="col-md-3 col-lg-2">
                       <div class="form-group">
                         <label for="end_date" class="form-control-sm">End date</label>
-                        <input type="date" value="{{ $end_date }}" id="end_date" name="end_date" class="form-control form-control-sm">
+                        <input type="date" id="end_date" name="end_date" class="form-control form-control-sm">
                       </div>
                     </div>
-                    <div class="col-md-2 col-lg-2">
+                    <div class="col-md-3 col-lg-2">
                       <button type="submit" name="search" style="margin-top:39px;" class="btn btn-sm btn-success">Search</button>
                     </div>
                   </div>
@@ -79,39 +79,11 @@
 
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Department Wise Order Report - <mark>{{ $department_name }}</mark></h3>
+                <h3 class="card-title">Account Wise Order Report</h3>
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                      <th>SL</th>
-                      <th>Date</th>
-                      <th>Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @php $total_order = 0; @endphp
-                        @foreach($getReport as $key=>$value)
-                        <tr>
-                          <td>{{ $key+1 }}</td>
-                          <td>{{ date('j M, Y', strtotime($value->inc_date)) }}</td>
-                          <td>${{ $value->amount }}/=</td>
-                        </tr>
-                          <?php
-                          $amount = $value->amount;
-                          $total_order = $total_order+$amount;
-                          ?>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th style="text-align: right;" colspan="2">Grand Total</th>
-                        <th style="background: #D8FDBA">${{ $total_order }}/=</th>
-                      </tr>
-                    </tfoot>
-                  </table>
+                  
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>
@@ -126,7 +98,6 @@
   <!-- /.content-wrapper -->
 
 
-
 <script type="text/javascript">
   $(function(){
 
@@ -139,15 +110,15 @@
     $(document).on('change', '#franchise', function(){
       var franchise_id = $(this).val();
       $.ajax({
-        url:"{{ route('owner.departmentwiseOrderReportGet_department') }}",
+        url:"{{ route('owner.accountwiseOrderReportGet_account') }}",
         type:"GET",
         data:{franchise_id:franchise_id},
         success:function(data){
-          var html = '<option value="">Select Department</option>';
+          var html = '<option value="">Select Account</option>';
           $.each(data,function(key,v){
-            html += '<option value="'+v.id+'">'+v.name+'</option>';
+            html += '<option value="'+v.id+'">'+v.account_name+'</option>';
           });
-          $('#department').html(html);
+          $('#account').html(html);
         }
       });  
     });
@@ -167,7 +138,7 @@ $(function () {
       franchise: {
         required: true,
       },
-      department: {
+      account: {
         required: true,
       },
       start_date: {
@@ -181,8 +152,8 @@ $(function () {
       franchise: {
         required: "Please select franchise",
       },
-      department: {
-        required: "Please select department",
+      account: {
+        required: "Please select Account",
       },
       start_date: {
         required: "Please select Start Date",

@@ -58,7 +58,7 @@
                   <br>
                   <hr>
                   <br>
-                  @if(!@search)
+                  @if(!@$search)
                   <table id="myTable" class="table table-sm table-bordered table-hover table-responsive">
                     <thead>
                     <tr>

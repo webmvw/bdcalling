@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\OrderDeliver;
 use App\Models\Franchise;
 use App\Models\Department;
+use App\Models\Account;
 use DB;
 
 class OrderReportController extends Controller
@@ -95,6 +96,45 @@ class OrderReportController extends Controller
         $getReport = OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->where('department_id', $department_id)->groupBy('inc_date')->get();
 
         return view('owner.pages.report.order.departmentwise.departmentwise-order-report-view', compact('getReport', 'franchise_id', 'start_date', 'end_date', 'franchises', 'department_name'));
+    }
+
+
+
+     /**
+     * account wise all order report
+     */
+    public function accountwiseOrderReport(){
+        $franchises = Franchise::all();
+        return view('owner.pages.report.order.accountwise.accountwise-order-report', compact('franchises'));
+    }
+
+    public function get_account(Request $request){
+        $franchise_id = $request->franchise_id;
+        $getAccount = Account::where('franchise_id', $franchise_id)->get();
+        return response()->json($getAccount, 200);
+    }
+
+    public function accountwiseOrderReportRequest(Request $request){
+         $request->validate([
+            'franchise' => 'required',
+            'account' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);   
+
+        $franchises = Franchise::all();
+
+        $franchise_id = strip_tags($request->franchise);
+        $account_id = strip_tags($request->account);
+        $start_date = strip_tags($request->start_date);
+        $end_date = strip_tags($request->end_date);
+
+        $Get_Account = Account::find($account_id);
+        $account_name = $Get_Account->account_name;
+
+        $getReport = OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->where('account_id', $account_id)->groupBy('inc_date')->get();
+
+        return view('owner.pages.report.order.accountwise.accountwise-order-report-view', compact('getReport', 'franchise_id', 'start_date', 'end_date', 'franchises', 'account_name'));
     }
 
 
