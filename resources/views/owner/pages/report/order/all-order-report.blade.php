@@ -78,10 +78,10 @@
                         <tr>
                           <td>{{ $key+1 }}</td>
                           <td>{{ date('j M, Y', strtotime($value->inc_date)) }}</td>
-                          <td>${{ $value->amount }}/=</td>
+                          <td>${{ $value->deli_amount }}/=</td>
                         </tr>
                           <?php
-                          $amount = $value->amount;
+                          $amount = $value->deli_amount;
                           $total_order = $total_order+$amount;
                           ?>
                         @endforeach

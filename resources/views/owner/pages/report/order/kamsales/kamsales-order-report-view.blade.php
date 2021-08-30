@@ -135,14 +135,14 @@
                           <td>
                             <?php
                             $fix_day = $value->inc_date;
-                            $getKamSalesOrderAmount = App\Models\OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
+                            $getKamSalesOrderAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
                             if($getKamSalesOrderAmount == '0'){
                               echo "0";
                             }else{
-                              $getKamSalesOrderAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
+                              $getKamSalesOrderAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
                                foreach($getKamSalesOrderAmount_with_this_date as $key=>$value){
-                                  $total = $total+$value->amount;
-                                  echo $value->amount;
+                                  $total = $total+$value->deli_amount;
+                                  echo $value->deli_amount;
                                } 
                             }
                             ?>

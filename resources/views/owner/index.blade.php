@@ -122,7 +122,7 @@
                         <?php
                         $franchise_id = $value->id;
                         $today = new DateTime(date('Y-m-d'));
-                        $total_order = App\Models\OrderDeliver::where('franchise_id', $franchise_id)->where('inc_date', $today)->sum('amount');
+                        $total_order = App\Models\OrderDeliver::where('franchise_id', $franchise_id)->where('inc_date', $today)->sum('deli_amount');
                         echo '$'.$total_order.'/=';
                         $grand_total_order = $grand_total_order+$total_order;
                         ?>

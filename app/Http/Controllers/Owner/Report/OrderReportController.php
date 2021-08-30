@@ -26,7 +26,7 @@ class OrderReportController extends Controller
         $start_date = strip_tags($request->start_date);
         $end_date = strip_tags($request->end_date);
 
-        $getReport = OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->groupBy('inc_date')->get();
+        $getReport = OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->groupBy('inc_date')->get();
         return view('owner.pages.report.order.all-order-report', compact('getReport', 'start_date', 'end_date'));
     }
 
@@ -53,7 +53,7 @@ class OrderReportController extends Controller
         $start_date = strip_tags($request->start_date);
         $end_date = strip_tags($request->end_date);
 
-        $getReport = OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->groupBy('inc_date')->get();
+        $getReport = OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->groupBy('inc_date')->get();
         return view('owner.pages.report.order.franchisewise.franchisewise-order-report-view', compact('getReport', 'franchise_id', 'start_date', 'end_date', 'franchises'));
     }
 
@@ -93,7 +93,7 @@ class OrderReportController extends Controller
         $Get_Department = Department::find($department_id);
         $department_name = $Get_Department->name;
 
-        $getReport = OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->where('department_id', $department_id)->groupBy('inc_date')->get();
+        $getReport = OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->where('department_id', $department_id)->groupBy('inc_date')->get();
 
         return view('owner.pages.report.order.departmentwise.departmentwise-order-report-view', compact('getReport', 'franchise_id', 'start_date', 'end_date', 'franchises', 'department_name'));
     }
@@ -132,7 +132,7 @@ class OrderReportController extends Controller
         $Get_Account = Account::find($account_id);
         $account_name = $Get_Account->account_name;
 
-        $getReport = OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->where('account_id', $account_id)->groupBy('inc_date')->get();
+        $getReport = OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->where('account_id', $account_id)->groupBy('inc_date')->get();
 
         return view('owner.pages.report.order.accountwise.accountwise-order-report-view', compact('getReport', 'franchise_id', 'start_date', 'end_date', 'franchises', 'account_name'));
     }
