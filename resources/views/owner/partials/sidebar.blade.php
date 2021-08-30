@@ -178,6 +178,12 @@
                         <p>Account Wise</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.kamsalesOrderReport') }}" class="nav-link {{ ($route == 'owner.kamsalesOrderReport' or $route == 'owner.kamsalesOrderReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>KAM Sales Order</p>
+                    </a>
+                </li>
               </ul>
           </li>
 
