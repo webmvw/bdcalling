@@ -181,7 +181,7 @@
                 <li class="nav-item">
                     <a href="{{ route('owner.kamsalesOrderReport') }}" class="nav-link {{ ($route == 'owner.kamsalesOrderReport' or $route == 'owner.kamsalesOrderReportRequest') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>KAM Sales Order</p>
+                        <p>KAM Sales</p>
                     </a>
                 </li>
               </ul>
@@ -213,6 +213,18 @@
                     <a href="{{ route('owner.departmentwiseDeliveryReport') }}" class="nav-link {{ ($route == 'owner.departmentwiseDeliveryReport' or $route == 'owner.departmentwiseDeliveryReportRequest') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Department Wise</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.accountwiseDeliveryReport') }}" class="nav-link {{ ($route == 'owner.accountwiseDeliveryReport' or $route == 'owner.accountwiseDeliveryReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Account Wise</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.kamoperationDeliveryReport') }}" class="nav-link {{ ($route == 'owner.kamoperationDeliveryReport' or $route == 'owner.kamoperationDeliveryReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>KAM Operation</p>
                     </a>
                 </li>
               </ul>

@@ -1,7 +1,7 @@
 @extends('owner.partials.master')
 
 @section('title')
-  <title>Order Report | bdCalling IT Ltd</title>
+  <title>Delivery Report | bdCalling IT Ltd</title>
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manage Order Report</h1>
+            <h1 class="m-0 text-dark">Manage Delivery Report</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">Order Report</li>
+              <li class="breadcrumb-item active">Delivery Report</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-body">
                  @include('owner.partials.message')
-                 <form id="quickForm" action="{{ route('owner.accountwiseOrderReportRequest') }}" method="post">
+                 <form id="quickForm" action="{{ route('owner.accountwiseDeliveryReportRequest') }}" method="post">
                   @csrf
                   <div class="row">
                     <div class="col-md-3 col-lg-3">
@@ -79,11 +79,11 @@
 
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Account Wise Order Report - <mark>{{ $account_name }}</mark></h3>
+                <h3 class="card-title">Account Wise Delivery Report - <mark>{{ $account_name }}</mark></h3>
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-hover">
+                  <table id="myTable" class="table table-bordered table-hover">
                     <thead>
                     <tr>
                       <th>SL</th>
@@ -92,23 +92,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @php $total_order = 0; @endphp
+                        @php $total_delivery = 0; @endphp
                         @foreach($getReport as $key=>$value)
                         <tr>
                           <td>{{ $key+1 }}</td>
-                          <td>{{ date('j M, Y', strtotime($value->inc_date)) }}</td>
-                          <td>${{ $value->amount }}/=</td>
+                          <td>{{ date('j M, Y', strtotime($value->deli_date)) }}</td>
+                          <td>${{ $value->deli_amount }}/=</td>
                         </tr>
                           <?php
-                          $amount = $value->amount;
-                          $total_order = $total_order+$amount;
+                          $amount = $value->deli_amount;
+                          $total_delivery = $total_delivery+$amount;
                           ?>
                         @endforeach
                     </tbody>
                     <tfoot>
                       <tr>
                         <th style="text-align: right;" colspan="2">Grand Total</th>
-                        <th style="background: #D8FDBA">${{ $total_order }}/=</th>
+                        <th style="background: #D8FDBA">${{ $total_delivery }}/=</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -138,7 +138,7 @@
     $(document).on('change', '#franchise', function(){
       var franchise_id = $(this).val();
       $.ajax({
-        url:"{{ route('owner.accountwiseOrderReportGet_account') }}",
+        url:"{{ route('owner.accountwiseDeliveryReportGet_account') }}",
         type:"GET",
         data:{franchise_id:franchise_id},
         success:function(data){

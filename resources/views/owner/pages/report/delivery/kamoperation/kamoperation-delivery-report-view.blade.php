@@ -1,7 +1,7 @@
 @extends('owner.partials.master')
 
 @section('title')
-  <title>KAM Sales Order Report | bdCalling IT Ltd</title>
+  <title>KAM Operation Delivery Report | bdCalling IT Ltd</title>
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manage Order Report</h1>
+            <h1 class="m-0 text-dark">Manage Delivery Report</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">Kam Sales Order Report</li>
+              <li class="breadcrumb-item active">Kam Operation Delivery Report</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-body">
                  @include('owner.partials.message')
-                <form id="quickForm" action="{{ route('owner.kamsalesOrderReportRequest') }}" method="post">
+                <form id="quickForm" action="{{ route('owner.kamoperationDeliveryReportRequest') }}" method="post">
                   @csrf
                   <div class="row">
                     <div class="col-md-3 col-lg-3">
@@ -102,7 +102,7 @@
 
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">KAM Sales Order Report</h3>
+                <h3 class="card-title">KAM Operation Delivery Report</h3>
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
@@ -112,8 +112,8 @@
                     <thead class="table-info">
                       <tr>
                         <th>Name</th>
-                        @foreach($getKamSalesOrder as $key=>$value)
-                        <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
+                        @foreach($getKamOperationDelivery as $key=>$value)
+                        <th>{{ date('d/m/y', strtotime($value->deli_date)) }}</th>
                         @endforeach
                         <th>Total</th>
                       </tr>
@@ -122,27 +122,27 @@
                     <tbody id="table">
                       
                       <?php 
-                      $getKamSales = App\Models\OrderDeliver::select('responsible')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->groupBy('responsible')->with('responsible_info')->get();
+                      $getKamOperations = App\Models\OrderDeliver::select('delivered_by')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('delivered_by')->with('delivered_by_info')->get();
                       ?>
 
-                      @foreach($getKamSales as $key=>$value)
+                      @foreach($getKamOperations as $key=>$value)
                       <tr>
                         <?php $total = 0; ?>
-                        <td>{{ $value->responsible_info->name }}</td>
+                        <td>{{ $value->delivered_by_info->name }}</td>
 
-                        <?php $responsible_id = $value->responsible; ?>
-                        @foreach($getKamSalesOrder as $key=>$value)
+                        <?php $delivered_by_id = $value->delivered_by; ?>
+                        @foreach($getKamOperationDelivery as $key=>$value)
                           <td>
                             <?php
-                            $fix_day = $value->inc_date;
-                            $getKamSalesOrderAmount = App\Models\OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
-                            if($getKamSalesOrderAmount == '0'){
+                            $fix_day = $value->deli_date;
+                            $getKamOperationDeliveryAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('delivered_by', $delivered_by_id)->where('deli_date', $fix_day)->where('order_status', 'Delivered')->groupBy('deli_date')->count();
+                            if($getKamOperationDeliveryAmount == '0'){
                               echo "0";
                             }else{
-                              $getKamSalesOrderAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
-                               foreach($getKamSalesOrderAmount_with_this_date as $key=>$value){
-                                  $total = $total+$value->amount;
-                                  echo $value->amount;
+                              $getKamOperationDeliveryAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('delivered_by', $delivered_by_id)->where('deli_date', $fix_day)->where('order_status', 'Delivered')->groupBy('deli_date')->get();
+                               foreach($getKamOperationDeliveryAmount_with_this_date as $key=>$value){
+                                  $total = $total+$value->deli_amount;
+                                  echo $value->deli_amount;
                                } 
                             }
                             ?>
@@ -159,7 +159,7 @@
                     <tfoot id = "ttal">
                       <tr>
                         <th style="text-align: right;">Total</th>
-                        @foreach($getKamSalesOrder as $key=>$value)
+                        @foreach($getKamOperationDelivery as $key=>$value)
                         <th></th>
                         @endforeach
                         <th></th>
@@ -196,12 +196,12 @@
 
       else if(col_sum[p] == undefined ){
           col_sum[p] = 0;
-          col_sum[p] = col_sum[p] + parseInt(table.rows[i].cells[p].innerHTML);
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
           total_t.rows[0].cells[p].innerHTML = col_sum[p];
       }
       
       else{
-          col_sum[p] = col_sum[p] + parseInt(table.rows[i].cells[p].innerHTML);
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
           total_t.rows[0].cells[p].innerHTML = col_sum[p];
       }
     }

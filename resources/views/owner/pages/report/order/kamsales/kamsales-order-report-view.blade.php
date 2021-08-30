@@ -196,12 +196,12 @@
 
       else if(col_sum[p] == undefined ){
           col_sum[p] = 0;
-          col_sum[p] = col_sum[p] + parseInt(table.rows[i].cells[p].innerHTML);
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
           total_t.rows[0].cells[p].innerHTML = col_sum[p];
       }
       
       else{
-          col_sum[p] = col_sum[p] + parseInt(table.rows[i].cells[p].innerHTML);
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
           total_t.rows[0].cells[p].innerHTML = col_sum[p];
       }
     }

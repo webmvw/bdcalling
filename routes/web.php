@@ -140,7 +140,7 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
     	Route::post('owner/departmentwise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'departmentwiseOrderReportRequest'])->name('owner.departmentwiseOrderReportRequest');
     	Route::get('owner/departmentwise/order-report/get/department', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'get_department'])->name('owner.departmentwiseOrderReportGet_department');
 
-    	// department wise order report
+    	// account wise order report
     	Route::get('owner/accountwise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'accountwiseOrderReport'])->name('owner.accountwiseOrderReport');
     	Route::post('owner/accountwise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'accountwiseOrderReportRequest'])->name('owner.accountwiseOrderReportRequest');
     	Route::get('owner/accountwise/order-report/get/account', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'get_account'])->name('owner.accountwiseOrderReportGet_account');
@@ -160,10 +160,19 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
     	Route::get('owner/franchise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'franchiseWiseDeliveryReport'])->name('owner.franchiseWiseDeliveryReport');
     	Route::post('owner/franchise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'franchiseWiseDeliveryReportRequest'])->name('owner.franchiseWiseDeliveryReportRequest');
 
-    	// department wise order report
+    	// department wise delivery report
     	Route::get('owner/departmentwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'departmentwiseDeliveryReport'])->name('owner.departmentwiseDeliveryReport');
     	Route::post('owner/departmentwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'departmentwiseDeliveryReportRequest'])->name('owner.departmentwiseDeliveryReportRequest');
     	Route::get('owner/departmentwise/delivery-report/get/department', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'get_department'])->name('owner.departmentwiseDeliveryReportGet_department');
+
+    	// account wise delivery report
+    	Route::get('owner/accountwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'accountwiseDeliveryReport'])->name('owner.accountwiseDeliveryReport');
+    	Route::post('owner/accountwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'accountwiseDeliveryReportRequest'])->name('owner.accountwiseDeliveryReportRequest');
+    	Route::get('owner/accountwise/delivery-report/get/account', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'get_account'])->name('owner.accountwiseDeliveryReportGet_account');
+
+    	// kam oparation delivery report
+    	Route::get('owner/kamoparation/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'kamOperationDeliveryReport'])->name('owner.kamoperationDeliveryReport');
+    	Route::post('owner/kamoparation/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'kamOperationDeliveryReportRequest'])->name('owner.kamoperationDeliveryReportRequest');
 
     });	
 
