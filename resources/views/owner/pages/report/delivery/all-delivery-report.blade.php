@@ -1,7 +1,7 @@
 @extends('owner.partials.master')
 
 @section('title')
-  <title>Order Report | bdCalling IT Ltd</title>
+  <title>Delivery Report | bdCalling IT Ltd</title>
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manage Order Report</h1>
+            <h1 class="m-0 text-dark">Manage Delivery Report</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">Order Report</li>
+              <li class="breadcrumb-item active">Delivery Report</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -34,7 +34,7 @@
 
             <div class="card">
               <div class="card-body">
-                <form id="quickForm" action="{{ route('owner.allOrderReportRequest') }}" method="post">
+                <form id="quickForm" action="{{ route('owner.allDeliveryReportRequest') }}" method="post">
                   @csrf
                   <div class="row">
                     <div class="col-md-4 col-lg-4">
@@ -59,7 +59,7 @@
 
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Order Report</h3>
+                <h3 class="card-title">Delivery Report</h3>
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
@@ -73,23 +73,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @php $total_order = 0; @endphp
+                        @php $total_delivery = 0; @endphp
                         @foreach($getReport as $key=>$value)
                         <tr>
                           <td>{{ $key+1 }}</td>
-                          <td>{{ date('j M, Y', strtotime($value->inc_date)) }}</td>
-                          <td>${{ $value->amount }}/=</td>
+                          <td>{{ date('j M, Y', strtotime($value->deli_date)) }}</td>
+                          <td>${{ $value->deli_amount }}/=</td>
                         </tr>
                           <?php
-                          $amount = $value->amount;
-                          $total_order = $total_order+$amount;
+                          $amount = $value->deli_amount;
+                          $total_delivery = $total_delivery+$amount;
                           ?>
                         @endforeach
                     </tbody>
                     <tfoot>
                       <tr>
                         <th style="text-align: right;" colspan="2">Grand Total</th>
-                        <th style="background: #D8FDBA">${{ $total_order }}/=</th>
+                        <th style="background: #D8FDBA">${{ $total_delivery }}/=</th>
                       </tr>
                     </tfoot>
                   </table>

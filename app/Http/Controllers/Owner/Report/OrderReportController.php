@@ -27,7 +27,7 @@ class OrderReportController extends Controller
         $end_date = strip_tags($request->end_date);
 
         $getReport = OrderDeliver::select(DB::raw('sum(amount) as amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->groupBy('inc_date')->get();
-        return view('owner.pages.report.order.all-order-report', compact('getReport'));
+        return view('owner.pages.report.order.all-order-report', compact('getReport', 'start_date', 'end_date'));
     }
 
 

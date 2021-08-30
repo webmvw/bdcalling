@@ -187,6 +187,38 @@
               </ul>
           </li>
 
+
+          <li class="nav-item {{ ($prefix == '/delivery_report') ? 'menu-is-opening menu-open': '' }}">
+              <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                      Delivery Report
+                      <i class="fas fa-angle-left right"></i>
+                  </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('owner.allDeliveryReport') }}" class="nav-link {{ ($route == 'owner.allDeliveryReport' or $route == 'owner.allDeliveryReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Delivery</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.franchiseWiseDeliveryReport') }}" class="nav-link {{ ($route == 'owner.franchiseWiseDeliveryReport' or $route == 'owner.franchiseWiseDeliveryReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Franchise Wise</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('owner.departmentwiseDeliveryReport') }}" class="nav-link {{ ($route == 'owner.departmentwiseDeliveryReport' or $route == 'owner.departmentwiseDeliveryReportRequest') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Department Wise</p>
+                    </a>
+                </li>
+              </ul>
+          </li>
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

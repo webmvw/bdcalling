@@ -148,8 +148,24 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
     	// kam sales order report
     	Route::get('owner/kamsales/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'kamsalesOrderReport'])->name('owner.kamsalesOrderReport');
     	Route::post('owner/kamsales/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'kamsalesOrderReportRequest'])->name('owner.kamsalesOrderReportRequest');
-
     });
+
+
+    Route::group(['prefix' => 'delivery_report'], function(){
+    	// all delivery report
+    	Route::get('owner/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'allDeliveryReport'])->name('owner.allDeliveryReport');
+    	Route::post('owner/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'allDeliveryReportRequest'])->name('owner.allDeliveryReportRequest');
+
+    	// franchise wise delivery report
+    	Route::get('owner/franchise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'franchiseWiseDeliveryReport'])->name('owner.franchiseWiseDeliveryReport');
+    	Route::post('owner/franchise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'franchiseWiseDeliveryReportRequest'])->name('owner.franchiseWiseDeliveryReportRequest');
+
+    	// department wise order report
+    	Route::get('owner/departmentwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'departmentwiseDeliveryReport'])->name('owner.departmentwiseDeliveryReport');
+    	Route::post('owner/departmentwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'departmentwiseDeliveryReportRequest'])->name('owner.departmentwiseDeliveryReportRequest');
+    	Route::get('owner/departmentwise/delivery-report/get/department', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'get_department'])->name('owner.departmentwiseDeliveryReportGet_department');
+
+    });	
 
 });
 
