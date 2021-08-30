@@ -162,7 +162,7 @@ class DeliveryReportController extends Controller
         $request_year = strip_tags($request->year);
         $request_month = strip_tags($request->month);
 
-        $getKamOperationDelivery = OrderDeliver::select('deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('deli_date')->orderBy('id', 'desc')->get();
+        $getKamOperationDelivery = OrderDeliver::select('deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('deli_date')->orderBy('deli_date', 'desc')->get();
     
 
         return view('owner.pages.report.delivery.kamoperation.kamoperation-delivery-report-view', compact('getKamOperationDelivery', 'request_franchise_id', 'request_year', 'request_month', 'franchises'));

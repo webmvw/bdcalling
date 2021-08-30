@@ -162,7 +162,7 @@ class OrderReportController extends Controller
         $request_year = strip_tags($request->year);
         $request_month = strip_tags($request->month);
 
-        $getKamSalesOrder = OrderDeliver::select('inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->groupBy('inc_date')->orderBy('id', 'desc')->get();
+        $getKamSalesOrder = OrderDeliver::select('inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->groupBy('inc_date')->orderBy('inc_date', 'desc')->get();
     
 
         return view('owner.pages.report.order.kamsales.kamsales-order-report-view', compact('getKamSalesOrder', 'request_franchise_id', 'request_year', 'request_month', 'franchises'));
