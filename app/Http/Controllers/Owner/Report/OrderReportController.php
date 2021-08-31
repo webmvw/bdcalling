@@ -146,8 +146,13 @@ class OrderReportController extends Controller
      
      public function kamsalesOrderReport(){
         $franchises = Franchise::all();
-        return view('owner.pages.report.order.kamsales.kamsales-order-report', compact('franchises'));
+        $get_1st_year_date = OrderDeliver::select('inc_date')->first();
+        $get_last_year_date = OrderDeliver::select('inc_date')->orderBy('inc_date', 'desc')->first();
+        $first_year = date('Y', strtotime($get_1st_year_date->inc_date));
+        $last_year = date('Y', strtotime($get_last_year_date->inc_date));
+        return view('owner.pages.report.order.kamsales.kamsales-order-report', compact('franchises', 'first_year', 'last_year'));
      }
+
 
      public function kamsalesOrderReportRequest(Request $request){
         $request->validate([
@@ -162,10 +167,17 @@ class OrderReportController extends Controller
         $request_year = strip_tags($request->year);
         $request_month = strip_tags($request->month);
 
+
+        $get_1st_year_date = OrderDeliver::select('inc_date')->first();
+        $get_last_year_date = OrderDeliver::select('inc_date')->orderBy('inc_date', 'desc')->first();
+        $first_year = date('Y', strtotime($get_1st_year_date->inc_date));
+        $last_year = date('Y', strtotime($get_last_year_date->inc_date));
+
+
         $getKamSalesOrder = OrderDeliver::select('inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->groupBy('inc_date')->orderBy('inc_date', 'desc')->get();
     
 
-        return view('owner.pages.report.order.kamsales.kamsales-order-report-view', compact('getKamSalesOrder', 'request_franchise_id', 'request_year', 'request_month', 'franchises'));
+        return view('owner.pages.report.order.kamsales.kamsales-order-report-view', compact('getKamSalesOrder', 'request_franchise_id', 'request_year', 'request_month', 'franchises', 'first_year', 'last_year'));
      }
 
 

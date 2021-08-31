@@ -54,21 +54,9 @@
                         <label for="year" class="form-control-sm">Year</label>
                         <select class="form-control form-control-sm select2" id="year" name="year">
                           <option value="">Select Year</option>
-                          <option value="2021">2021</option>
-                          <option value="2022">2022</option>
-                          <option value="2023">2023</option>
-                          <option value="2024">2024</option>
-                          <option value="2025">2025</option>
-                          <option value="2026">2026</option>
-                          <option value="2027">2027</option>
-                          <option value="2028">2028</option>
-                          <option value="2029">2029</option>
-                          <option value="2030">2030</option>
-                          <option value="2031">2031</option>
-                          <option value="2032">2032</option>
-                          <option value="2033">2033</option>
-                          <option value="2034">2034</option>
-                          <option value="2035">2035</option>
+                          @for($i=$first_year; $i<=$last_year; $i++)
+                          <option value="{{$i}}">{{$i}}</option>
+                          @endfor
                         </select>
                       </div>
                     </div>

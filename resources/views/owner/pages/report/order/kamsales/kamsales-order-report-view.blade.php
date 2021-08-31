@@ -54,21 +54,9 @@
                         <label for="year" class="form-control-sm">Year</label>
                         <select class="form-control form-control-sm select2" id="year" name="year">
                           <option value="">Select Year</option>
-                          <option value="2021" {{ ($request_year == '2021')? 'selected':'' }}>2021</option>
-                          <option value="2022" {{ ($request_year == '2022')? 'selected':'' }}>2022</option>
-                          <option value="2023" {{ ($request_year == '2023')? 'selected':'' }}>2023</option>
-                          <option value="2024" {{ ($request_year == '2024')? 'selected':'' }}>2024</option>
-                          <option value="2025" {{ ($request_year == '2025')? 'selected':'' }}>2025</option>
-                          <option value="2026" {{ ($request_year == '2026')? 'selected':'' }}>2026</option>
-                          <option value="2027" {{ ($request_year == '2027')? 'selected':'' }}>2027</option>
-                          <option value="2028" {{ ($request_year == '2028')? 'selected':'' }}>2028</option>
-                          <option value="2029" {{ ($request_year == '2029')? 'selected':'' }}>2029</option>
-                          <option value="2030" {{ ($request_year == '2030')? 'selected':'' }}>2030</option>
-                          <option value="2031" {{ ($request_year == '2031')? 'selected':'' }}>2031</option>
-                          <option value="2032" {{ ($request_year == '2032')? 'selected':'' }}>2032</option>
-                          <option value="2033" {{ ($request_year == '2033')? 'selected':'' }}>2033</option>
-                          <option value="2034" {{ ($request_year == '2034')? 'selected':'' }}>2034</option>
-                          <option value="2035" {{ ($request_year == '2035')? 'selected':'' }}>2035</option>
+                          @for($i=$first_year; $i<=$last_year; $i++)
+                          <option value="{{$i}}" {{($request_year == $i)? 'selected':''}}>{{$i}}</option>
+                          @endfor
                         </select>
                       </div>
                     </div>
