@@ -43,6 +43,7 @@
                         <label for="franchise" class="form-control-sm">Franchise</label>
                         <select class="form-control form-control-sm select2" name="franchise" id="franchise">
                           <option value="">Select Franchise</option>
+                          <option value="all" {{($select_franchise == 'all')?'selected':''}}>All</option>
                           @foreach($franchises as $key=>$value)
                           <option value="{{ $value->id }}">{{ $value->username }}</option>
                           @endforeach
@@ -55,7 +56,7 @@
                         <select class="form-control form-control-sm select2" id="year" name="year">
                           <option value="">Select Year</option>
                           @for($i=$first_year; $i<=$last_year; $i++)
-                          <option value="{{$i}}">{{$i}}</option>
+                          <option value="{{$i}}" {{($year == $i)? 'selected':''}}>{{$i}}</option>
                           @endfor
                         </select>
                       </div>
@@ -65,18 +66,18 @@
                         <label for="month" class="form-control-sm">Month</label>
                         <select class="form-control form-control-sm select2" name="month" id="month">
                           <option value="">Select Month</option>
-                          <option value="01">January</option>
-                          <option value="02">February</option>
-                          <option value="03">March</option>
-                          <option value="04">April</option>
-                          <option value="05">May</option>
-                          <option value="06">June</option>
-                          <option value="07">July</option>
-                          <option value="08">August</option>
-                          <option value="09">September</option>
-                          <option value="10">October</option>
-                          <option value="11">November</option>
-                          <option value="12">December</option>
+                          <option value="01" {{($month == '01')?'selected':''}}>January</option>
+                          <option value="02" {{($month == '02')?'selected':''}}>February</option>
+                          <option value="03" {{($month == '03')?'selected':''}}>March</option>
+                          <option value="04" {{($month == '04')?'selected':''}}>April</option>
+                          <option value="05" {{($month == '05')?'selected':''}}>May</option>
+                          <option value="06" {{($month == '06')?'selected':''}}>June</option>
+                          <option value="07" {{($month == '07')?'selected':''}}>July</option>
+                          <option value="08" {{($month == '08')?'selected':''}}>August</option>
+                          <option value="09" {{($month == '09')?'selected':''}}>September</option>
+                          <option value="10" {{($month == '10')?'selected':''}}>October</option>
+                          <option value="11" {{($month == '11')?'selected':''}}>November</option>
+                          <option value="12" {{($month == '12')?'selected':''}}>December</option>
                         </select>
                       </div>
                     </div>
@@ -95,6 +96,65 @@
               <!-- /.card-header -->
                 <div class="card-body">
                   
+                  <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
+                    <thead id = "ttal">
+                      <tr class="throw">
+                        <th></th>
+                        <th>Total</th>
+                        <th class="totalOrderAmount"></th>
+                        @foreach($getKamSalesOrder as $key=>$value)
+                        <th class="orderAmount"></th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <thead class="table-info">
+                      <tr>
+                        <th>Franchise</th>
+                        <th>Name</th>
+                        <th></th>
+                        @foreach($getKamSalesOrder as $key=>$value)
+                        <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <tbody id="table">
+                      
+                      <?php 
+                      $getKamSales = App\Models\OrderDeliver::select('responsible', 'franchise_id')->whereYear('created_at', $year)->whereMonth('created_at', $month)->groupBy('franchise_id')->groupBy('responsible')->with('responsible_info', 'franchise')->get();
+                      ?>
+
+                      @foreach($getKamSales as $key=>$value)
+                      <tr class="tablerow">
+                        <td>{{ $value->franchise->username }}</td>
+                        <td>{{ $value->responsible_info->name }}</td>
+                        <td class="totalOrderAmount"></td>
+
+                        <?php $responsible_id = $value->responsible; ?>
+                        @foreach($getKamSalesOrder as $key=>$value)
+                          <td class="orderAmount">
+                            <?php
+                            $fix_day = $value->inc_date;
+                            $getKamSalesOrderAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
+                            if($getKamSalesOrderAmount == '0'){
+                              echo "0";
+                            }else{
+                              $getKamSalesOrderAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
+                               foreach($getKamSalesOrderAmount_with_this_date as $key=>$value){
+                                  echo $value->deli_amount;
+                               } 
+                            }
+                            ?>
+                          </td>
+                        @endforeach
+
+                      </tr>
+                      @endforeach
+
+                    </tbody>
+                  </table>
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>
@@ -109,6 +169,59 @@
   <!-- /.content-wrapper -->
 
 
+
+
+<script>
+  var table = document.querySelector("#table");
+  var total_t = document.querySelector("#ttal");
+
+  var col_sum = [];
+
+  for(var i=0; i<table.rows.length; i++){
+    for(var p=0; p< table.rows[i].cells.length; p++){
+      if(p < 2){
+          continue;
+      }
+
+      else if(col_sum[p] == undefined ){
+          col_sum[p] = 0;
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
+          total_t.rows[0].cells[p].innerHTML = col_sum[p];
+      }
+      
+      else{
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
+          total_t.rows[0].cells[p].innerHTML = col_sum[p];
+      }
+    }
+  }
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.tablerow').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.orderAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
+        }
+      });
+      $(this).find('.totalOrderAmount').html(totalorderamount);
+    });
+    $('.throw').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.orderAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
+        }
+      });
+      $(this).find('.totalOrderAmount').html(totalorderamount);
+    });
+  });
+</script>
 
 
 

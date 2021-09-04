@@ -29,4 +29,8 @@ class OrderDeliver extends Model
         return $this->belongsTo(User::class, 'delivered_by', 'id');
     }
 
+    public function franchise(){
+        return $this->belongsTo(Franchise::class, 'franchise_id', 'id');
+    }
+
 }

@@ -43,6 +43,7 @@
                         <label for="franchise" class="form-control-sm">Franchise</label>
                         <select class="form-control form-control-sm select2" name="franchise" id="franchise">
                           <option value="">Select Franchise</option>
+                          <option value="all" {{($request_franchise_id == 'all')?'selected':''}}>All</option>
                           @foreach($franchises as $key=>$value)
                           <option value="{{ $value->id }}" {{($value->id==$request_franchise_id)?'selected':''}}>{{ $value->username }}</option>
                           @endforeach
@@ -94,16 +95,84 @@
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
+                  @if($request_franchise_id == 'all')
                   <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
-                    
-                      <!-- table header -->
+                    <thead id = "ttal">
+                      <tr class="throw">
+                        <th></th>
+                        <th>Total</th>
+                        <th class="totalOrderAmount"></th>
+                        @foreach($getKamSalesOrder as $key=>$value)
+                        <th class="orderAmount"></th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
                     <thead class="table-info">
                       <tr>
+                        <th>Franchise</th>
                         <th>Name</th>
+                        <th></th>
                         @foreach($getKamSalesOrder as $key=>$value)
                         <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
                         @endforeach
+                      </tr>
+                    </thead>
+
+                    <tbody id="table">
+                      
+                      <?php 
+                      $getKamSales = App\Models\OrderDeliver::select('responsible', 'franchise_id')->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->groupBy('franchise_id')->groupBy('responsible')->with('responsible_info', 'franchise')->get();
+                      ?>
+
+                      @foreach($getKamSales as $key=>$value)
+                      <tr class="tablerow">
+                        <td>{{ $value->franchise->username }}</td>
+                        <td>{{ $value->responsible_info->name }}</td>
+                        <td class="totalOrderAmount"></td>
+
+                        <?php $responsible_id = $value->responsible; ?>
+                        @foreach($getKamSalesOrder as $key=>$value)
+                          <td class="orderAmount">
+                            <?php
+                            $fix_day = $value->inc_date;
+                            $getKamSalesOrderAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
+                            if($getKamSalesOrderAmount == '0'){
+                              echo "0";
+                            }else{
+                              $getKamSalesOrderAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
+                               foreach($getKamSalesOrderAmount_with_this_date as $key=>$value){
+                                  echo $value->deli_amount;
+                               } 
+                            }
+                            ?>
+                          </td>
+                        @endforeach
+
+                      </tr>
+                      @endforeach
+
+                    </tbody>
+                  </table>
+                  @else
+                  <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
+                    <thead id = "ttal">
+                      <tr class="throw">
                         <th>Total</th>
+                        <th class="totalOrderAmount"></th>
+                        @foreach($getKamSalesOrder as $key=>$value)
+                        <th class="orderAmount"></th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <thead class="table-info">
+                      <tr>
+                        <th>Name</th>
+                        <th></th>
+                        @foreach($getKamSalesOrder as $key=>$value)
+                        <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
+                        @endforeach
                       </tr>
                     </thead>
 
@@ -114,13 +183,13 @@
                       ?>
 
                       @foreach($getKamSales as $key=>$value)
-                      <tr>
-                        <?php $total = 0; ?>
+                      <tr class="tablerow">
                         <td>{{ $value->responsible_info->name }}</td>
+                        <td class="totalOrderAmount"></td>
 
                         <?php $responsible_id = $value->responsible; ?>
                         @foreach($getKamSalesOrder as $key=>$value)
-                          <td>
+                          <td class="orderAmount">
                             <?php
                             $fix_day = $value->inc_date;
                             $getKamSalesOrderAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
@@ -129,7 +198,6 @@
                             }else{
                               $getKamSalesOrderAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->where('franchise_id', $request_franchise_id)->whereYear('created_at', $request_year)->whereMonth('created_at', $request_month)->where('responsible', $responsible_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
                                foreach($getKamSalesOrderAmount_with_this_date as $key=>$value){
-                                  $total = $total+$value->deli_amount;
                                   echo $value->deli_amount;
                                } 
                             }
@@ -137,24 +205,12 @@
                           </td>
                         @endforeach
 
-                        <td><?php echo $total; ?></td>
-
                       </tr>
                       @endforeach
 
                     </tbody>
-
-                    <tfoot id = "ttal">
-                      <tr>
-                        <th style="text-align: right;">Total</th>
-                        @foreach($getKamSalesOrder as $key=>$value)
-                        <th></th>
-                        @endforeach
-                        <th></th>
-                      </tr>
-                    </tfoot>
-
                   </table>
+                  @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>
@@ -178,7 +234,7 @@
 
   for(var i=0; i<table.rows.length; i++){
     for(var p=0; p< table.rows[i].cells.length; p++){
-      if(p < 1){
+      if(p < 2){
           continue;
       }
 
@@ -194,6 +250,32 @@
       }
     }
   }
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.tablerow').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.orderAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
+        }
+      });
+      $(this).find('.totalOrderAmount').html(totalorderamount);
+    });
+    $('.throw').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.orderAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
+        }
+      });
+      $(this).find('.totalOrderAmount').html(totalorderamount);
+    });
+  });
 </script>
 
 
