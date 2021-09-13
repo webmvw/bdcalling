@@ -112,7 +112,7 @@
                       <tr>
                         <th>Franchise</th>
                         <th>Name</th>
-                        <th></th>
+                        <th>Total</th>
                         @foreach($getKamSalesOrder as $key=>$value)
                         <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
                         @endforeach

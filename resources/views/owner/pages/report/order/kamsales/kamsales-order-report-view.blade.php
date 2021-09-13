@@ -97,7 +97,7 @@
                 <div class="card-body">
                   @if($request_franchise_id == 'all')
                   <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
-                    <thead id = "ttal">
+                    <thead class="table-success" id="ttal">
                       <tr class="throw">
                         <th></th>
                         <th>Total</th>
@@ -112,7 +112,7 @@
                       <tr>
                         <th>Franchise</th>
                         <th>Name</th>
-                        <th></th>
+                        <th>Total</th>
                         @foreach($getKamSalesOrder as $key=>$value)
                         <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
                         @endforeach
@@ -156,7 +156,7 @@
                   </table>
                   @else
                   <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
-                    <thead id = "ttal">
+                    <thead class="table-success" id="ttal">
                       <tr class="throw">
                         <th>Total</th>
                         <th class="totalOrderAmount"></th>
@@ -169,7 +169,7 @@
                     <thead class="table-info">
                       <tr>
                         <th>Name</th>
-                        <th></th>
+                        <th>Total</th>
                         @foreach($getKamSalesOrder as $key=>$value)
                         <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
                         @endforeach
@@ -263,7 +263,7 @@
           totalorderamount += parseFloat(orderamount);
         }
       });
-      $(this).find('.totalOrderAmount').html(totalorderamount);
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount+"/=");
     });
     $('.throw').each(function(){
       var totalorderamount = 0;
@@ -273,7 +273,7 @@
           totalorderamount += parseFloat(orderamount);
         }
       });
-      $(this).find('.totalOrderAmount').html(totalorderamount);
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount+"/=");
     });
   });
 </script>

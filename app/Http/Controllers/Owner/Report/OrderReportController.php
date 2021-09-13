@@ -37,24 +37,45 @@ class OrderReportController extends Controller
      */
     public function franchiseWiseOrderReport(){
         $franchises = Franchise::all();
-        return view('owner.pages.report.order.franchisewise.franchisewise-order-report', compact('franchises'));
+
+        $get_1st_year_date = OrderDeliver::select('inc_date')->first();
+        $get_last_year_date = OrderDeliver::select('inc_date')->orderBy('inc_date', 'desc')->first();
+        $first_year = date('Y', strtotime($get_1st_year_date->inc_date));
+        $last_year = date('Y', strtotime($get_last_year_date->inc_date));
+
+        $year = date('Y');
+        $month = date('m');
+        $select_franchise = 'all';
+
+        $getReport = OrderDeliver::select('inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->groupBy('inc_date')->orderBy('inc_date', 'desc')->get();
+        return view('owner.pages.report.order.franchisewise.franchisewise-order-report', compact('franchises', 'first_year', 'last_year', 'year', 'month', 'select_franchise', 'getReport'));
     }
 
     public function franchiseWiseOrderReportRequest(Request $request){
         $request->validate([
             'franchise' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-        ]);   
+            'year' => 'required',
+            'month' => 'required',
+        ]); 
 
         $franchises = Franchise::all();
 
-        $franchise_id = strip_tags($request->franchise);
-        $start_date = strip_tags($request->start_date);
-        $end_date = strip_tags($request->end_date);
+        $get_1st_year_date = OrderDeliver::select('inc_date')->first();
+        $get_last_year_date = OrderDeliver::select('inc_date')->orderBy('inc_date', 'desc')->first();
+        $first_year = date('Y', strtotime($get_1st_year_date->inc_date));
+        $last_year = date('Y', strtotime($get_last_year_date->inc_date));
 
-        $getReport = OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereBetween('inc_date', [$start_date, $end_date])->where('franchise_id', $franchise_id)->groupBy('inc_date')->get();
-        return view('owner.pages.report.order.franchisewise.franchisewise-order-report-view', compact('getReport', 'franchise_id', 'start_date', 'end_date', 'franchises'));
+
+        $franchise_id = strip_tags($request->franchise);
+        $year = strip_tags($request->year);
+        $month = strip_tags($request->month);
+
+        if($franchise_id == 'all'){
+            $getReport = OrderDeliver::select('inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->groupBy('inc_date')->orderBy('inc_date', 'desc')->get();
+        }else{
+            $getReport = OrderDeliver::select('inc_date')->where('franchise_id', $franchise_id)->whereYear('created_at', $year)->whereMonth('created_at', $month)->groupBy('inc_date')->orderBy('inc_date', 'desc')->get();
+        }
+        return view('owner.pages.report.order.franchisewise.franchisewise-order-report-view', compact('getReport', 'franchise_id', 'first_year', 'last_year', 'franchises', 'year', 'month'));
     }
 
 
