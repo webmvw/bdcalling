@@ -289,12 +289,6 @@
 
 
 
-
-
-
-
-
-
 <script>
 $(function () {
   $('#quickForm').validate({
@@ -302,13 +296,10 @@ $(function () {
       franchise: {
         required: true,
       },
-      department: {
+      year: {
         required: true,
       },
-      start_date: {
-        required: true,
-      },
-      end_date: {
+      month: {
         required: true,
       },
     },
@@ -316,14 +307,11 @@ $(function () {
       franchise: {
         required: "Please select franchise",
       },
-      department: {
-        required: "Please select department",
+      year: {
+        required: "Please select year",
       },
-      start_date: {
-        required: "Please select Start Date",
-      },
-      end_date: {
-        required: "Please select end date",
+      month: {
+        required: "Please select month",
       },
     },
     errorElement: 'span',

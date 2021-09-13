@@ -142,7 +142,6 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
     	// account wise order report
     	Route::get('owner/accountwise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'accountwiseOrderReport'])->name('owner.accountwiseOrderReport');
     	Route::post('owner/accountwise/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'accountwiseOrderReportRequest'])->name('owner.accountwiseOrderReportRequest');
-    	Route::get('owner/accountwise/order-report/get/account', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'get_account'])->name('owner.accountwiseOrderReportGet_account');
 
     	// kam sales order report
     	Route::get('owner/kamsales/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'kamsalesOrderReport'])->name('owner.kamsalesOrderReport');
