@@ -43,6 +43,7 @@
                         <label for="franchise" class="form-control-sm">Franchise</label>
                         <select class="form-control form-control-sm select2" name="franchise" id="franchise">
                           <option value="">Select Franchise</option>
+                          <option value="all" {{($franchise_id == 'all')?'selected':''}}>All</option>
                           @foreach($franchises as $key=>$value)
                           <option value="{{ $value->id }}" {{($value->id==$franchise_id)?'selected':''}}>{{ $value->username }}</option>
                           @endforeach
@@ -51,25 +52,36 @@
                     </div>
                     <div class="col-md-3 col-lg-3">
                       <div class="form-group">
-                        <label for="department" class="form-control-sm">Department</label>
-                        <select class="form-control form-control-sm select2" name="department" id="department">
-                          <option value="">Select Department</option>
+                        <label for="year" class="form-control-sm">Year</label>
+                        <select class="form-control form-control-sm select2" id="year" name="year">
+                          <option value="">Select Year</option>
+                          @for($i=$first_year; $i<=$last_year; $i++)
+                          <option value="{{$i}}" {{($year == $i)? 'selected':''}}>{{$i}}</option>
+                          @endfor
                         </select>
                       </div>
                     </div>
-                    <div class="col-md-2 col-lg-2">
+                    <div class="col-md-3 col-lg-3">
                       <div class="form-group">
-                        <label for="start_date" class="form-control-sm">Start date</label>
-                        <input type="date" value="{{ $start_date }}" id="start_date" name="start_date" class="form-control form-control-sm">
+                        <label for="month" class="form-control-sm">Month</label>
+                        <select class="form-control form-control-sm select2" name="month" id="month">
+                          <option value="">Select Month</option>
+                          <option value="01" {{($month == '01')?'selected':''}}>January</option>
+                          <option value="02" {{($month == '02')?'selected':''}}>February</option>
+                          <option value="03" {{($month == '03')?'selected':''}}>March</option>
+                          <option value="04" {{($month == '04')?'selected':''}}>April</option>
+                          <option value="05" {{($month == '05')?'selected':''}}>May</option>
+                          <option value="06" {{($month == '06')?'selected':''}}>June</option>
+                          <option value="07" {{($month == '07')?'selected':''}}>July</option>
+                          <option value="08" {{($month == '08')?'selected':''}}>August</option>
+                          <option value="09" {{($month == '09')?'selected':''}}>September</option>
+                          <option value="10" {{($month == '10')?'selected':''}}>October</option>
+                          <option value="11" {{($month == '11')?'selected':''}}>November</option>
+                          <option value="12" {{($month == '12')?'selected':''}}>December</option>
+                        </select>
                       </div>
                     </div>
-                    <div class="col-md-2 col-lg-2">
-                      <div class="form-group">
-                        <label for="end_date" class="form-control-sm">End date</label>
-                        <input type="date" value="{{ $end_date }}" id="end_date" name="end_date" class="form-control form-control-sm">
-                      </div>
-                    </div>
-                    <div class="col-md-2 col-lg-2">
+                    <div class="col-md-3 col-lg-3">
                       <button type="submit" name="search" style="margin-top:39px;" class="btn btn-sm btn-success">Search</button>
                     </div>
                   </div>
@@ -79,39 +91,133 @@
 
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Department Wise Order Report - <mark>{{ $department_name }}</mark></h3>
+                <h3 class="card-title">Department Wise Order Report</h3>
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                      <th>SL</th>
-                      <th>Date</th>
-                      <th>Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @php $total_order = 0; @endphp
+                  @if($franchise_id == 'all')
+                  <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
+                    <thead id = "ttal">
+                      <tr class="throw">
+                        <th></th>
+                        <th>Total</th>
+                        <th class="totalOrderAmount"></th>
                         @foreach($getReport as $key=>$value)
-                        <tr>
-                          <td>{{ $key+1 }}</td>
-                          <td>{{ date('j M, Y', strtotime($value->inc_date)) }}</td>
-                          <td>${{ $value->deli_amount }}/=</td>
-                        </tr>
-                          <?php
-                          $amount = $value->deli_amount;
-                          $total_order = $total_order+$amount;
-                          ?>
+                        <th class="orderAmount"></th>
                         @endforeach
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th style="text-align: right;" colspan="2">Grand Total</th>
-                        <th style="background: #D8FDBA">${{ $total_order }}/=</th>
                       </tr>
-                    </tfoot>
+                    </thead>
+
+                    <thead class="table-info">
+                      <tr>
+                        <th>Franchise</th>
+                        <th>Department</th>
+                        <th>Total</th>
+                        @foreach($getReport as $key=>$value)
+                        <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <tbody id="table">
+                      
+                      <?php 
+                      $getDepartment = App\Models\OrderDeliver::select('franchise_id', 'department_id')->whereYear('created_at', $year)->whereMonth('created_at', $month)->groupBy('franchise_id')->groupBy('department_id')->with('franchise', 'department')->get();
+                      ?>
+
+                      @foreach($getDepartment as $key=>$value)
+                      <tr class="tablerow">
+                        <td>{{ $value->franchise->username }}</td>
+                        <td>{{ $value->department->name }}</td>
+                        <td class="totalOrderAmount"></td>
+                        <?php 
+                          $franchise_id = $value->franchise_id;
+                          $department_id = $value->department_id; 
+                        ?>
+                        @foreach($getReport as $key=>$value)
+                          <td class="orderAmount">
+                            <?php
+                            $fix_day = $value->inc_date;
+                            $getDepartmentAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->where('franchise_id', $franchise_id)->where('department_id', $department_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
+                            if($getDepartmentAmount == '0'){
+                              echo "0";
+                            }else{
+                              $getDepartmentAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->where('franchise_id', $franchise_id)->where('department_id', $department_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
+                               foreach($getDepartmentAmount_with_this_date as $key=>$value){
+                                  echo $value->deli_amount;
+                               } 
+                            }
+                            ?>
+                          </td>
+                        @endforeach
+
+                      </tr>
+                      @endforeach
+
+                    </tbody>
                   </table>
+                  @else
+                  <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
+                    <thead id = "ttal">
+                      <tr class="throw">
+                        <th></th>
+                        <th>Total</th>
+                        <th class="totalOrderAmount"></th>
+                        @foreach($getReport as $key=>$value)
+                        <th class="orderAmount"></th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <thead class="table-info">
+                      <tr>
+                        <th>Franchise</th>
+                        <th>Department</th>
+                        <th>Total</th>
+                        @foreach($getReport as $key=>$value)
+                        <th>{{ date('d/m/y', strtotime($value->inc_date)) }}</th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <tbody id="table">
+                      
+                      <?php 
+                      $getDepartment = App\Models\OrderDeliver::select('franchise_id', 'department_id')->whereYear('created_at', $year)->whereMonth('created_at', $month)->where('franchise_id', $franchise_id)->groupBy('franchise_id')->groupBy('department_id')->with('franchise', 'department')->get();
+                      ?>
+
+                      @foreach($getDepartment as $key=>$value)
+                      <tr class="tablerow">
+                        <td>{{ $value->franchise->username }}</td>
+                        <td>{{ $value->department->name }}</td>
+                        <td class="totalOrderAmount"></td>
+                        <?php 
+                          $franchise_id = $value->franchise_id;
+                          $department_id = $value->department_id; 
+                        ?>
+                        @foreach($getReport as $key=>$value)
+                          <td class="orderAmount">
+                            <?php
+                            $fix_day = $value->inc_date;
+                            $getDepartmentAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->where('franchise_id', $franchise_id)->where('department_id', $department_id)->where('inc_date', $fix_day)->groupBy('inc_date')->count();
+                            if($getDepartmentAmount == '0'){
+                              echo "0";
+                            }else{
+                              $getDepartmentAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'inc_date')->whereYear('created_at', $year)->whereMonth('created_at', $month)->where('franchise_id', $franchise_id)->where('department_id', $department_id)->where('inc_date', $fix_day)->groupBy('inc_date')->get();
+                               foreach($getDepartmentAmount_with_this_date as $key=>$value){
+                                  echo $value->deli_amount;
+                               } 
+                            }
+                            ?>
+                          </td>
+                        @endforeach
+
+                      </tr>
+                      @endforeach
+
+                    </tbody>
+                  </table>
+                  @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>
@@ -127,33 +233,62 @@
 
 
 
-<script type="text/javascript">
-  $(function(){
 
-    $.ajaxSetup({
-      headers:{
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+<script>
+  var table = document.querySelector("#table");
+  var total_t = document.querySelector("#ttal");
+
+  var col_sum = [];
+
+  for(var i=0; i<table.rows.length; i++){
+    for(var p=0; p< table.rows[i].cells.length; p++){
+      if(p < 2){
+          continue;
       }
-    });
 
-    $(document).on('change', '#franchise', function(){
-      var franchise_id = $(this).val();
-      $.ajax({
-        url:"{{ route('owner.departmentwiseOrderReportGet_department') }}",
-        type:"GET",
-        data:{franchise_id:franchise_id},
-        success:function(data){
-          var html = '<option value="">Select Department</option>';
-          $.each(data,function(key,v){
-            html += '<option value="'+v.id+'">'+v.name+'</option>';
-          });
-          $('#department').html(html);
+      else if(col_sum[p] == undefined ){
+          col_sum[p] = 0;
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
+          total_t.rows[0].cells[p].innerHTML = col_sum[p];
+      }
+      
+      else{
+          col_sum[p] = col_sum[p] + parseFloat(table.rows[i].cells[p].innerHTML);
+          total_t.rows[0].cells[p].innerHTML = col_sum[p];
+      }
+    }
+  }
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.tablerow').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.orderAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
         }
-      });  
+      });
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount);
     });
-
+    $('.throw').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.orderAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
+        }
+      });
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount);
+    });
   });
 </script>
+
+
+
+
 
 
 
