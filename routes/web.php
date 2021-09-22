@@ -115,17 +115,6 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
 	});
 
 
-    // order&delivery management
-    Route::group(['prefix' => 'allorder_manage'], function(){
-        // for all order List
-        Route::post('owner/allorder/view', [App\Http\Controllers\Owner\AllOrderController::class, 'view'])->name('owner.report.view');
-        Route::post('owner/month/report', [App\Http\Controllers\Owner\AllOrderController::class, 'Month_Report'])->name('owner.month.report');
-        Route::get('owner/allorder/view', [App\Http\Controllers\Owner\AllOrderController::class, 'allOrderView'])->name('owner.allorder.view');
-        Route::get('owner/delivery/view', [App\Http\Controllers\Owner\AllOrderController::class, 'DeliveryView'])->name('owner.delivery.view');
-        Route::post('owner/delivery/report', [App\Http\Controllers\Owner\AllOrderController::class, 'deliveryReport'])->name('owner.delivery.report');
-    });
-
-
     Route::group(['prefix' => 'order_report'], function(){
     	// all order report
     	Route::get('owner/order_report', [App\Http\Controllers\Owner\Report\OrderReportController::class, 'allOrderReport'])->name('owner.allOrderReport');
@@ -165,7 +154,6 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
     	// account wise delivery report
     	Route::get('owner/accountwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'accountwiseDeliveryReport'])->name('owner.accountwiseDeliveryReport');
     	Route::post('owner/accountwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'accountwiseDeliveryReportRequest'])->name('owner.accountwiseDeliveryReportRequest');
-    	Route::get('owner/accountwise/delivery-report/get/account', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'get_account'])->name('owner.accountwiseDeliveryReportGet_account');
 
     	// kam oparation delivery report
     	Route::get('owner/kamoparation/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'kamOperationDeliveryReport'])->name('owner.kamoperationDeliveryReport');
@@ -291,19 +279,6 @@ Route::group(['middleware' => ['superadmin', 'auth']], function(){
 	
 	});
 
-
-    // order&delivery management
-    Route::group(['prefix' => 'allorder_manage'], function(){
-        // for all order List
-        Route::post('/allorder/view', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'view'])->name('report.view');
-        Route::post('/month/report', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'Month_Report'])->name('month.report');
-        Route::get('/allorder/view', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'allOrderView'])->name('allorder.view');
-        Route::get('/delivery/view', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'DeliveryView'])->name('delivery.view');
-        Route::post('/delivery/report', [App\Http\Controllers\SuperAdmin\AllOrderController::class, 'deliveryReport'])->name('delivery.report');
-
-
-        //
-    });
 
 
 });

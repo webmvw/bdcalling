@@ -117,34 +117,6 @@
           </li>
 
 
-
-          <li class="nav-item {{ ($prefix == '/allorder_manage') ? 'menu-is-opening menu-open': '' }}">
-              <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-copy"></i>
-                  <p>
-                      Order & Delivery
-                      <i class="fas fa-angle-left right"></i>
-                  </p>
-              </a>
-              <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                      <a href="{{ route('owner.allorder.view') }}" class="nav-link {{ ($route == 'owner.allorder.view') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Order List</p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ route('owner.delivery.view') }}" class="nav-link {{ ($route == 'owner.delivery.view') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Delivery  List</p>
-                      </a>
-                  </li>
-              </ul>
-          </li>
-
-
-
-
           <li class="nav-item {{ ($prefix == '/order_report') ? 'menu-is-opening menu-open': '' }}">
               <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-copy"></i>
