@@ -263,7 +263,7 @@
           totalorderamount += parseFloat(orderamount);
         }
       });
-      $(this).find('.totalOrderAmount').html("$"+totalorderamount+"/=");
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount);
     });
     $('.throw').each(function(){
       var totalorderamount = 0;
@@ -273,7 +273,7 @@
           totalorderamount += parseFloat(orderamount);
         }
       });
-      $(this).find('.totalOrderAmount').html("$"+totalorderamount+"/=");
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount);
     });
   });
 </script>

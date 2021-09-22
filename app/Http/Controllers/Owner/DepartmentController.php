@@ -15,6 +15,7 @@ class DepartmentController extends Controller
      public function view(){
         $data['franchises'] = Franchise::all();
         $data['allDepartments'] = Department::orderBy('id', 'desc')->get();
+
         return view('owner.pages.department.view-department', $data);
     }
 

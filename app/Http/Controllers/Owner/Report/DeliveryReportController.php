@@ -145,13 +145,23 @@ class DeliveryReportController extends Controller
      */
      
      public function kamOperationDeliveryReport(){
+
         $franchises = Franchise::all();
+
         $get_1st_year_date = OrderDeliver::select('inc_date')->first();
         $get_last_year_date = OrderDeliver::select('inc_date')->orderBy('inc_date', 'desc')->first();
         $first_year = date('Y', strtotime($get_1st_year_date->inc_date));
         $last_year = date('Y', strtotime($get_last_year_date->inc_date));
-        return view('owner.pages.report.delivery.kamoperation.kamoperation-delivery-report', compact('franchises', 'first_year', 'last_year'));
+
+        $year = date('Y');
+        $month = date('m');
+        $select_franchise = 'all';
+
+        $getKamOperationDelivery = OrderDeliver::select('deli_date')->whereYear('deli_date', $year)->whereMonth('deli_date', $month)->where('order_status', 'Delivered')->groupBy('deli_date')->orderBy('deli_date', 'desc')->get();
+
+        return view('owner.pages.report.delivery.kamoperation.kamoperation-delivery-report', compact('franchises', 'first_year', 'last_year', 'getKamOperationDelivery', 'year', 'month', 'select_franchise'));
      }
+
 
      public function kamOperationDeliveryReportRequest(Request $request){
         $request->validate([
@@ -173,7 +183,11 @@ class DeliveryReportController extends Controller
         $last_year = date('Y', strtotime($get_last_year_date->inc_date));
 
 
-        $getKamOperationDelivery = OrderDeliver::select('deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('deli_date')->orderBy('deli_date', 'desc')->get();
+        if($request_franchise_id == 'all'){
+            $getKamOperationDelivery = OrderDeliver::select('deli_date')->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('deli_date')->orderBy('deli_date', 'desc')->get();
+        }else{
+            $getKamOperationDelivery = OrderDeliver::select('deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('deli_date')->orderBy('deli_date', 'desc')->get();
+        }
     
 
         return view('owner.pages.report.delivery.kamoperation.kamoperation-delivery-report-view', compact('getKamOperationDelivery', 'request_franchise_id', 'request_year', 'request_month', 'franchises', 'first_year', 'last_year'));

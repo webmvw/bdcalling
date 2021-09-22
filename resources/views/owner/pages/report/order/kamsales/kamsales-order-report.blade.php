@@ -97,7 +97,7 @@
                 <div class="card-body">
                   
                   <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
-                    <thead id = "ttal">
+                    <thead id="ttal" class="table-info">
                       <tr class="throw">
                         <th></th>
                         <th>Total</th>
@@ -123,11 +123,13 @@
                       
                       <?php 
                       $getKamSales = App\Models\OrderDeliver::select('responsible', 'franchise_id')->whereYear('created_at', $year)->whereMonth('created_at', $month)->groupBy('franchise_id')->groupBy('responsible')->with('responsible_info', 'franchise')->get();
-                      ?>
+                       ?>
 
                       @foreach($getKamSales as $key=>$value)
                       <tr class="tablerow">
+
                         <td>{{ $value->franchise->username }}</td>
+
                         <td>{{ $value->responsible_info->name }}</td>
                         <td class="totalOrderAmount"></td>
 
@@ -208,7 +210,7 @@
           totalorderamount += parseFloat(orderamount);
         }
       });
-      $(this).find('.totalOrderAmount').html(totalorderamount);
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount);
     });
     $('.throw').each(function(){
       var totalorderamount = 0;
@@ -218,7 +220,7 @@
           totalorderamount += parseFloat(orderamount);
         }
       });
-      $(this).find('.totalOrderAmount').html(totalorderamount);
+      $(this).find('.totalOrderAmount').html("$"+totalorderamount);
     });
   });
 </script>

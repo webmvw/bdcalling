@@ -96,7 +96,7 @@
               <!-- /.card-header -->
                 <div class="card-body">
                   <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
-                    <thead id = "ttal">
+                    <thead id="ttal" class="table-success">
                       <tr class="throw">
                         <th>Total</th>
                         <th class="totalOrderAmount"></th>

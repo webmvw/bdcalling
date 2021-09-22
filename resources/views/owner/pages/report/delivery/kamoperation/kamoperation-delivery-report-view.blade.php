@@ -43,6 +43,7 @@
                         <label for="franchise" class="form-control-sm">Franchise</label>
                         <select class="form-control form-control-sm select2" name="franchise" id="franchise">
                           <option value="">Select Franchise</option>
+                          <option value="all" {{($request_franchise_id == 'all')?'selected':''}}>All</option>
                           @foreach($franchises as $key=>$value)
                           <option value="{{ $value->id }}" {{($value->id==$request_franchise_id)?'selected':''}}>{{ $value->username }}</option>
                           @endforeach
@@ -94,33 +95,106 @@
               </div>
               <!-- /.card-header -->
                 <div class="card-body">
+                  @if($request_franchise_id == 'all')
                   <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
                     
-                      <!-- table header -->
+                    <thead id="ttal" class="table-success">
+                      <tr class="throw">
+                        <th></th>
+                        <th>Total</th>
+                        <th class="totalDeliveryAmount"></th>
+                        @foreach($getKamOperationDelivery as $key=>$value)
+                        <th class="deliveryAmount"></th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
                     <thead class="table-info">
                       <tr>
+                        <th>Franchise</th>
                         <th>Name</th>
+                        <th>Total</th>
                         @foreach($getKamOperationDelivery as $key=>$value)
                         <th>{{ date('d/m/y', strtotime($value->deli_date)) }}</th>
                         @endforeach
-                        <th>Total</th>
                       </tr>
                     </thead>
 
                     <tbody id="table">
                       
                       <?php 
-                      $getKamOperations = App\Models\OrderDeliver::select('delivered_by')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('delivered_by')->with('delivered_by_info')->get();
+                      $getKamOperations = App\Models\OrderDeliver::select('delivered_by', 'franchise_id')->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('franchise_id')->groupBy('delivered_by')->with('delivered_by_info', 'franchise')->get();
                       ?>
 
                       @foreach($getKamOperations as $key=>$value)
-                      <tr>
-                        <?php $total = 0; ?>
+                      <tr class="tablerow">
+                        <td>{{ $value->franchise->username }}</td>
                         <td>{{ $value->delivered_by_info->name }}</td>
+                        <td class="totalDeliveryAmount"></td>
 
                         <?php $delivered_by_id = $value->delivered_by; ?>
                         @foreach($getKamOperationDelivery as $key=>$value)
-                          <td>
+                          <td class="deliveryAmount">
+                            <?php
+                            $fix_day = $value->deli_date;
+                            $getKamOperationDeliveryAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'deli_date')->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('delivered_by', $delivered_by_id)->where('deli_date', $fix_day)->where('order_status', 'Delivered')->groupBy('deli_date')->count();
+                            if($getKamOperationDeliveryAmount == '0'){
+                              echo "0";
+                            }else{
+                              $getKamOperationDeliveryAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'deli_date')->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('delivered_by', $delivered_by_id)->where('deli_date', $fix_day)->where('order_status', 'Delivered')->groupBy('deli_date')->get();
+                               foreach($getKamOperationDeliveryAmount_with_this_date as $key=>$value){
+                                  echo $value->deli_amount;
+                               } 
+                            }
+                            ?>
+                          </td>
+                        @endforeach
+                      </tr>
+                      @endforeach
+
+                    </tbody>
+
+                  </table>
+                  @else
+                  <table class="table table-hover table-stripped table-sm table-bordered table-responsive">
+                    
+                    <thead id="ttal" class="table-success">
+                      <tr class="throw">
+                        <th></th>
+                        <th>Total</th>
+                        <th class="totalDeliveryAmount"></th>
+                        @foreach($getKamOperationDelivery as $key=>$value)
+                        <th class="deliveryAmount"></th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <thead class="table-info">
+                      <tr>
+                        <th>Franchise</th>
+                        <th>Name</th>
+                        <th>Total</th>
+                        @foreach($getKamOperationDelivery as $key=>$value)
+                        <th>{{ date('d/m/y', strtotime($value->deli_date)) }}</th>
+                        @endforeach
+                      </tr>
+                    </thead>
+
+                    <tbody id="table">
+                      
+                      <?php 
+                      $getKamOperations = App\Models\OrderDeliver::select('delivered_by', 'franchise_id')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('order_status', 'Delivered')->groupBy('franchise_id')->groupBy('delivered_by')->with('delivered_by_info', 'franchise')->get();
+                      ?>
+
+                      @foreach($getKamOperations as $key=>$value)
+                      <tr class="tablerow">
+                        <td>{{ $value->franchise->username }}</td>
+                        <td>{{ $value->delivered_by_info->name }}</td>
+                        <td class="totalDeliveryAmount"></td>
+
+                        <?php $delivered_by_id = $value->delivered_by; ?>
+                        @foreach($getKamOperationDelivery as $key=>$value)
+                          <td class="deliveryAmount">
                             <?php
                             $fix_day = $value->deli_date;
                             $getKamOperationDeliveryAmount = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('delivered_by', $delivered_by_id)->where('deli_date', $fix_day)->where('order_status', 'Delivered')->groupBy('deli_date')->count();
@@ -129,32 +203,19 @@
                             }else{
                               $getKamOperationDeliveryAmount_with_this_date = App\Models\OrderDeliver::select(DB::raw('sum(deli_amount) as deli_amount'), 'deli_date')->where('franchise_id', $request_franchise_id)->whereYear('deli_date', $request_year)->whereMonth('deli_date', $request_month)->where('delivered_by', $delivered_by_id)->where('deli_date', $fix_day)->where('order_status', 'Delivered')->groupBy('deli_date')->get();
                                foreach($getKamOperationDeliveryAmount_with_this_date as $key=>$value){
-                                  $total = $total+$value->deli_amount;
                                   echo $value->deli_amount;
                                } 
                             }
                             ?>
                           </td>
                         @endforeach
-
-                        <td><?php echo $total; ?></td>
-
                       </tr>
                       @endforeach
 
                     </tbody>
 
-                    <tfoot id = "ttal">
-                      <tr>
-                        <th style="text-align: right;">Total</th>
-                        @foreach($getKamOperationDelivery as $key=>$value)
-                        <th></th>
-                        @endforeach
-                        <th></th>
-                      </tr>
-                    </tfoot>
-
                   </table>
+                  @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer"></div>
@@ -170,6 +231,7 @@
 
 
 
+
 <script>
   var table = document.querySelector("#table");
   var total_t = document.querySelector("#ttal");
@@ -178,7 +240,7 @@
 
   for(var i=0; i<table.rows.length; i++){
     for(var p=0; p< table.rows[i].cells.length; p++){
-      if(p < 1){
+      if(p < 2){
           continue;
       }
 
@@ -196,6 +258,31 @@
   }
 </script>
 
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.tablerow').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.deliveryAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
+        }
+      });
+      $(this).find('.totalDeliveryAmount').html("$"+totalorderamount);
+    });
+    $('.throw').each(function(){
+      var totalorderamount = 0;
+      $(this).find('.deliveryAmount').each(function(){
+        var orderamount = $(this).text();
+        if(orderamount.length !== 0){
+          totalorderamount += parseFloat(orderamount);
+        }
+      });
+      $(this).find('.totalDeliveryAmount').html("$"+totalorderamount);
+    });
+  });
+</script>
 
 
 
