@@ -161,7 +161,6 @@ Route::group(['middleware' => ['owner', 'auth']], function(){
     	// department wise delivery report
     	Route::get('owner/departmentwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'departmentwiseDeliveryReport'])->name('owner.departmentwiseDeliveryReport');
     	Route::post('owner/departmentwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'departmentwiseDeliveryReportRequest'])->name('owner.departmentwiseDeliveryReportRequest');
-    	Route::get('owner/departmentwise/delivery-report/get/department', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'get_department'])->name('owner.departmentwiseDeliveryReportGet_department');
 
     	// account wise delivery report
     	Route::get('owner/accountwise/delivery_report', [App\Http\Controllers\Owner\Report\DeliveryReportController::class, 'accountwiseDeliveryReport'])->name('owner.accountwiseDeliveryReport');
